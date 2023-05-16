@@ -7,28 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-        'address',
-        'city',
-        'country',
-        'postal',
-        'about'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,14 +39,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Always encrypt the password when it is updated.
-     *
-     * @param $value
-    * @return string
-    */
-    public function setPasswordAttribute($value)
+    public function admin()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->belongsTo(UserAdmin::class);
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(UserSupervisor::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(UserEmployee::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(UserDepartment::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(UserPosition::class);
+    }
+
+    public function nationality()
+    {
+        return $this->belongsTo(UserNationality::class);
     }
 }
