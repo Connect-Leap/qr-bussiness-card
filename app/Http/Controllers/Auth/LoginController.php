@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Password;
 
 class LoginController extends Controller
 {
@@ -22,20 +20,21 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $process = app('DoLogin')->execute($request->only('email', 'password'));
+
+        if ($process['success']) {
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
+        } else {
+            return back()->with('fail', $process['message']);
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
     }
 
     public function logout(Request $request)
