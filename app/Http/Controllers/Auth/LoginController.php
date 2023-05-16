@@ -30,6 +30,8 @@ class LoginController extends Controller
         if ($process['success']) {
             $request->session()->regenerate();
 
+            session()->flash('success', $process['message']);
+
             return redirect()->intended('dashboard');
         } else {
             return back()->with('fail', $process['message']);
