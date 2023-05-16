@@ -17,8 +17,10 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libraries/iziToast/dist/css/iziToast.min.css">
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/argon-dashboard.css" rel="stylesheet" />
+
 </head>
 
 <body class="{{ $class ?? '' }}">
@@ -47,10 +49,13 @@
     @endauth
 
     <!--   Core JS Files   -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="assets/js/core/popper.min.js"></script>
     <script src="assets/js/core/bootstrap.min.js"></script>
     <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="libraries/iziToast/dist/js/iziToast.min.js"></script>
+    @include('layouts.app.toast')
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
