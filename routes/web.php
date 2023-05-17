@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
 use App\Http\Controllers\Backend\Admin\MasterOffice\DetailMasterOffice;
 use App\Http\Controllers\Backend\Admin\MasterOffice\ManagementOfficeController;
 use App\Http\Controllers\Backend\Admin\MasterUser\Employee\MasterEmployeeController;
+use App\Http\Controllers\Backend\Admin\MasterUser\Supervisor\MasterSupervisorController;
 use App\Http\Controllers\Backend\Admin\MasterUser\UserManagementController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
 
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::group(['prefix' => 'master-user'], function () {
         Route::resource('management-employee', MasterEmployeeController::class);
+        Route::resource('management-supervisor', MasterSupervisorController::class);
     });
 
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');

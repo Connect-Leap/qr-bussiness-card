@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Edit Employee'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Edit Supervisor'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
-                    <h6>Edit Employee</h6>
-                    <a href="{{ route('management-employee.index') }}" class="btn btn-info btn-sm">Back</a>
+                    <h6>Edit Supervisor</h6>
+                    <a href="{{ route('management-supervisor.index') }}" class="btn btn-info btn-sm">Back</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         @endif
-                        <form action="{{ route('management-employee.store') }}" method="POST">
+                        <form action="{{ route('management-supervisor.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name') }}">
@@ -34,9 +34,6 @@
                                 <div class="col-6">
                                     <input type="password" name="password" class="form-control" placeholder="User Password" aria-label="User Password" value="{{ old('password') }}">
                                 </div>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" name="employee_code" class="form-control" placeholder="Employee Code" aria-label="Employee Code" value="{{ old('employee_code') }}">
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="department_name" class="form-control" placeholder="Department Name" aria-label="Department Name" value="{{ old('department_name') }}">
