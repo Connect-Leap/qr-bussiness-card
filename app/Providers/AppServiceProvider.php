@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Services\Auth\DoLogin;
+use App\Services\Backend\MasterOffice\CreateOffice;
+use App\Services\Backend\MasterOffice\FindOfficeById;
+use App\Services\Backend\MasterOffice\UpdateOffice;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // Login
         $this->registerService('DoLogin', DoLogin::class);
+
+        // MasterOffice
+        $this->registerService('CreateOffice', CreateOffice::class);
+        $this->registerService('FindOfficeById', FindOfficeById::class);
+        $this->registerService('UpdateOffice', UpdateOffice::class);
     }
 
     /**

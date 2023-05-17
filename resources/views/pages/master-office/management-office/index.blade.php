@@ -20,7 +20,7 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Office Name
                                     </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Office Address
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -38,21 +38,34 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($offices as $office)
                                 <tr>
                                     <td class="text-center"></td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">Admin</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->name }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->address }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-sm font-weight-bold mb-0 w-25 p-3">{{ $office->email }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->contact }}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                        <p class="text-sm font-weight-bold mb-0">22/03/2022</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->created_at }}</p>
                                     </td>
-                                    <td class="align-middle text-end">
-                                        <div class="d-flex px-3 py-1 justify-content-center align-items-center">
-                                            <p class="text-sm font-weight-bold mb-0">Edit</p>
-                                            <p class="text-sm font-weight-bold mb-0 ps-2">Delete</p>
-                                        </div>
+                                    <td class="text-center">
+                                        <a href="{{ route('management-office.edit', $office->id) }}" class="btn btn-xs btn-success">Edit</p>
+                                        <a class="btn btn-xs btn-danger">Delete</p>
                                     </td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Empty Data</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

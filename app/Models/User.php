@@ -39,6 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['admin', 'supervisor', 'employee', 'department', 'position', 'nationality'];
+
     public function admin()
     {
         return $this->belongsTo(UserAdmin::class);

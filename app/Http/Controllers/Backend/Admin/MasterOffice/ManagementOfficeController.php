@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend\Admin\MasterOffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Office;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ManagementOfficeController extends Controller
 {
@@ -14,7 +16,11 @@ class ManagementOfficeController extends Controller
      */
     public function index()
     {
-        return view('pages.master-office.management-office.index');
+        $offices = Office::latest()->get();
+
+        return view('pages.master-office.management-office.index', [
+            'offices' => $offices
+        ]);
     }
 
     /**
@@ -35,7 +41,21 @@ class ManagementOfficeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'email' => ['required', 'email', 'unique:offices,email'],
+            'contact' => ['required', 'min:9', 'max:13'],
+        ]);
+
+        $process = app('CreateOffice')->execute([
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'contact' => $request->contact
+        ]);
+
+        return redirect()->route('management-office.index')->with('success', $process['message']);
     }
 
     /**
@@ -57,7 +77,15 @@ class ManagementOfficeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $process = app('FindOfficeById')->execute([
+            'office_id' => $id,
+        ]);
+
+        if (!$process['success']) return redirect()->route('management-office.index')->with('fail', $process['message']);
+
+        return view('pages.master-office.management-office.edit', [
+            'office' => $process['data']
+        ]);
     }
 
     /**
@@ -69,7 +97,24 @@ class ManagementOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'max:255'],
+            'email' => ['required', 'email', Rule::unique('offices')->ignore($id)],
+            'contact' => ['required', 'min:9', 'max:13'],
+        ]);
+
+        $process = app('UpdateOffice')->execute([
+            'office_id' => $id,
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'contact' => $request->contact,
+        ]);
+
+        if (!$process['success']) return redirect()->route('management-office.index')->with('fail', $process['message']);
+
+        return redirect()->route('management-office.index')->with('success', $process['message']);
     }
 
     /**

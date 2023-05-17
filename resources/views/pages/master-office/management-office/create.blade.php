@@ -11,7 +11,19 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
-                        <form action="">
+                        @if (Session::has('errors'))
+                        <div class="my-2">
+                            <div class="alert alert-warning">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li class="text-light fw-bold">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        <form action="{{ route('management-office.store') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="Office Name" aria-label="Office Name">
                             </div>
