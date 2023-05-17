@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
+use App\Http\Controllers\Backend\Admin\MasterOffice\ManagementOfficeController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
 
 
@@ -12,6 +13,12 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+
+    Route::group(['prefix' => 'master-office'], function () {
+
+        Route::resource('management-office', ManagementOfficeController::class);
+
+    });
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
 });
