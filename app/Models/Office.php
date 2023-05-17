@@ -10,4 +10,11 @@ class Office extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    protected $with = ['user'];
+
+    public function user()
+    {
+        return $this->hasMany(User::class, 'office_id', 'id');
+    }
 }

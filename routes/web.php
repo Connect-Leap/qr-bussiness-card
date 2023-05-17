@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
+use App\Http\Controllers\Backend\Admin\MasterOffice\DetailMasterOffice;
 use App\Http\Controllers\Backend\Admin\MasterOffice\ManagementOfficeController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
 
@@ -17,6 +18,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::group(['prefix' => 'master-office'], function () {
 
         Route::resource('management-office', ManagementOfficeController::class);
+        Route::group(['prefix' => 'detail'], function () {
+            Route::get('/', [DetailMasterOffice::class, 'index'])->name('detail-master-office.index');
+            Route::get('/show-employee/{office}', [DetailMasterOffice::class, 'showEmployee'])->name('detail-master-office.show-employee');
+        });
 
     });
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');

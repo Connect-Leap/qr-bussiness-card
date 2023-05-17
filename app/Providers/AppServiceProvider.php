@@ -6,6 +6,7 @@ use App\Services\Auth\DoLogin;
 use App\Services\Backend\MasterOffice\CreateOffice;
 use App\Services\Backend\MasterOffice\DeleteOffice;
 use App\Services\Backend\MasterOffice\FindOfficeById;
+use App\Services\Backend\MasterOffice\ShowRelatedUser;
 use App\Services\Backend\MasterOffice\UpdateOffice;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('FindOfficeById', FindOfficeById::class);
         $this->registerService('UpdateOffice', UpdateOffice::class);
         $this->registerService('DeleteOffice', DeleteOffice::class);
+        $this->registerService('ShowRelatedUser', ShowRelatedUser::class);
     }
 
     /**

@@ -41,6 +41,11 @@ class User extends Authenticatable
 
     protected $with = ['admin', 'supervisor', 'employee', 'department', 'position', 'nationality'];
 
+    public function office()
+    {
+        return $this->hasOne(Office::class, 'id', 'office_id');
+    }
+
     public function admin()
     {
         return $this->belongsTo(UserAdmin::class);
