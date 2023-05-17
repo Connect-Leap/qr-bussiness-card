@@ -40,7 +40,36 @@ class MasterSupervisorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'gender' => ['required'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:6'],
+            'department_name' => ['required', 'max:255'],
+            'user_position' => ['required', 'max:255'],
+            'user_position_period' => ['required'],
+            'country_name' => ['required', 'max:255'],
+            'country_code' => ['required', 'min:2'],
+            'country_phone_code' => ['required', 'min:2'],
+        ]);
+
+        $process = app('CreateUser')->execute([
+            'role' => 'supervisor',
+            'name' => $request->name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'password' => $request->password,
+            'department_name' => $request->department_name,
+            'user_position' => $request->user_position,
+            'user_position_period' => $request->user_position_period,
+            'country_name' => $request->country_name,
+            'country_code' => $request->country_code,
+            'country_phone_code' => $request->country_phone_code,
+        ]);
+
+        if (!$process['success']) dd($process);
+
+        return redirect()->route('management-supervisor.index')->with('success', $process['message']);
     }
 
     /**

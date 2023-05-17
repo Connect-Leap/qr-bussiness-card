@@ -13,11 +13,11 @@ class CreateUser extends BaseService implements BaseServiceInterface
 {
     public function process($dto)
     {
-        $user = new User();
-
         DB::beginTransaction();
 
         try {
+            $user = new User();
+
             $created_user = $user->create([
                 'email' => $dto['email'],
                 'password' => Hash::make($dto['password']),

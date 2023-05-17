@@ -8,6 +8,8 @@ use App\Services\Backend\MasterOffice\DeleteOffice;
 use App\Services\Backend\MasterOffice\FindOfficeById;
 use App\Services\Backend\MasterOffice\ShowRelatedUser;
 use App\Services\Backend\MasterOffice\UpdateOffice;
+use App\Services\Backend\MasterUser\CreateUser;
+use App\Services\Backend\MasterUser\UpdateUser;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('UpdateOffice', UpdateOffice::class);
         $this->registerService('DeleteOffice', DeleteOffice::class);
         $this->registerService('ShowRelatedUser', ShowRelatedUser::class);
+
+        // MasterUser
+        $this->registerService('CreateUser', CreateUser::class);
+        $this->registerService('UpdateUser', UpdateUser::class);
     }
 
     /**

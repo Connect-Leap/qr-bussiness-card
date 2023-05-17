@@ -50,10 +50,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($users as $user)
                                 <tr>
                                     <td class="text-center"></td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->supervisor->name }}</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0"></p>
@@ -80,6 +81,11 @@
                                         <p class="text-sm font-weight-bold mb-0"></p>
                                     </td>
                                 </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center">Empty Data</td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
