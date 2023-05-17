@@ -125,6 +125,12 @@ class ManagementOfficeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $process = app('DeleteOffice')->execute([
+            'office_id' => $id
+        ]);
+
+        if (!$process['success']) return response()->json(['error' => $process['message']], $process['response_code']);
+
+        return response()->json(['success' => $process['message']], $process['response_code']);
     }
 }

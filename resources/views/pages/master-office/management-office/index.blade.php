@@ -58,7 +58,7 @@
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('management-office.edit', $office->id) }}" class="btn btn-xs btn-success">Edit</p>
-                                        <a class="btn btn-xs btn-danger">Delete</p>
+                                        <a href="{{ route('management-office.destroy', $office->id) }}" class="btn btn-xs btn-danger btn-delete">Delete</p>
                                     </td>
                                 </tr>
                                 @empty
