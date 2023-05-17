@@ -24,8 +24,17 @@
                         @endif
                         <form action="{{ route('management-employee.store') }}" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name') }}">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name') }}">
+                                </div>
+                                <div class="col-6">
+                                    <select name="gender" class="form-select">
+                                        <option value="" selected hidden>Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
