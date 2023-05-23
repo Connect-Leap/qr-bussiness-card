@@ -81,7 +81,7 @@
                                         <p class="text-sm font-weight-bold mb-0">{{ $user->created_at }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('management-office.edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
+                                        <a href="{{ route('management-supervisor.edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
                                         <a href="{{ route('management-supervisor.destroy', $user->id) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                     </td>
                                 </tr>

@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserAdmin;
+use App\Models\UserNationality;
+use App\Models\UserPosition;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\Hash;
@@ -17,9 +20,8 @@ class UserAdminSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
 
-        $created_user = $user->create([
+        $created_user = User::create([
             'email' => 'user@admin.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
@@ -27,18 +29,18 @@ class UserAdminSeeder extends Seeder
             'remember_token' => Str::random(10)
         ]);
 
-        $user->admin()->create([
+        UserAdmin::create([
             'user_id' => $created_user->id,
             'name' => 'Connect Leap Admin',
         ]);
 
-        $user->position()->create([
+        UserPosition::create([
             'user_id' => $created_user->id,
             'name' => 'Connect Leap Admin',
             'period' => '2023'
         ]);
 
-        $user->nationality()->create([
+        UserNationality::create([
             'user_id' => $created_user->id,
             'country_name' => 'Indonesia',
             'country_code' => 'INA',

@@ -73,7 +73,7 @@
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (+62, etc)"
-                                    aria-label="Country Code" value="{{ old('country_code') }}">
+                                    aria-label="Country Code" value="{{ old('country_phone_code') }}">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Submit</button>

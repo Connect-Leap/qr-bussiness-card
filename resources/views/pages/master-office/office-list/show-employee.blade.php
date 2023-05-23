@@ -97,15 +97,15 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Employee Name
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Email
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Position
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Role
                                     </th>
                                 </tr>
                             </thead>
@@ -114,13 +114,14 @@
                                     <tr>
                                         <td class="text-center"></td>
                                         <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">-</p>
-                                        </td>
-                                        <td class="text-center">
                                             <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0 w-25 p-3">{{ $user->position->name }}
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->position->name }}
+                                            </p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="text-sm font-weight-bold mb-0">{{ ucfirst($user->role) }}
                                             </p>
                                         </td>
                                     </tr>

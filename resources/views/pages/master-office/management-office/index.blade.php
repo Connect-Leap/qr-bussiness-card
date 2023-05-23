@@ -48,7 +48,7 @@
                                         <p class="text-sm font-weight-bold mb-0">{{ $office->address }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0 w-25 p-3">{{ $office->email }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->email }}</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $office->contact }}</p>
