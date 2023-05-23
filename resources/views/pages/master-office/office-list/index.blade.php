@@ -33,12 +33,14 @@
                             <tbody>
                                 @forelse($offices as $office)
                                 <tr>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        #
+                                    </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $office->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0 w-25 p-3">{{ $office->email }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $office->email }}</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $office->contact }}</p>

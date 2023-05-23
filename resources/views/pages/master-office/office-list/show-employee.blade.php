@@ -112,7 +112,9 @@
                             <tbody>
                                 @forelse($users as $user)
                                     <tr>
-                                        <td class="text-center"></td>
+                                        <td class="text-center">
+                                            #
+                                        </td>
                                         <td class="text-center">
                                             <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
                                         </td>

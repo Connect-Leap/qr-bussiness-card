@@ -40,7 +40,9 @@
                             <tbody>
                                 @forelse($offices as $office)
                                 <tr>
-                                    <td class="text-center"></td>
+                                    <td class="text-center">
+                                        #
+                                    </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $office->name }}</p>
                                     </td>

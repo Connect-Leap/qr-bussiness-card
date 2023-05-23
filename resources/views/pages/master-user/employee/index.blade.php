@@ -55,33 +55,42 @@
                             <tbody>
                                 @forelse($users as $user)
                                 <tr>
-                                    <td class="text-center"></td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        #
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->employee->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->employee->employee_code }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->department->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->period }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_code }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_phone_code }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->created_at }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('management-employee.edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
+                                        <a href="{{ route('management-employee.destroy', $user->id) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                     </td>
                                 </tr>
                                 @empty

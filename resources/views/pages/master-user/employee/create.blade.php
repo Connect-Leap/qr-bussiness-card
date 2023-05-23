@@ -24,6 +24,14 @@
                         @endif
                         <form action="{{ route('management-employee.store') }}" method="POST">
                             @csrf
+                            <div class="mb-3">
+                                <select name="office_id" class="form-select">
+                                    <option value="" selected hidden>Office</option>
+                                    @foreach($offices as $office)
+                                    <option value="{{ $office->id }}">{{ $office->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name') }}">
@@ -63,11 +71,11 @@
                                     aria-label="Country Name" value="{{ old('country_name') }}">
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="country_code" class="form-control" placeholder="Country Code (+62, etc)"
+                                <input type="text" name="country_code" class="form-control" placeholder="Country Code (JPN, INA, etc)"
                                     aria-label="Country Code" value="{{ old('country_code') }}">
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (JPN, INA, etc)"
+                                <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (+62, etc)"
                                     aria-label="Country Name" value="{{ old('country_phone_cpde') }}">
                             </div>
                             <div class="mb-3">
