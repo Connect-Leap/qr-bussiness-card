@@ -48,31 +48,31 @@ class User extends Authenticatable
 
     public function admin()
     {
-        return $this->belongsTo(UserAdmin::class);
+        return $this->hasOne(UserAdmin::class, 'user_id', 'id');
     }
 
     public function supervisor()
     {
-        return $this->belongsTo(UserSupervisor::class);
+        return $this->hasOne(UserSupervisor::class, 'user_id', 'id');
     }
 
     public function employee()
     {
-        return $this->belongsTo(UserEmployee::class);
+        return $this->hasOne(UserEmployee::class, 'user_id', 'id');
     }
 
     public function department()
     {
-        return $this->belongsTo(UserDepartment::class);
+        return $this->hasOne(UserDepartment::class, 'user_id', 'id');
     }
 
     public function position()
     {
-        return $this->belongsTo(UserPosition::class);
+        return $this->hasOne(UserPosition::class, 'user_id', 'id');
     }
 
     public function nationality()
     {
-        return $this->belongsTo(UserNationality::class);
+        return $this->hasOne(UserNationality::class, 'user_id', 'id');
     }
 }

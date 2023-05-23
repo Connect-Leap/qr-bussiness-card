@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\MasterUser\Supervisor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Office;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,11 @@ class MasterSupervisorController extends Controller
      */
     public function create()
     {
-        return view('pages.master-user.supervisor.create');
+        $offices = Office::latest()->get();
+
+        return view('pages.master-user.supervisor.create', [
+            'offices' => $offices
+        ]);
     }
 
     /**
@@ -41,6 +46,7 @@ class MasterSupervisorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'office_id' => ['required'],
             'name' => ['required', 'max:255'],
             'gender' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
@@ -54,6 +60,7 @@ class MasterSupervisorController extends Controller
         ]);
 
         $process = app('CreateUser')->execute([
+            'office_id' => $request->office_id,
             'role' => 'supervisor',
             'name' => $request->name,
             'gender' => $request->gender,
@@ -67,7 +74,7 @@ class MasterSupervisorController extends Controller
             'country_phone_code' => $request->country_phone_code,
         ]);
 
-        if (!$process['success']) dd($process);
+        if (!$process['success']) return response()->json($process);
 
         return redirect()->route('management-supervisor.index')->with('success', $process['message']);
     }
@@ -114,6 +121,12 @@ class MasterSupervisorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $process = app('DeleteUser')->execute([
+            'user_id' => $id
+        ]);
+
+        if (!$process['success']) return response()->json(['error' => $process['message']], $process['response_code']);
+
+        return response()->json(['success' => $process['message']], $process['response_code']);
     }
 }

@@ -54,36 +54,40 @@
                                 <tr>
                                     <td class="text-center"></td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->supervisor->name }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->supervisor->name ?? '-' }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->department->name ?? '-' }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->name ?? '-' }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->period ?? '-' }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_code }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_phone_code }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0"></p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->created_at }}</p>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('management-office.edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
+                                        <a href="{{ route('management-supervisor.destroy', $user->id) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center">Empty Data</td>
+                                    <td class="text-center" colspan="11">Empty Data</td>
                                 </tr>
                                 @endforelse
                             </tbody>

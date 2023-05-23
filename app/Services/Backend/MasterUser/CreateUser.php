@@ -3,11 +3,16 @@
 namespace App\Services\Backend\MasterUser;
 
 use App\Models\User;
+use App\Models\UserDepartment;
+use App\Models\UserEmployee;
+use App\Models\UserNationality;
+use App\Models\UserPosition;
+use Illuminate\Support\Str;
 use App\Services\BaseService;
+use App\Models\UserSupervisor;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Services\BaseServiceInterface;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class CreateUser extends BaseService implements BaseServiceInterface
 {
@@ -16,9 +21,8 @@ class CreateUser extends BaseService implements BaseServiceInterface
         DB::beginTransaction();
 
         try {
-            $user = new User();
-
-            $created_user = $user->create([
+            $created_user = User::create([
+                'office_id' => $dto['office_id'],
                 'email' => $dto['email'],
                 'password' => Hash::make($dto['password']),
                 'role' => $dto['role'],
@@ -26,47 +30,43 @@ class CreateUser extends BaseService implements BaseServiceInterface
                 'remember_token' => Str::random(10)
             ]);
 
-            switch ($dto['role']) {
-
-                case 'supervisor':
-                    $user->supervisor()->create([
-                        'user_id' => $created_user->id,
-                        'name' => $dto['name']
-                    ]);
-
-                    $created_user->assignRole('supervisor');
-
-                    break;
-                case 'employee':
-                    $user->employee()->create([
-                        'user_id' => $created_user->id,
-                        'name' => $dto['name'],
-                        'employee_code' => $dto['employee_code']
-                    ]);
-
-                    $created_user->assignRole('employee');
-
-                    break;
+            if ($dto['role'] == 'supervisor') {
+                UserSupervisor::create([
+                    'user_id' => $created_user->id,
+                    'name' => $dto['name']
+                ]);
+                $created_user->assignRole('supervisor');
+            } elseif ($dto['role'] == 'employee') {
+                UserEmployee::create([
+                    'user_id' => $created_user->id,
+                    'name' => $dto['name'],
+                    'employee_code' => $dto['employee_code']
+                ]);
+                $created_user->assignRole('employee');
             }
 
-            $user->department()->create([
+            UserDepartment::create([
                 'user_id' => $created_user->id,
                 'name' => $dto['department_name'],
             ]);
 
-            $user->position()->create([
+            UserPosition::create([
                 'user_id' => $created_user->id,
                 'name' => $dto['user_position'],
                 'period' => $dto['user_position_period']
             ]);
 
-            $user->nationality()->create([
+            UserNationality::create([
                 'user_id' => $created_user->id,
                 'country_name' => ucwords($dto['country_name']),
                 'country_code' => ucwords($dto['country_code']),
                 'country_phone_code' => $dto['country_phone_code']
             ]);
+
+            DB::commit();
         } catch (\Exception $err) {
+            DB::rollback();
+
             $this->results['success'] = false;
             $this->results['response_code'] = $err->getCode();
             $this->results['message'] = $err->getMessage();
