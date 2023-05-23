@@ -55,20 +55,27 @@
                                     <td class="text-center">
                                         #
                                     </td>
-                                    <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->supervisor->name ?? '-' }}</p>
+                                    <td>
+                                        <div class="d-flex px-3 py-1">
+                                            <div>
+                                                <img src="{{ ($user->gender == 'male') ? asset('img/avatar/male.png') : asset('img/avatar/female.png') }}" class="avatar me-3" alt="image">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $user->supervisor->name }}</h6>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->department->name ?? '-' }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->department->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->name ?? '-' }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->name }}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->period ?? '-' }}</p>
+                                        <p class="text-sm font-weight-bold mb-0">{{ $user->position->period }}</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_name }}</p>

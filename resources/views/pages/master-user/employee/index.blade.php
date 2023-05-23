@@ -58,8 +58,15 @@
                                     <td class="text-center">
                                         #
                                     </td>
-                                    <td class="text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ $user->employee->name }}</p>
+                                    <td>
+                                        <div class="d-flex px-3 py-1">
+                                            <div>
+                                                <img src="{{ ($user->gender == 'male') ? asset('img/avatar/male.png') : asset('img/avatar/female.png') }}" class="avatar me-3" alt="image">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $user->employee->name }}</h6>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
