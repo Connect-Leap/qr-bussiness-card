@@ -96,7 +96,9 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="11">Empty Data</td>
+                                    <td class="text-center" colspan="11">
+                                        <p class="text-sm font-weight-bold mb-0">Empty Data</p>
+                                    </td>
                                 </tr>
                                 @endforelse
                             </tbody>

@@ -128,7 +128,9 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="7" class="text-center">Empty Data</td>
+                                        <td colspan="7" class="text-center">
+                                            <p class="text-sm font-weight-bold mb-0">Empty Data</p>
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>

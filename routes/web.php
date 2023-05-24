@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Backend\Admin\Configuration\ApplicationSettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
 use App\Http\Controllers\Backend\Admin\MasterOffice\DetailMasterOffice;
@@ -33,6 +33,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/', [UsersController::class, 'seeAllUsers'])->name('master-user.all');
         Route::resource('management-employee', MasterEmployeeController::class);
         Route::resource('management-supervisor', MasterSupervisorController::class);
+    });
+
+    Route::group(['prefix' => 'configuration'], function () {
+        Route::group(['prefix' => 'application-setting'], function () {
+            Route::get('/', [ApplicationSettingController::class, 'index'])->name('application-setting.index');
+            Route::get('/create', [ApplicationSettingController::class, 'create'])->name('application_setting.create');
+            Route::get('/{id}/edit', [ApplicationSettingController::class, 'edit'])->name('application-setting.edit');
+        });
     });
 
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
