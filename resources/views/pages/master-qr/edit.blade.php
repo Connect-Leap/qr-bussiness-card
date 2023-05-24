@@ -7,7 +7,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
                     <h6>Create your First Application Setting</h6>
-                    <a href="{{ route('application-setting.index') }}" class="btn btn-info btn-sm">Back</a>
+                    <a href="{{ route('master-qr.index') }}" class="btn btn-info btn-sm">Back</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
@@ -31,11 +31,11 @@
                                 <input type="number" name="default_rate_limit" class="form-control" placeholder="Default Rate Limit (Optional)" aria-label="Default Rate Limit">
                             </div>
                             <div class="mb-3">
-                                <input type="number" name="default_rate_time_limit" class="form-control" placeholder="Default Rate Time Limit (Optional)" aria-label="Default Rate Time Limit">
+                                <input type="number" min="1" name="default_rate_time_limit" class="form-control" placeholder="Default Rate Time Limit (Optional)" aria-label="Default Rate Time Limit">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" class="btn btn-info">Submit</button>
-                                <a href="{{ route('application-setting.index') }}" class="btn btn-danger">Cancel</a>
+                                <button type="submit" class="btn btn-info">Update</button>
+                                <a href="{{ route('master-qr.index') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </form>
                     </div>

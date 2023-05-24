@@ -10,7 +10,7 @@ use App\Http\Controllers\Backend\Admin\MasterUser\Supervisor\MasterSupervisorCon
 use App\Http\Controllers\Backend\Admin\MasterUser\UserManagementController;
 use App\Http\Controllers\Backend\Admin\MasterUser\UsersController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
-
+use App\Http\Controllers\Backend\Admin\QR\QrController;
 
 // List of Routes
 
@@ -33,6 +33,12 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/', [UsersController::class, 'seeAllUsers'])->name('master-user.all');
         Route::resource('management-employee', MasterEmployeeController::class);
         Route::resource('management-supervisor', MasterSupervisorController::class);
+    });
+
+    Route::group(['prefix' => 'master-qr'], function () {
+        Route::get('/', [QrController::class, 'index'])->name('master-qr.index');
+        Route::get('/create', [QrController::class, 'create'])->name('master-qr.create');
+        Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');
     });
 
     Route::group(['prefix' => 'configuration'], function () {

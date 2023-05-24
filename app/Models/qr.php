@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class qr extends Model
+class QR extends Model
 {
     use HasFactory;
+
+    protected $table = 'qrs';
 
     protected $guarded = ['id'];
 }
