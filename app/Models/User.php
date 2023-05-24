@@ -7,28 +7,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'username',
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-        'address',
-        'city',
-        'country',
-        'postal',
-        'about'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -49,14 +39,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Always encrypt the password when it is updated.
-     *
-     * @param $value
-    * @return string
-    */
-    public function setPasswordAttribute($value)
+    protected $with = ['admin', 'supervisor', 'employee', 'department', 'position', 'nationality'];
+
+    public function office()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->hasOne(Office::class, 'id', 'office_id');
+    }
+
+    public function admin()
+    {
+        return $this->hasOne(UserAdmin::class, 'user_id', 'id');
+    }
+
+    public function supervisor()
+    {
+        return $this->hasOne(UserSupervisor::class, 'user_id', 'id');
+    }
+
+    public function employee()
+    {
+        return $this->hasOne(UserEmployee::class, 'user_id', 'id');
+    }
+
+    public function department()
+    {
+        return $this->hasOne(UserDepartment::class, 'user_id', 'id');
+    }
+
+    public function position()
+    {
+        return $this->hasOne(UserPosition::class, 'user_id', 'id');
+    }
+
+    public function nationality()
+    {
+        return $this->hasOne(UserNationality::class, 'user_id', 'id');
     }
 }

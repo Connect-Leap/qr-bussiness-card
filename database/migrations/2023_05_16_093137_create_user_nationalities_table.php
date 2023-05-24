@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_nationalities', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role', ['admin', 'supervisor', 'employee']);
-            $table->enum('gender', ['male',  'female']);
-            $table->rememberToken();
+            $table->foreignId('user_id')->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('country_name');
+            $table->string('country_code')->comment('Ex: INA, USA, JP, etc');
+            $table->string('country_phone_code')->comment('EX: +62, etc');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_nationalities');
     }
 };

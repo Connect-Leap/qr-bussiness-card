@@ -24,11 +24,11 @@
                                         @csrf
                                         @method('post')
                                         <div class="flex flex-col mb-3">
-                                            <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'admin@argon.com' }}" aria-label="Email">
+                                            <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'user@admin.com' }}" aria-label="Email">
                                             @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="flex flex-col mb-3">
-                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="secret" >
+                                            <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="password" >
                                             @error('password') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="form-check form-switch">
@@ -44,12 +44,6 @@
                                     <p class="mb-1 text-sm mx-auto">
                                         Forgot you password? Reset your password
                                         <a href="{{ route('reset-password') }}" class="text-info text-gradient font-weight-bold">here</a>
-                                    </p>
-                                </div>
-                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                                    <p class="mb-4 text-sm mx-auto">
-                                        Don't have an account?
-                                        <a href="{{ route('register') }}" class="text-info text-gradient font-weight-bold">Sign up</a>
                                     </p>
                                 </div>
                             </div>
