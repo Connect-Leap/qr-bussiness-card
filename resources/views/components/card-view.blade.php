@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="{{ asset('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('img/card-asset/icon-logo-white.png') }}" class="img-fluid" alt="">
                         <span class="mt-1 fw-bold text-white" style="font-family: 'Baskervville', serif;">ABC Corporation</span>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         ABC Corporation <br> Jl.Raya Kebayoran Lama No.12, Jakarta Selatan <br> (021) 812-356-789</p>
                 </div>
                 <div class="col-2">
-                    <img src="{{ asset('img/card-asset/qrcode.png') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('img/card-asset/qrcode-white.png') }}" class="img-fluid" alt="">
                 </div>
             </div>
         </div>
