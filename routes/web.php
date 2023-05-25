@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Admin\MasterUser\Supervisor\MasterSupervisorCon
 use App\Http\Controllers\Backend\Admin\MasterUser\UserManagementController;
 use App\Http\Controllers\Backend\Admin\MasterUser\UsersController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
+use App\Http\Controllers\Backend\Admin\QR\CardSimulatorController;
 use App\Http\Controllers\Backend\Admin\QR\QrController;
 
 // List of Routes
@@ -39,6 +40,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/', [QrController::class, 'index'])->name('master-qr.index');
         Route::get('/create', [QrController::class, 'create'])->name('master-qr.create');
         Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');
+
+        Route::group(['prefix' => 'card-simulator'], function () {
+            Route::get('/', [CardSimulatorController::class, 'findUserView'])->name('card-simulator.index');
+            Route::get('/view-card', [CardSimulatorController::class, 'showCard'])->name('card-simulator.show');
+        });
     });
 
     Route::group(['prefix' => 'configuration'], function () {
