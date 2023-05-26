@@ -5,5 +5,5 @@ namespace App\Services;
 
 interface BaseServiceInterface
 {
-    public function execute( $request );
+    public function execute( $request = null );
 }

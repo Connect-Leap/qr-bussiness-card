@@ -88,6 +88,8 @@ class QrController extends Controller
 
     public function resetAllUserQrCode()
     {
-        //
+        $process = app('ResetAllUserQr')->execute();
+
+        return redirect()->back()->with('success', $process['message']);
     }
 }

@@ -7,7 +7,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
                     <h6>QR Configuration</h6>
-                    <a href="{{ route('master-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-sm btn-warning" href="{{ route('master-qr.reset-all-user-qr-code') }}">Reset All Usage Limit</a>
+                        <a href="{{ route('master-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
+                    </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">

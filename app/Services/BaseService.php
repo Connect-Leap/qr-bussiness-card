@@ -15,7 +15,7 @@ abstract class BaseService implements BaseServiceInterface
 
     abstract protected function process( $data );
 
-    public function execute( $input_data )
+    public function execute( $input_data = null )
     {
         $this->process($input_data);
 

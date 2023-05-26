@@ -20,14 +20,22 @@ class ResetQrLimitByQrId extends BaseService implements BaseServiceInterface
             $this->results['message'] = 'QR ID Not Found';
             $this->results['data'] = [];
         } else {
-            $qr_model->update([
-                'usage_limit' => $application_setting->default_scan_limit,
-            ]);
+            if ($qr_model->usage_limit == $application_setting->default_scan_limit) {
+                $this->results['response_code'] = 200;
+                $this->results['success'] = true;
+                $this->results['message'] = 'QR Had Been Done';
+                $this->results['data'] = $qr_model;
+            } else {
+                $qr_model->update([
+                    'usage_limit' => $application_setting->default_scan_limit,
+                ]);
 
-            $this->results['response_code'] = 200;
-            $this->results['success'] = true;
-            $this->results['message'] = 'QR Successfully Reset';
-            $this->results['data'] = $qr_model;
+                $this->results['response_code'] = 200;
+                $this->results['success'] = true;
+                $this->results['message'] = 'QR Successfully Reset';
+                $this->results['data'] = $qr_model;
+            }
+
         }
     }
 }
