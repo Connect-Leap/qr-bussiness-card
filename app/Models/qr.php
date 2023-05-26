@@ -12,4 +12,16 @@ class QR extends Model
     protected $table = 'qrs';
 
     protected $guarded = ['id'];
+
+    protected $with = ['user', 'qrContactType'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function qrContactType()
+    {
+        return $this->belongsTo(QrContactType::class, 'qr_contact_type_id', 'id');
+    }
 }

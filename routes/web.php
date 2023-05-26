@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::group(['prefix' => 'master-qr'], function () {
         Route::get('/', [QrController::class, 'index'])->name('master-qr.index');
         Route::get('/create', [QrController::class, 'create'])->name('master-qr.create');
+        Route::post('/create', [QrController::class, 'store'])->name('master-qr.store');
         Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');
 
         Route::group(['prefix' => 'card-simulator'], function () {
@@ -51,7 +52,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::group(['prefix' => 'application-setting'], function () {
             Route::get('/', [ApplicationSettingController::class, 'index'])->name('application-setting.index');
             Route::get('/create', [ApplicationSettingController::class, 'create'])->name('application_setting.create');
+            Route::post('/create', [ApplicationSettingController::class, 'store'])->name('application-setting.store');
             Route::get('/{id}/edit', [ApplicationSettingController::class, 'edit'])->name('application-setting.edit');
+            Route::put('/{id}', [ApplicationSettingController::class, 'update'])->name('application-setting.update');
         });
     });
 
@@ -61,3 +64,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 // Authentication Route
 require __DIR__ . '/auth.php';
+
+Route::get('/short/{urlkey}/{qr_id}', [QrController::class, 'QrProcessing'])->name('master-qr.qr-processing');

@@ -25,18 +25,20 @@
                                 @forelse($settings as $setting)
                                 <tr>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">#</p>
+                                        <p class="text-center text-sm font-weight-bold mb-0">#</p>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">{{ $setting->default_scan_limit }}</p>
+                                        <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_scan_limit }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">{{ $setting->default_rate_limit }}</p>
+                                        <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_rate_limit }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-sm font-weight-bold mb-0">{{ $setting->default_rate_time_limit }}</p>
+                                        <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_rate_time_limit }}</p>
                                     </td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ route('application-setting.edit', $setting->id) }}" class="btn btn-xs btn-success">Edit</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>

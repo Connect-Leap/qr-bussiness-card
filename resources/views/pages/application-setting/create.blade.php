@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         @endif
-                        <form action="" method="POST">
+                        <form action="{{ route('application-setting.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <input type="number" name="default_scan_limit" class="form-control" placeholder="Default Scan Limit" aria-label="Default Scan Limit">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class UpdateShortUrlTableAddOptionToForwardQueryParams extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offices', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('email');
-            $table->string('contact');
-            $table->timestamps();
+        Schema::table('short_urls', function (Blueprint $table) {
+            $table->boolean('forward_query_params')->after('single_use')->default(false);
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offices');
+        Schema::table('short_urls', function (Blueprint $table) {
+            $table->dropColumn(['forward_query_params']);
+        });
     }
-};
+}
