@@ -76,4 +76,18 @@ class QrController extends Controller
             'qr' => $qr
         ]);
     }
+
+    public function resetUserQrCode($qr_id)
+    {
+        $process = app('ResetQrLimitByQrId')->execute([
+            'qr_id' => $qr_id,
+        ]);
+
+        return redirect()->back()->with('success', $process['message']);
+    }
+
+    public function resetAllUserQrCode()
+    {
+        //
+    }
 }

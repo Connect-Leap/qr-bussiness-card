@@ -77,6 +77,9 @@
                                             <span
                                                 class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                         </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
