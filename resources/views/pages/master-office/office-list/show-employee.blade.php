@@ -82,60 +82,62 @@
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
-                <div class="card-header d-flex align-items-start justify-content-between pb-0">
+                <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
                     <h6>{{ $office->name }} Employees</h6>
                     <a href="{{ route('detail-master-office.index') }}" class="btn btn-info btn-sm">Back</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        #
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Email
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Position
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Role
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($users as $user)
+                    <div class="container">
+                        <div class="table-responsive p-0">
+                            <table class="table datatable-jquery align-items-center mb-0">
+                                <thead>
                                     <tr>
-                                        <td class="text-center">
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             #
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ $user->position->name }}
-                                            </p>
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ ucfirst($user->role) }}
-                                            </p>
-                                        </td>
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Email
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Position
+                                        </th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Role
+                                        </th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">Empty Data</p>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @forelse($users as $user)
+                                        <tr>
+                                            <td class="text-center">
+                                                #
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">{{ $user->email }}</p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">{{ $user->position->name }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">{{ ucfirst($user->role) }}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">Empty Data</p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

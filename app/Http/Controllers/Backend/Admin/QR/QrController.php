@@ -104,6 +104,17 @@ class QrController extends Controller
         return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 
+    public function destroy($id)
+    {
+        $process = app('DeleteQR')->execute([
+            'qr_id' => $id
+        ]);
+
+        if (!$process['success']) return response()->json(['error' => $process['message']], $process['response_code']);
+
+        return response()->json(['success' => $process['message']], $process['response_code']);
+    }
+
     public function resetUserQrCode($qr_id)
     {
         $process = app('ResetQrLimitByQrId')->execute([

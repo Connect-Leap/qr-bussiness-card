@@ -11,6 +11,7 @@ use App\Services\Backend\MasterOffice\FindOfficeById;
 use App\Services\Backend\MasterOffice\ShowRelatedUser;
 use App\Services\Backend\MasterOffice\UpdateOffice;
 use App\Services\Backend\MasterQR\CreateQR;
+use App\Services\Backend\MasterQR\DeleteQR;
 use App\Services\Backend\MasterQR\QrProcessing;
 use App\Services\Backend\MasterQR\ResetAllUserQr;
 use App\Services\Backend\MasterQR\ResetQrLimitByQrId;
@@ -50,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('ResetQrLimitByQrId', ResetQrLimitByQrId::class);
         $this->registerService('ResetAllUserQr', ResetAllUserQr::class);
         $this->registerService('UpdateQR', UpdateQR::class);
+        $this->registerService('DeleteQR', DeleteQR::class);
 
         // Application Configuration
         $this->registerService('CreateApplicationSetting', CreateApplicationSetting::class);
