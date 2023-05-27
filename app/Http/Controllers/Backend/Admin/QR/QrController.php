@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\QR;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QrCodeResource;
+use App\Http\Resources\QrProcessingResource;
 use App\Models\ApplicationSetting;
 use App\Models\QR;
 use App\Models\QrContactType;
@@ -11,9 +12,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use AshAllenDesign\ShortURL\Models\ShortURL;
+use App\Traits\ClientIp;
+use Stevebauman\Location\Facades\Location;
 
 class QrController extends Controller
 {
+    use ClientIp;
+
     public function index(QrCodeResource $qrCodeResource)
     {
         $qrcodes = $qrCodeResource->toArray(QR::latest()->get());
@@ -58,11 +63,14 @@ class QrController extends Controller
         return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 
-    public function QrProcessing($url_key, $qr_id)
+    public function QrProcessing(QrProcessingResource $qrProcessingResource, $url_key, $qr_id)
     {
+        $qr_visitor_data = $qrProcessingResource->toArray(Location::get($this->getIp()));
+
         $process = app('QrProcessing')->execute([
             'url_key' => $url_key,
-            'qr_id' => $qr_id
+            'qr_id' => $qr_id,
+            'qr_visitor_data' => $qr_visitor_data,
         ]);
 
         return Redirect::to($process['data']['destination'], $process['response_code']);
@@ -90,6 +98,8 @@ class QrController extends Controller
     {
         $process = app('ResetAllUserQr')->execute();
 
-        return redirect()->back()->with('success', $process['message']);
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
     }
 }

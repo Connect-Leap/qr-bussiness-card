@@ -13,13 +13,22 @@ class ResetAllUserQr extends BaseService implements BaseServiceInterface
     {
         $application_setting = ApplicationSetting::first();
 
-        $qr_models = QR::query()->update([
-            'usage_limit' => $application_setting->default_scan_limit
-        ]);
+        if (QR::count() < 1) {
+            $this->results['response_code'] = 404;
+            $this->results['success'] = false;
+            $this->results['message'] = 'QR Records Not Found';
+            $this->results['data'] = [];
+        } else {
+            $qr_models = QR::query()->update([
+                'usage_limit' => $application_setting->default_scan_limit
+            ]);
 
-        $this->results['response_code'] = 200;
-        $this->results['success'] = true;
-        $this->results['message'] = 'All QR Records Successfully Reset';
-        $this->results['data'] = $qr_models;
+            $this->results['response_code'] = 200;
+            $this->results['success'] = true;
+            $this->results['message'] = 'All QR Records Successfully Reset';
+            $this->results['data'] = $qr_models;
+        }
+
+
     }
 }
