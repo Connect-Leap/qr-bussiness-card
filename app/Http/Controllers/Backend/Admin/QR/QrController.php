@@ -61,6 +61,8 @@ class QrController extends Controller
             'status' => VALID,
         ]);
 
+        if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();
+
         return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 

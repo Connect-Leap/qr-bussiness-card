@@ -28,7 +28,7 @@
                                 <select name="qr_contact_type_id" class="form-select">
                                     <option value="" selected hidden>Select Contact Type</option>
                                     @foreach($contact_types as $contact_type)
-                                    <option value="{{ $contact_type->id }}" data-format-url="{{ $contact_type->format_link }}">{{ $contact_type->name }}</option>
+                                    <option value="{{ $contact_type->id }}" data-format-url="{{ $contact_type->format_link }}" @selected(old('qr_contact_type_id') == $contact_type->id)>{{ $contact_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -36,18 +36,18 @@
                                 <select name="user_id" class="form-select">
                                     <option value="" selected hidden>Select User</option>
                                     @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->email }}</option>
+                                    <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>{{ $user->email }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="redirect_link" class="form-control" placeholder="Redirect Link" aria-label="Redirect Link" value="">
+                                <input type="text" name="redirect_link" class="form-control {{ session()->has('fail') ? 'is-invalid' : '' }}" placeholder="Redirect Link" aria-label="Redirect Link" value="{{ old('redirect_link') }}">
                             </div>
                             <div class="mb-3">
                                 <select name="usage_limit" class="form-select">
                                     <option value="" selected hidden>Select Scan Usage Limit</option>
                                     @forelse($settings as $setting)
-                                    <option value="{{ $setting->default_scan_limit }}">{{ $setting->default_scan_limit }}</option>
+                                    <option value="{{ $setting->default_scan_limit }}" @selected(old('usage_limit') == $setting->id)>{{ $setting->default_scan_limit }}</option>
                                     @empty
                                     <option value="3">3</option>
                                     @endforelse
