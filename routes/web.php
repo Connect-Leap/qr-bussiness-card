@@ -45,6 +45,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');
         Route::put('/{id}', [QrController::class, 'update'])->name('master-qr.update');
         Route::delete('/{id}/destroy', [QrController::class, 'destroy'])->name('master-qr.destroy');
+        Route::get('/{id}/show-detail-qr', [QrController::class, 'showDetailQr'])->name('master-qr.show-detail-qr');
 
         Route::group(['prefix' => 'card-simulator'], function () {
             Route::get('/', [CardSimulatorController::class, 'findUserView'])->name('card-simulator.index');

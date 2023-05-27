@@ -138,4 +138,14 @@ class QrController extends Controller
 
         return redirect()->back()->with($status, $process['message']);
     }
+
+    public function showDetailQr($id)
+    {
+        $qr_model = QR::where('id', $id)->first();
+        // dd(json_decode($qr_model->qrVisitors[0]->detail_visitor_json));
+
+        return view('pages.master-qr.show-qr-visitor', [
+            'qr_model' => $qr_model,
+        ]);
+    }
 }
