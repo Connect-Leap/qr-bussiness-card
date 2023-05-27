@@ -14,6 +14,7 @@ use App\Services\Backend\MasterQR\CreateQR;
 use App\Services\Backend\MasterQR\QrProcessing;
 use App\Services\Backend\MasterQR\ResetAllUserQr;
 use App\Services\Backend\MasterQR\ResetQrLimitByQrId;
+use App\Services\Backend\MasterQR\UpdateQR;
 use App\Services\Backend\MasterUser\CreateUser;
 use App\Services\Backend\MasterUser\DeleteUser;
 use App\Services\Backend\MasterUser\UpdateUser;
@@ -48,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('QrProcessing', QrProcessing::class);
         $this->registerService('ResetQrLimitByQrId', ResetQrLimitByQrId::class);
         $this->registerService('ResetAllUserQr', ResetAllUserQr::class);
+        $this->registerService('UpdateQR', UpdateQR::class);
 
         // Application Configuration
         $this->registerService('CreateApplicationSetting', CreateApplicationSetting::class);

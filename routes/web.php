@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/{id}/reset-limit', [QrController::class, 'resetUserQrCode'])->name('master-qr.reset-user-qr-code');
         Route::get('/reset-user-limit', [QrController::class, 'resetAllUserQrCode'])->name('master-qr.reset-all-user-qr-code');
         Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');
+        Route::put('/{id}', [QrController::class, 'update'])->name('master-qr.update');
 
         Route::group(['prefix' => 'card-simulator'], function () {
             Route::get('/', [CardSimulatorController::class, 'findUserView'])->name('card-simulator.index');

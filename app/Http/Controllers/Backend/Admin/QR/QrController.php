@@ -80,10 +80,28 @@ class QrController extends Controller
     public function edit($id)
     {
         $qr = QR::where('id', $id)->first();
+        $roles_cannot_have_qr = ['admin', 'supervisor'];
+        $users = User::whereNotIn('role', $roles_cannot_have_qr)->latest()->get();
+        $contact_types = QrContactType::latest()->get();
 
         return view('pages.master-qr.edit', [
-            'qr' => $qr
+            'qr' => $qr,
+            'users' => $users,
+            'contact_types' => $contact_types,
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $process = app('UpdateQR')->execute([
+            'qr_id' => $id,
+            'qr_contact_type_id' => $request->qr_contact_type_id,
+            'user_id' => $request->user_id,
+            'redirect_link' => $request->redirect_link,
+            'usage_limit' => $request->usage_limit,
+        ]);
+
+        return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 
     public function resetUserQrCode($qr_id)

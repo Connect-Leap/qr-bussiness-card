@@ -82,6 +82,7 @@
                                         </td>
                                         <td class="text-center">
                                             <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
+                                            <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
                                         </td>
                                     </tr>
                                 @empty
