@@ -109,6 +109,8 @@ class QrController extends Controller
             'usage_limit' => $request->usage_limit,
         ]);
 
+        if ($process['response_code'] == 403) return redirect()->back()->with('fail', $process['message'])->withInput();
+
         return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 

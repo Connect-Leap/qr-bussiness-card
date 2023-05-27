@@ -42,7 +42,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="redirect_link" class="form-control" placeholder="Redirect Link" aria-label="Redirect Link" value="{{ old('redirect_link', $qr->redirect_link) }}">
+                                <input type="text" name="redirect_link" class="form-control {{ session()->has('fail') ? 'is-invalid' : '' }}" placeholder="Redirect Link" aria-label="Redirect Link" value="{{ old('redirect_link', $qr->redirect_link) }}">
                             </div>
                             <div class="mb-3">
                                 <input class="form-control" type="number" value="{{ $qr->usage_limit }}" name="usage_limit" readonly>
