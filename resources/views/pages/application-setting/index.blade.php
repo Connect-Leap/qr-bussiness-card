@@ -14,11 +14,11 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Default Scan Limit</th>
-                                    <th>Default Rate Limit For Scan</th>
-                                    <th>Default Rate Time Limit For Scan</th>
-                                    <th>Edit</th>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Default Scan Limit</th>
+                                    <th class="text-center">Default Rate Limit For Scan</th>
+                                    <th class="text-center">Default Rate Time Limit For Scan</th>
+                                    <th class="text-center">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,9 +34,9 @@
                                         <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_rate_limit }}</p>
                                     </td>
                                     <td>
-                                        <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_rate_time_limit }}</p>
+                                        <p class="text-center text-sm font-weight-bold mb-0">{{ $setting->default_rate_time_limit. ' Seconds / '.($setting->default_rate_time_limit / 60).' Minutes' }}</p>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{{ route('application-setting.edit', $setting->id) }}" class="btn btn-xs btn-success">Edit</a>
                                     </td>
                                 </tr>
