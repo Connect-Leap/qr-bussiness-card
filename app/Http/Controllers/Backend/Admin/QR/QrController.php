@@ -67,11 +67,13 @@ class QrController extends Controller
     public function QrProcessing(QrProcessingResource $qrProcessingResource, $url_key, $qr_id)
     {
         $qr_visitor_data = $qrProcessingResource->toArray(Location::get($this->getIp()));
+        $application_setting = ApplicationSetting::first();
 
         $process = app('QrProcessing')->execute([
             'url_key' => $url_key,
             'qr_id' => $qr_id,
             'qr_visitor_data' => $qr_visitor_data,
+            'application_setting' => $application_setting,
         ]);
 
         return Redirect::to($process['data']['destination'], $process['response_code']);

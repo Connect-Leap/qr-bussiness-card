@@ -31,7 +31,7 @@
                                 <input type="number" name="default_rate_limit" class="form-control" placeholder="Default Rate Limit (Optional)" aria-label="Default Rate Limit">
                             </div>
                             <div class="mb-3">
-                                <input type="number" name="default_rate_time_limit" class="form-control" placeholder="Default Rate Time Limit (Optional)" aria-label="Default Rate Time Limit">
+                                <input type="number" name="default_rate_time_limit" class="form-control" placeholder="Default Rate Time Limit (Minutes) (Optional)" aria-label="Default Rate Time Limit">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Submit</button>

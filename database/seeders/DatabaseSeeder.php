@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserAdminSeeder::class,
             QrContactTypeSeeder::class,
             OfficeSeeder::class,
+            ApplicationSettingSeeder::class,
         ]);
     }
 }

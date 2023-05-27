@@ -19,6 +19,8 @@ class ApplicationSettingController extends Controller
 
     public function create()
     {
+        abort(403, 'Page Unauthorized'); 
+
         return view('pages.application-setting.create');
     }
 

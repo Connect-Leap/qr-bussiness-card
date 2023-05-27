@@ -13,7 +13,7 @@ class CreateApplicationSetting extends BaseService implements BaseServiceInterfa
         $application_setting_model = ApplicationSetting::create([
             'default_scan_limit' => $dto['default_scan_limit'],
             'default_rate_limit' => $dto['default_rate_limit'],
-            'default_rate_time_limit' => $dto['default_rate_time_limit'],
+            'default_rate_time_limit' => ($dto['default_rate_time_limit'] * 60),
         ]);
 
         $this->results['response_code'] = 200;

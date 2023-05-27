@@ -21,7 +21,7 @@ class UpdateApplicationSetting extends BaseService implements BaseServiceInterfa
             $find_application_setting->update([
                 'default_scan_limit' => $dto['default_scan_limit'],
                 'default_rate_limit' => $dto['default_rate_limit'],
-                'default_rate_time_limit' => $dto['default_rate_time_limit'],
+                'default_rate_time_limit' => ($find_application_setting->default_rate_time_limit != $dto['default_rate_time_limit']) ? ($dto['default_rate_time_limit'] * 60) : $dto['default_rate_time_limit'],
             ]);
 
             $this->results['response_code'] = 200;
