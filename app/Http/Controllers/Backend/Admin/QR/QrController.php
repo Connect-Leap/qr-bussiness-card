@@ -76,6 +76,10 @@ class QrController extends Controller
             'application_setting' => $application_setting,
         ]);
 
+        if ($process['response_code'] == 429) {
+            abort(429);
+        }
+
         return Redirect::to($process['data']['destination'], $process['response_code']);
     }
 

@@ -28,6 +28,7 @@ class ResetQrLimitByQrId extends BaseService implements BaseServiceInterface
             } else {
                 $qr_model->update([
                     'usage_limit' => $application_setting->default_scan_limit,
+                    'status' => VALID
                 ]);
 
                 $this->results['response_code'] = 200;

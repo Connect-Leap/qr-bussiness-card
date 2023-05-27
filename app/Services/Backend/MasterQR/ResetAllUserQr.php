@@ -20,7 +20,8 @@ class ResetAllUserQr extends BaseService implements BaseServiceInterface
             $this->results['data'] = [];
         } else {
             $qr_models = QR::query()->update([
-                'usage_limit' => $application_setting->default_scan_limit
+                'usage_limit' => $application_setting->default_scan_limit,
+                'status' => VALID
             ]);
 
             $this->results['response_code'] = 200;

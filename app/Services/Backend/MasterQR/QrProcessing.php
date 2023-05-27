@@ -2,6 +2,7 @@
 
 namespace App\Services\Backend\MasterQR;
 
+use App\Models\ApplicationSetting;
 use App\Models\QR;
 use App\Models\QrVisitor;
 use App\Services\BaseService;
@@ -17,6 +18,7 @@ class QrProcessing extends BaseService implements BaseServiceInterface
     public function process($dto)
     {
         $qr_model = QR::where('id', $dto['qr_id'])->first();
+        $application_setting = ApplicationSetting::first();
 
         $qr_visitor_model = QrVisitor::create([
             'qr_id' => $qr_model->id,
@@ -24,7 +26,7 @@ class QrProcessing extends BaseService implements BaseServiceInterface
             'detail_visitor_json' => json_encode($dto['qr_visitor_data'])
         ]);
 
-        RateLimiter::attempt(
+        $throttling = RateLimiter::attempt(
             'visitor-ip:'.$this->getIp(),
             $dto['application_setting']['default_rate_limit'],
             function () use($qr_model, $qr_visitor_model) {
@@ -67,5 +69,15 @@ class QrProcessing extends BaseService implements BaseServiceInterface
             },
             $dto['application_setting']['default_rate_time_limit']
         );
+
+        if (!$throttling) {
+            $this->results['response_code'] = 429;
+            $this->results['success'] = false;
+            $this->results['message'] = 'Too Many Request, Please Try After '.$application_setting->default_rate_time_limit;
+            $this->results['data'] = [
+                'destination' => [],
+                'qr_visitor' => $qr_visitor_model
+            ];
+        }
     }
 }

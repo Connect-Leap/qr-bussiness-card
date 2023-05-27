@@ -15,11 +15,19 @@ class OfficeSeeder extends Seeder
      */
     public function run()
     {
-        Office::create([
-            'name' => 'Connect Leap',
-            'address' => 'Office Address',
-            'email' => 'cs@connectleap.com',
-            'contact' => '(012)-123123'
-        ]);
+        $offices = array();
+
+        for ($i = 0; $i <= 300; $i++) {
+            $offices[] = [
+                'name' => fake()->company(),
+                'address' => fake()->address(),
+                'email' => fake()->companyEmail(),
+                'contact' => '(012)-123123'
+            ];
+        }
+
+        foreach (array_chunk($offices, 30) as $office) {
+            Office::insert($office);
+        }
     }
 }
