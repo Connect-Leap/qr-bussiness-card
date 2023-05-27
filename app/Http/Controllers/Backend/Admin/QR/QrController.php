@@ -32,7 +32,8 @@ class QrController extends Controller
     public function create()
     {
         $roles_cannot_have_qr = ['admin', 'supervisor'];
-        $users = User::whereNotIn('role', $roles_cannot_have_qr)->latest()->get();
+        $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
+        $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
         $settings = ApplicationSetting::latest()->get();
         $contact_types = QrContactType::latest()->get();
 
