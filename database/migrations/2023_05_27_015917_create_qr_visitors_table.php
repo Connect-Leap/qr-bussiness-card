@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offices', function (Blueprint $table) {
+        Schema::create('qr_visitors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('email');
-            $table->string('contact');
+            $table->foreignId('qr_id')->constrained('qrs')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('ip_address');
+            $table->json('detail_visitor_json')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offices');
+        Schema::dropIfExists('qr_visitors');
     }
 };
