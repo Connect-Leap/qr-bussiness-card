@@ -40,6 +40,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/', [QrController::class, 'index'])->name('master-qr.index');
         Route::get('/create', [QrController::class, 'create'])->name('master-qr.create');
         Route::post('/create', [QrController::class, 'store'])->name('master-qr.store');
+        Route::get('/create-vcard', [QrController::class, 'createVcard'])->name('master-qr.create-vcard');
+        Route::post('/create-vcard', [QrController::class, 'storeVcard'])->name('master-qr.store-vcard');
         Route::get('/{id}/reset-limit', [QrController::class, 'resetUserQrCode'])->name('master-qr.reset-user-qr-code');
         Route::get('/reset-user-limit', [QrController::class, 'resetAllUserQrCode'])->name('master-qr.reset-all-user-qr-code');
         Route::get('/{id}/edit', [QrController::class, 'edit'])->name('master-qr.edit');

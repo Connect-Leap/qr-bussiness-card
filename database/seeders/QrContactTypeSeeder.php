@@ -27,6 +27,11 @@ class QrContactTypeSeeder extends Seeder
                     'format_link' => 'https://api.whatsapp.com/send?phone=',
                     'application_year' => now(),
                 ],
+                [
+                    'name' => 'VCard',
+                    'format_link' => null,
+                    'application_year' => null,
+                ],
             ]
         );
     }

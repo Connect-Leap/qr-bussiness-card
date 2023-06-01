@@ -10,6 +10,7 @@
                     <div class="d-flex gap-2">
                         <a class="btn btn-sm btn-warning" href="{{ route('master-qr.reset-all-user-qr-code') }}">Reset All Usage Limit</a>
                         <a href="{{ route('master-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
+                        <a href="{{ route('master-qr.create-vcard') }}" class="btn btn-info btn-sm">Create your QR with VCard</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -47,7 +48,7 @@
                                                     data-bs-target="#exampleModal{{$loop->index + 1}}">
                                                     Click for Show QR Code
                                                 </button>
-    
+
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="exampleModal{{$loop->index + 1}}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,10 +60,14 @@
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                                 {!! QrCode::size(300)->generate(route('master-qr.qr-processing', [
                                                                     'urlkey' => $qrcode['short_url']['url_key'],
                                                                     'qr_id' => $qrcode['qrcode']['id'],
                                                                 ])) !!}
+                                                                @else
+                                                                {!! QrCode::size(300)->generate($qrcode['qrcode']['vcard_string']) !!}
+                                                                @endif
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-danger"
@@ -84,7 +89,9 @@
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
+                                                @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                 <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
+                                                @endif
                                                 <a href="{{ route('master-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                             </td>
                                         </tr>

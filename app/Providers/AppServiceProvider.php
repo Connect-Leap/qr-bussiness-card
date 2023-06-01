@@ -11,6 +11,7 @@ use App\Services\Backend\MasterOffice\FindOfficeById;
 use App\Services\Backend\MasterOffice\ShowRelatedUser;
 use App\Services\Backend\MasterOffice\UpdateOffice;
 use App\Services\Backend\MasterQR\CreateQR;
+use App\Services\Backend\MasterQR\CreateQRVCard;
 use App\Services\Backend\MasterQR\DeleteQR;
 use App\Services\Backend\MasterQR\QrProcessing;
 use App\Services\Backend\MasterQR\ResetAllUserQr;
@@ -47,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Master QR
         $this->registerService('CreateQR', CreateQR::class);
+        $this->registerService('CreateQRVCard', CreateQRVCard::class);
         $this->registerService('QrProcessing', QrProcessing::class);
         $this->registerService('ResetQrLimitByQrId', ResetQrLimitByQrId::class);
         $this->registerService('ResetAllUserQr', ResetAllUserQr::class);
