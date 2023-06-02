@@ -21,6 +21,7 @@
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Contact Type</th>
+                                        <th class="text-center">Office</th>
                                         <th class="text-center">QR Owner (User)</th>
                                         <th class="text-center">Show QR</th>
                                         <th class="text-center">Usage Limit Remain</th>
@@ -35,6 +36,11 @@
                                             <td class="text-center">
                                                 <p class="text-sm font-weight-bold mb-0">
                                                     {{ $qrcode['qrcode']['qr_contact_types']['qr_contact_type']['name'] }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">
+                                                    {{ $qrcode['qrcode']['users']['office_name'] }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -66,7 +72,9 @@
                                                                     'qr_id' => $qrcode['qrcode']['id'],
                                                                 ])) !!}
                                                                 @else
-                                                                {!! QrCode::size(300)->generate($qrcode['qrcode']['vcard_string']) !!}
+                                                                {!! QrCode::size(300)->generate(route('master-qr.qr-vcard-processing', [
+                                                                    'qr_id' => $qrcode['qrcode']['id']
+                                                                ])) !!}
                                                                 @endif
                                                             </div>
                                                             <div class="modal-footer">

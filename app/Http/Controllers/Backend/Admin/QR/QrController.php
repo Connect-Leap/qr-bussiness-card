@@ -120,6 +120,20 @@ class QrController extends Controller
         return Redirect::to($process['data']['destination'], $process['response_code']);
     }
 
+    public function QrVcardProcessing(QrProcessingResource $qrProcessingResource, $qr_id)
+    {
+        $qr_visitor_data = $qrProcessingResource->toArray(Location::get($this->getIp()));
+
+        $process = app('QrVcardProcessing')->execute([
+            'qr_id' => $qr_id,
+            'qr_visitor_data' => $qr_visitor_data,
+        ]);
+
+        if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
+
+        return response()->json($process['data']['vcard_string']);
+    }
+
     public function edit($id)
     {
         $qr = QR::where('id', $id)->first();

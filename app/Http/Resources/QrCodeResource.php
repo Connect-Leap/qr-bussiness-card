@@ -14,7 +14,6 @@ class QrCodeResource
      */
     public function toArray($qr_model)
     {
-
         $merge_array = array();
 
         foreach($qr_model as $qr) {
@@ -31,10 +30,11 @@ class QrCodeResource
                     ],
                     'users' =>  [
                         'id' => $qr->user_id,
-                        'email' => $qr->user->email
+                        'email' => $qr->user->email,
+                        'office_name' => $qr->user->office->name,
                     ],
                     'redirect_link' => $qr->redirect_link ?? null,
-                    'vcard_string' => $qr->vcard_string,
+                    'vcard_string' => $qr->vcard_string ?? null,
                     'usage_limit' => $qr->usage_limit,
                     'status' => $qr->status,
                 ],
