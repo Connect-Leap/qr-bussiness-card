@@ -9,6 +9,7 @@
         "ashallendesign/short-url": "^7.6",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
+        "jeroendesloovere/vcard": "^1.7",
         "laravel-frontend-presets/argon": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

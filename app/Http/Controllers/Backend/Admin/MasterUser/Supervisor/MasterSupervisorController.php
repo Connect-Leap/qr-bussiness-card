@@ -67,6 +67,7 @@ class MasterSupervisorController extends Controller
             'gender' => $request->gender,
             'email' => $request->email,
             'password' => $request->password,
+            'phone_number' => null,
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
