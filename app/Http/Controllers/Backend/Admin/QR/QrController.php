@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Backend\Admin\QR;
 
+use App\Models\QR;
+use App\Models\User;
+use App\Traits\ClientIp;
+use Illuminate\Http\Request;
+use App\Models\QrContactType;
+use Illuminate\Http\Response;
+use App\Models\ApplicationSetting;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QrCodeResource;
-use App\Http\Resources\QrProcessingResource;
-use App\Models\ApplicationSetting;
-use App\Models\QR;
-use App\Models\QrContactType;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use AshAllenDesign\ShortURL\Models\ShortURL;
-use App\Traits\ClientIp;
-use Stevebauman\Location\Facades\Location;
 use JeroenDesloovere\VCard\VCardParser;
+use Illuminate\Support\Facades\Redirect;
+use Stevebauman\Location\Facades\Location;
+use App\Http\Resources\QrProcessingResource;
+use AshAllenDesign\ShortURL\Models\ShortURL;
 
 class QrController extends Controller
 {
@@ -132,7 +133,7 @@ class QrController extends Controller
 
         if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
 
-        return new VCardParser($process['data']['vcard_string']);
+        return response($process['data']['vcard_string'], 200);
     }
 
     public function edit($id)
