@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use AshAllenDesign\ShortURL\Models\ShortURL;
 use App\Traits\ClientIp;
 use Stevebauman\Location\Facades\Location;
+use JeroenDesloovere\VCard\VCardParser;
 
 class QrController extends Controller
 {
@@ -131,7 +132,7 @@ class QrController extends Controller
 
         if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
 
-        return response()->json($process['data']['vcard_string']);
+        return new VCardParser($process['data']['vcard_string']);
     }
 
     public function edit($id)
