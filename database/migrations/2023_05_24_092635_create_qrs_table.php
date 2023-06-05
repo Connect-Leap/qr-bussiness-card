@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('redirect_link');
+            $table->longText('redirect_link')->nullable();
+            $table->longText('vcard_string')->nullable();
             $table->integer('usage_limit');
             $table->enum('status', ['valid', 'invalid']);
             $table->timestamps();

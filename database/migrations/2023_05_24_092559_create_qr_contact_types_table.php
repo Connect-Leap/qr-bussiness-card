@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('qr_contact_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('format_link');
-            $table->timestamp('application_year');
+            $table->string('format_link')->nullable();
+            $table->timestamp('application_year')->nullable();
             $table->timestamps();
         });
     }

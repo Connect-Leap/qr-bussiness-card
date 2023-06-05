@@ -27,7 +27,8 @@ class CreateUser extends BaseService implements BaseServiceInterface
                 'password' => Hash::make($dto['password']),
                 'role' => $dto['role'],
                 'gender' => $dto['gender'],
-                'remember_token' => Str::random(10)
+                'remember_token' => Str::random(10),
+                'phone_number' => $dto['phone_number'],
             ]);
 
             if ($dto['role'] == 'supervisor') {

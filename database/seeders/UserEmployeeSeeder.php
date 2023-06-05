@@ -26,6 +26,7 @@ class UserEmployeeSeeder extends Seeder
                 'gender' => fake()->randomElement(['male', 'female']),
                 'email' => fake()->email(),
                 'password' => '123123',
+                'phone_number' => '081290240392',
                 'department_name' => 'Department A',
                 'user_position' => fake()->jobTitle(),
                 'user_position_period' => now()->format('Y'),

@@ -35,12 +35,27 @@ class QrController extends Controller
         $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
         $settings = ApplicationSetting::latest()->get();
-        $contact_types = QrContactType::latest()->get();
+        $contact_types = QrContactType::where('name', '!=', 'VCard')->latest()->get();
 
         return view('pages.master-qr.create', [
             'users' => $users,
             'settings' => $settings,
             'contact_types' => $contact_types,
+        ]);
+    }
+
+    public function createVcard()
+    {
+        $roles_cannot_have_qr = ['admin', 'supervisor'];
+        $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
+        $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
+        $settings = ApplicationSetting::latest()->get();
+        $contact_type = QrContactType::where('name', 'VCard')->first();
+
+        return view('pages.master-qr.create-vcard', [
+            'users' => $users,
+            'settings' => $settings,
+            'contact_type' => $contact_type,
         ]);
     }
 
@@ -57,6 +72,26 @@ class QrController extends Controller
             'qr_contact_type_id' => $request->qr_contact_type_id,
             'user_id' => $request->user_id,
             'redirect_link' => $request->redirect_link,
+            'usage_limit' => $request->usage_limit,
+            'status' => VALID,
+        ]);
+
+        if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();
+
+        return redirect()->route('master-qr.index')->with('success', $process['message']);
+    }
+
+    public function storeVcard(Request $request)
+    {
+        $request->validate([
+            'qr_contact_type_id' => ['required'],
+            'user_id' => ['required'],
+            'usage_limit' => ['required'],
+        ]);
+
+        $process = app('CreateQRVCard')->execute([
+            'qr_contact_type_id' => $request->qr_contact_type_id,
+            'user_id' => $request->user_id,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,
         ]);
@@ -83,6 +118,20 @@ class QrController extends Controller
         }
 
         return Redirect::to($process['data']['destination'], $process['response_code']);
+    }
+
+    public function QrVcardProcessing(QrProcessingResource $qrProcessingResource, $qr_id)
+    {
+        $qr_visitor_data = $qrProcessingResource->toArray(Location::get($this->getIp()));
+
+        $process = app('QrVcardProcessing')->execute([
+            'qr_id' => $qr_id,
+            'qr_visitor_data' => $qr_visitor_data,
+        ]);
+
+        if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
+
+        return response()->json($process['data']['vcard_string']);
     }
 
     public function edit($id)
