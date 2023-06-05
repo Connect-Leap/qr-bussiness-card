@@ -29,6 +29,4 @@ class QR extends Model
     {
         return $this->hasMany(QrVisitor::class, 'qr_id', 'id');
     }
-
-
 }
