@@ -5,6 +5,7 @@ namespace App\Services\Backend\MasterQR;
 use App\Models\QR;
 use App\Services\BaseService;
 use App\Services\BaseServiceInterface;
+use Illuminate\Support\Facades\Storage;
 
 class DeleteQR extends BaseService implements BaseServiceInterface
 {
@@ -18,6 +19,7 @@ class DeleteQR extends BaseService implements BaseServiceInterface
             $this->results['message'] = 'QR Not Found';
             $this->results['data'] = [];
         } else {
+
             $qr_model->delete();
 
             $this->results['response_code'] = 200;
