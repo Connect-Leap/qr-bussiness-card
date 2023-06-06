@@ -131,9 +131,7 @@ class QrController extends Controller
             'qr_visitor_data' => $qr_visitor_data,
         ]);
 
-        if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
-
-        return response($process['data']['vcard_string'], 200);
+        return Redirect::to($process['data']['destination'], $process['response_code']);
     }
 
     public function edit($id)
