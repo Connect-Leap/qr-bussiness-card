@@ -12,3 +12,8 @@ function whatsappNumberFormatter($url)
 
     return $url;
 }
+
+function storageLinkFormatter(string $path, string $content, string $extension)
+{
+    return url($path).'/'.$content.'.'.$extension;
+}
