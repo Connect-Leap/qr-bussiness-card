@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\Auth\DoLogin;
 use App\Services\Backend\Configuration\CreateApplicationSetting;
 use App\Services\Backend\Configuration\UpdateApplicationSetting;
+use App\Services\Backend\FileStorage\StoreToFileStorage;
 use App\Services\Backend\MasterOffice\CreateOffice;
 use App\Services\Backend\MasterOffice\DeleteOffice;
 use App\Services\Backend\MasterOffice\FindOfficeById;
@@ -60,6 +61,9 @@ class AppServiceProvider extends ServiceProvider
         // Application Configuration
         $this->registerService('CreateApplicationSetting', CreateApplicationSetting::class);
         $this->registerService('UpdateApplicationSetting', UpdateApplicationSetting::class);
+
+        // FileStorage
+        $this->registerService('StoreToFileStorage', StoreToFileStorage::class);
     }
 
     /**

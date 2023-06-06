@@ -7,7 +7,6 @@ use App\Models\ApplicationSetting;
 use App\Models\QR;
 use App\Models\QrVisitor;
 use App\Services\BaseServiceInterface;
-use JeroenDesloovere\VCard\VCardParser;
 
 class QrVcardProcessing extends BaseService implements BaseServiceInterface
 {
@@ -24,6 +23,8 @@ class QrVcardProcessing extends BaseService implements BaseServiceInterface
             ]);
 
             if ($qr_model->usage_limit >= 1 && $qr_model->status == VALID) {
+                $get_qr_pivot_content = $qr_model->fileStorage()->first();
+
                 $qr_model->update([
                     'usage_limit' => ($qr_model->usage_limit - 1),
                     'status' => VALID
@@ -33,8 +34,7 @@ class QrVcardProcessing extends BaseService implements BaseServiceInterface
                 $this->results['success'] = true;
                 $this->results['message'] = 'Redirect Sucecssfully';
                 $this->results['data'] = [
-                    'vcard_string' => $qr_model->vcard_string,
-                    'vcard_header' => new VCardParser($qr_model->vcard_string),
+                    'destination' => $get_qr_pivot_content->file_url,
                     'qr_visitor' => $qr_visitor_model
                 ];
             } elseif ($qr_model->usage_limit == 0 && $qr_model->status == VALID) {

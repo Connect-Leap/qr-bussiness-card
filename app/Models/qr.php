@@ -30,5 +30,10 @@ class QR extends Model
         return $this->hasMany(QrVisitor::class, 'qr_id', 'id');
     }
 
+    public function fileStorage()
+    {
+        return $this->belongsToMany(FileStorage::class, 'qr_file_storages', 'qr_id', 'file_storage_id');
+    }
+
 
 }
