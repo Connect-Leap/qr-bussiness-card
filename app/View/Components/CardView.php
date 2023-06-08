@@ -6,14 +6,16 @@ use Illuminate\View\Component;
 
 class CardView extends Component
 {
+    public $user, $qr;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $qr)
     {
-        //
+        $this->user = $user;
+        $this->qr = $qr;
     }
 
     /**
