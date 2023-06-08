@@ -74,3 +74,12 @@ require __DIR__ . '/auth.php';
 
 Route::get('/short/{urlkey}/{qr_id}', [QrController::class, 'QrProcessing'])->name('master-qr.qr-processing');
 Route::get('/short/{qr_id}/vcard/process', [QrController::class, 'QrVcardProcessing'])->name('master-qr.qr-vcard-processing');
+
+// Law Policy
+Route::get('/privacy-policy', function () {
+    return view('pages.law-policy.privacy-policy');
+});
+
+Route::get('/terms-and-agreement', function () {
+    return view('pages.law-policy.terms-and-agreement');
+});
