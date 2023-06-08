@@ -78,8 +78,8 @@ Route::get('/short/{qr_id}/vcard/process', [QrController::class, 'QrVcardProcess
 // Law Policy
 Route::get('/privacy-policy', function () {
     return view('pages.law-policy.privacy-policy');
-});
+})->name('privacy-policy');
 
 Route::get('/terms-and-agreement', function () {
     return view('pages.law-policy.terms-and-agreement');
-});
+})->name('terms-and-agreement');
