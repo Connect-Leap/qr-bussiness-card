@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserNationality::class, 'user_id', 'id');
     }
+
+    public function Qr()
+    {
+        return $this->hasOne(QR::class, 'user_id', 'id');
+    }
 }
