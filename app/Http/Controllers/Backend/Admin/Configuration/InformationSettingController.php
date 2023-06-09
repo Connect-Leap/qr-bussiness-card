@@ -12,6 +12,11 @@ class InformationSettingController extends Controller
     {
         $information_setting = InformationSetting::first();
 
+        if (!is_null($information_setting->expired_date)) {
+            $day_counter = ceil((strtotime($information_setting->expired_date) - time())/86400);
+            $day_counter = $day_counter. ' Days Remain';
+        }
+
         // Midtrans Get Snap Token
         if (!is_null($information_setting->stakeholder_email)) {
             $midtrans = app('GetTransactionSnapToken')->execute([
@@ -26,6 +31,9 @@ class InformationSettingController extends Controller
             'midtrans' => (!is_null($information_setting->stakeholder_email))
                             ? ['snap_token' => $midtrans['data']['snap_token']]
                             : [],
+            'day_counter' => (!is_null($information_setting->expired_date))
+                            ? $day_counter
+                            : [],
         ]);
     }
 
@@ -39,5 +47,20 @@ class InformationSettingController extends Controller
         ]);
 
         return redirect()->back()->with('success', $process['message']);
+    }
+
+    public function checkoutOrder(Request $request)
+    {
+        $process = app('CheckoutTransaction')->execute([
+            'checkout_data_json' => $request->get('checkout_data_json'),
+            'information_setting_id' => $request->get('information_setting_id'),
+            'transaction_voucher_id' => null,
+            'expired_date_until' => date('Y-m-d H:i:s', strtotime(now(). ' + 365 days')),
+            'snap_token' => null,
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
     }
 }

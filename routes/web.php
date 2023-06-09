@@ -68,6 +68,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::group(['prefix' => 'information-setting'], function () {
             Route::get('/', [InformationSettingController::class, 'showInformationSetting'])->name('information-setting.index');
             Route::put('/update', [InformationSettingController::class, 'updateInformationSetting'])->name('information-setting.update');
+            Route::post('/checkout-order', [InformationSettingController::class, 'checkoutOrder'])->name('information-setting.checkout-order');
         });
     });
 

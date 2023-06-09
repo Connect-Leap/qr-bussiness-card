@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Actions\Midtrans\GetTransactionSnapToken;
 use App\Services\Auth\DoLogin;
+use App\Services\Backend\Configuration\CheckoutTransaction;
 use App\Services\Backend\Configuration\CreateApplicationSetting;
 use App\Services\Backend\Configuration\UpdateApplicationSetting;
 use App\Services\Backend\Configuration\UpdateInformationSetting;
@@ -75,6 +76,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Information Setting
         $this->registerService('UpdateInformationSetting', UpdateInformationSetting::class);
+        $this->registerService('CheckoutTransaction', CheckoutTransaction::class);
 
         // FileStorage
         $this->registerService('StoreToFileStorage', StoreToFileStorage::class);

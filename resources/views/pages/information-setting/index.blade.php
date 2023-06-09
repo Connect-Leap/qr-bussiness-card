@@ -7,9 +7,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
                     <h6>Information Setting</h6>
-                    <form action="" method="POST" id="post-data">
+                    <form action="{{ route('information-setting.checkout-order') }}" method="POST" id="post-data">
                         @csrf
-                        <input type="hidden" name="json" id="collect-data">
+                        <input type="hidden" name="checkout_data_json" id="collect-data">
+                        <input type="hidden" name="information_setting_id" value="{{ $information_setting->id }}">
                     </form>
                     <button id="pay-button" class="btn btn-xs btn-primary text-white"
                         {{ !is_null($information_setting->stakeholder_email) ? '' : 'disabled' }}>Extend Expired
@@ -62,7 +63,7 @@
                             <div class="my-4">
                                 <input type="text" class="form-control" placeholder="Expired Date"
                                     aria-label="Expired Date"
-                                    value="{{ old('expired_date', $information_setting->expired_date) }}" disabled>
+                                    value="{{ (!is_null($information_setting->expired_date)) ? $day_counter : '' }}" disabled>
                             </div>
 
                             <div class="d-grid mb-3">
@@ -82,6 +83,7 @@
     <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
 @endpush
 
+@if (!is_null($information_setting->stakeholder_email))
 @push('js')
     <script type="text/javascript">
         // For example trigger on button clicked, or any time you need
@@ -117,3 +119,4 @@
         }
     </script>
 @endpush
+@endif
