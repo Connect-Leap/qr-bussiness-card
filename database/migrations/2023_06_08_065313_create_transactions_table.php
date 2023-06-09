@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('transaction_time');
             $table->string('payment_type');
             $table->text('payment_pdf_url');
-            $table->timestamp('expired_date_until');
+            $table->timestamp('expired_date_until')->nullable();
             $table->text('snap_token');
             $table->timestamps();
         });
