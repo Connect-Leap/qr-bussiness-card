@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Admin\Configuration\ApplicationSettingController;
+use App\Http\Controllers\Backend\Admin\Configuration\InformationSettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
 use App\Http\Controllers\Backend\Admin\MasterOffice\DetailMasterOffice;
@@ -62,6 +63,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
             Route::post('/create', [ApplicationSettingController::class, 'store'])->name('application-setting.store');
             Route::get('/{id}/edit', [ApplicationSettingController::class, 'edit'])->name('application-setting.edit');
             Route::put('/{id}', [ApplicationSettingController::class, 'update'])->name('application-setting.update');
+        });
+
+        Route::group(['prefix' => 'information-setting'], function () {
+            Route::get('/', [InformationSettingController::class, 'showInformationSetting'])->name('information-setting.index');
+            Route::put('/update', [InformationSettingController::class, 'updateInformationSetting'])->name('information-setting.update');
         });
     });
 
