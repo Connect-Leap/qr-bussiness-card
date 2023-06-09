@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('application_name');
             $table->string('application_version');
             $table->text('application_description');
+            $table->string('stakeholder_email')->nullable();
             $table->timestamp('expired_date')->nullable();
             $table->timestamps();
         });

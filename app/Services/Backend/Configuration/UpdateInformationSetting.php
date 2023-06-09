@@ -22,6 +22,7 @@ class UpdateInformationSetting extends BaseService implements BaseServiceInterfa
                 'application_name' => $dto['application_name'],
                 'application_version' => $dto['application_version'],
                 'application_description' => $dto['application_description'],
+                'stakeholder_email' => $dto['stakeholder_email'],
             ]);
 
             $this->results['response_code'] = 200;

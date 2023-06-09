@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\Midtrans\GetTransactionSnapToken;
 use App\Services\Auth\DoLogin;
 use App\Services\Backend\Configuration\CreateApplicationSetting;
 use App\Services\Backend\Configuration\UpdateApplicationSetting;
@@ -34,6 +35,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Actions
+        $this->registerService('GetTransactionSnapToken', GetTransactionSnapToken::class);
+
+
+
+        // End Actions
+
+
+
         // Login
         $this->registerService('DoLogin', DoLogin::class);
 
