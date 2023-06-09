@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('information_settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('application_name');
-            $table->string('application_version');
-            $table->text('application_description');
-            $table->timestamp('expired_date')->nullable();
-            $table->timestamps();
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->foreignId('information_setting_id')->constrained('information_settings')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 
@@ -30,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('information_settings');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('information_setting_id');
+        });
     }
 };

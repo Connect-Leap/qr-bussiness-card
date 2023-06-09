@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('transaction_vouchers', function (Blueprint $table) {
             $table->id();
+            $table->string('voucher_code');
+            $table->double('discount');
+            $table->integer('quota');
+            $table->enum('status', ['valid', 'invalid']);
+            $table->timestamp('expired_date');
             $table->timestamps();
         });
     }

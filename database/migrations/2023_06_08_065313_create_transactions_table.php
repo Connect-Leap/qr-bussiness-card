@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_code')->nullable();
+            $table->unsignedBigInteger('transaction_voucher_id');
+            $table->double('price');
+            $table->double('total_price');
+            $table->timestamp('transaction_time');
+            $table->string('payment_type');
+            $table->text('payment_pdf_url');
+            $table->timestamp('expired_date_until');
+            $table->text('snap_token');
             $table->timestamps();
         });
     }
