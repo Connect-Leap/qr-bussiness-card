@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserAdminSeeder::class,
             QrContactTypeSeeder::class,
-            OfficeSeeder::class,
             ApplicationSettingSeeder::class,
-            UserEmployeeSeeder::class,
+            InformationSettingSeeder::class,
+            // OfficeSeeder::class,
+            // UserEmployeeSeeder::class,
         ]);
     }
 }

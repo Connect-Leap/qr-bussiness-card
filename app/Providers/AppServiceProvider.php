@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Actions\Midtrans\GetTransactionSnapToken;
 use App\Services\Auth\DoLogin;
+use App\Services\Backend\Configuration\CheckoutTransaction;
 use App\Services\Backend\Configuration\CreateApplicationSetting;
 use App\Services\Backend\Configuration\UpdateApplicationSetting;
+use App\Services\Backend\Configuration\UpdateInformationSetting;
 use App\Services\Backend\FileStorage\StoreToFileStorage;
 use App\Services\Backend\MasterOffice\CreateOffice;
 use App\Services\Backend\MasterOffice\DeleteOffice;
@@ -33,6 +36,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Actions
+        $this->registerService('GetTransactionSnapToken', GetTransactionSnapToken::class);
+
+
+
+        // End Actions
+
+
+
         // Login
         $this->registerService('DoLogin', DoLogin::class);
 
@@ -61,6 +73,10 @@ class AppServiceProvider extends ServiceProvider
         // Application Configuration
         $this->registerService('CreateApplicationSetting', CreateApplicationSetting::class);
         $this->registerService('UpdateApplicationSetting', UpdateApplicationSetting::class);
+
+        // Information Setting
+        $this->registerService('UpdateInformationSetting', UpdateInformationSetting::class);
+        $this->registerService('CheckoutTransaction', CheckoutTransaction::class);
 
         // FileStorage
         $this->registerService('StoreToFileStorage', StoreToFileStorage::class);

@@ -28,6 +28,8 @@
     <!-- Jquery Datatable Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 
+    @stack('app')
+
 </head>
 
 <body class="{{ $class ?? '' }}">
