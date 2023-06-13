@@ -17,6 +17,8 @@ class CheckoutTransaction extends BaseService implements BaseServiceInterface
         try {
             $checkout_data_json = json_decode($dto['checkout_data_json']);
 
+            $update_information_setting = InformationSetting::where('id', $dto['information_setting_id'])->first();
+
             $transaction = Transaction::create([
                 'information_setting_id' => $dto['information_setting_id'],
                 'transaction_code' => $checkout_data_json->transaction_id,
@@ -27,14 +29,12 @@ class CheckoutTransaction extends BaseService implements BaseServiceInterface
                 'transaction_status' => $checkout_data_json->transaction_status,
                 'payment_type' => $checkout_data_json->payment_type,
                 'payment_pdf_url' => $checkout_data_json->pdf_url,
-                'expired_date_until' => $dto['expired_date_until'],
+                'expired_date_until' => (!is_null($update_information_setting->expired_date)) ? date('Y-m-d H:i:s', strtotime($update_information_setting->expired_date. ' + 365 days')) : date('Y-m-d H:i:s', strtotime(now(). ' + 365 days')),
                 'snap_token' => $dto['snap_token'],
             ]);
 
-            $update_information_setting = InformationSetting::where('id', $dto['information_setting_id'])->first();
-
             $update_information_setting->update([
-                'expired_date' => $transaction['expired_date_until']
+                'expired_date' => (!is_null($update_information_setting->expired_date)) ? date('Y-m-d H:i:s', strtotime($update_information_setting->expired_date. ' + 365 days')) : $transaction['expired_date_until'],
             ]);
 
             DB::commit();

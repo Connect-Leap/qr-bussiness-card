@@ -17,6 +17,22 @@ class InformationSettingController extends Controller
             $day_counter = $day_counter. ' Days Remain';
         }
 
+        return view('pages.information-setting.index', [
+            'information_setting' => $information_setting,
+            'day_counter' => (!is_null($information_setting->expired_date))
+                            ? $day_counter
+                            : [],
+        ]);
+    }
+
+    public function showCheckoutTransactionPage()
+    {
+        $information_setting = InformationSetting::first();
+
+        if (is_null($information_setting->stakeholder_email)) {
+            abort(503);
+        }
+
         // Midtrans Get Snap Token
         if (!is_null($information_setting->stakeholder_email)) {
             $midtrans = app('GetTransactionSnapToken')->execute([
@@ -26,20 +42,12 @@ class InformationSettingController extends Controller
             ]);
         } // end
 
-        return view('pages.information-setting.index', [
+        return view('pages.information-setting.order-transaction', [
             'information_setting' => $information_setting,
             'midtrans' => (!is_null($information_setting->stakeholder_email))
                             ? ['snap_token' => $midtrans['data']['snap_token']]
                             : [],
-            'day_counter' => (!is_null($information_setting->expired_date))
-                            ? $day_counter
-                            : [],
         ]);
-    }
-
-    public function showCheckoutTransactionPage()
-    {
-        return view('pages.information-setting.order-transaction');
     }
 
     public function updateInformationSetting(Request $request)
@@ -60,12 +68,11 @@ class InformationSettingController extends Controller
             'checkout_data_json' => $request->get('checkout_data_json'),
             'information_setting_id' => $request->get('information_setting_id'),
             'transaction_voucher_id' => null,
-            'expired_date_until' => date('Y-m-d H:i:s', strtotime(now(). ' + 365 days')),
             'snap_token' => null,
         ]);
 
         $status = ($process['success'] == true) ? 'success' : 'fail';
 
-        return redirect()->back()->with($status, $process['message']);
+        return redirect()->route('information-setting.index')->with($status, $process['message']);
     }
 }
