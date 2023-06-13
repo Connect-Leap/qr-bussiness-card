@@ -37,6 +37,11 @@ class InformationSettingController extends Controller
         ]);
     }
 
+    public function showCheckoutTransactionPage()
+    {
+        return view('pages.information-setting.order-transaction');
+    }
+
     public function updateInformationSetting(Request $request)
     {
         $process = app('UpdateInformationSetting')->execute([

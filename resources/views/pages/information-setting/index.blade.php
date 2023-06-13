@@ -15,6 +15,7 @@
                     <button id="pay-button" class="btn btn-xs btn-primary text-white"
                         {{ !is_null($information_setting->stakeholder_email) ? '' : 'disabled' }}>Extend Expired
                         Date</button>
+                    <a href="{{ route('information-setting.order-page') }}" class="btn btn-xs btn-primary text-white">Extend Expired Date</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
