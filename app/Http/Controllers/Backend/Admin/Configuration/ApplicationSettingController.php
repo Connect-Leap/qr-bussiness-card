@@ -10,6 +10,12 @@ class ApplicationSettingController extends Controller
 {
     public function index()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-application-setting')) {
+            $this->throwUnauthorizedException(['show-application-setting']);
+        }
+        // End Gate
+
         $settings = ApplicationSetting::latest()->get();
 
         return view('pages.application-setting.index', [
@@ -19,13 +25,15 @@ class ApplicationSettingController extends Controller
 
     public function create()
     {
-        abort(403, 'Page Unauthorized'); 
+        abort(403, 'Page Unauthorized');
 
         return view('pages.application-setting.create');
     }
 
     public function store(Request $request)
     {
+        abort(403, 'Page Unauthorized');
+
         $request->validate([
             'default_scan_limit' => ['required'],
         ]);
@@ -41,6 +49,12 @@ class ApplicationSettingController extends Controller
 
     public function edit($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('edit-application-setting')) {
+            $this->throwUnauthorizedException(['edit-application-setting']);
+        }
+        // End Gate
+
         $setting = ApplicationSetting::where('id', $id)->first();
 
         return view('pages.application-setting.edit', [
@@ -50,6 +64,12 @@ class ApplicationSettingController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-application-setting')) {
+            $this->throwUnauthorizedException(['update-application-setting']);
+        }
+        // End Gate
+
         $request->validate([
             'default_scan_limit' => ['required'],
         ]);
