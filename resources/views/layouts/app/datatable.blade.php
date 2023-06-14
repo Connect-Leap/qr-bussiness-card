@@ -1,9 +1,11 @@
 <script>
+    $.fn.dataTable.ext.errMode = 'none';
+
     $('.datatable-jquery').DataTable({
         language: {
             paginate: {
                 next: '&#8594;', // or '→'
-                previous: '&#8592;' // or '←' 
+                previous: '&#8592;' // or '←'
             }
         }
     });
