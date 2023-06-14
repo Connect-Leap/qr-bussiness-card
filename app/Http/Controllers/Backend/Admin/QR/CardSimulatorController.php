@@ -12,6 +12,12 @@ class CardSimulatorController extends Controller
 {
     public function findUserView(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-find-card-simulator')) {
+            $this->throwUnauthorizedException(['show-find-card-simulator']);
+        }
+        // End Gate
+
         $users = User::where('role', 'employee')->latest()->get()->filter(function ($value) {
             return $value->Qr !== null;
         })->values();
@@ -23,6 +29,12 @@ class CardSimulatorController extends Controller
 
     public function showCard(QrCodeResource $qrCodeResource)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-card-simulator-page')) {
+            $this->throwUnauthorizedException(['show-card-simulator-page']);
+        }
+        // End Gate
+
         $user = User::where('id', request()->get('user_id'))->where('role', 'employee')->first();
         $qr = $qrCodeResource->toArray(QR::where('user_id', $user->id)->get());
 
