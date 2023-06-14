@@ -73,21 +73,19 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         });
     });
 
-	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
+    // Law Policy
+    Route::get('/privacy-policy', function () {
+        return view('pages.law-policy.privacy-policy');
+    })->name('privacy-policy');
+
+    Route::get('/terms-and-agreement', function () {
+        return view('pages.law-policy.terms-and-agreement');
+    })->name('terms-and-agreement');
 });
 
 // Authentication Route
 require __DIR__ . '/auth.php';
 
-Route::get('/short/{urlkey}/{qr_id}', [QrController::class, 'QrProcessing'])->name('master-qr.qr-processing');
-Route::get('/short/{qr_id}/vcard/process', [QrController::class, 'QrVcardProcessing'])->name('master-qr.qr-vcard-processing');
+// Short Url Route
+require __DIR__ . '/short-url.php';
 
-// Law Policy
-Route::get('/privacy-policy', function () {
-    return view('pages.law-policy.privacy-policy');
-})->name('privacy-policy');
-
-Route::get('/terms-and-agreement', function () {
-    return view('pages.law-policy.terms-and-agreement');
-})->name('terms-and-agreement');

@@ -158,4 +158,61 @@ return [
 
         'store' => 'default',
     ],
+
+    'list-permission' => [
+        // Office Permission
+        'show-office',
+        'create-office',
+        'store-office',
+        'edit-office',
+        'update-office',
+        'delete-office',
+
+        //Show All User Permission
+        'show-all-users',
+
+        // Supervisor Permission
+        'show-supervisor',
+        'create-supervisor',
+        'store-supervisor',
+        'edit-supervisor',
+        'update-supervisor',
+        'delete-supervisor',
+
+        // Employee Permission
+        'show-employee',
+        'create-employee',
+        'store-employee',
+        'edit-employee',
+        'update-employee',
+        'delete-employee',
+
+        // QR Page Permission
+        'show-qr',
+        'show-detail-qr',
+        'create-qr',
+        'create-qr-vcard',
+        'store-qr',
+        'store-qr-vcard',
+        'edit-qr',
+        'update-qr',
+        'delete-qr',
+        'reset-specified-qr',
+        'reset-all-qr',
+
+        // Card Simulator Permission
+        'show-find-card-simulator',
+        'show-card-simulator-page',
+
+        // Application Setting Permission
+        'show-application-setting',
+        'edit-application-setting',
+        'update-application-setting',
+
+        // Information Setting Permission
+        'show-information-setting',
+        'update-information-setting',
+        'show-checkout-transaction',
+
+    ],
 ];

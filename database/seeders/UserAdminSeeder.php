@@ -48,5 +48,6 @@ class UserAdminSeeder extends Seeder
         ]);
 
         $created_user->assignRole('admin');
+        $created_user->givePermissionTo(config('permission.list-permission'));
     }
 }
