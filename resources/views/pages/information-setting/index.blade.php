@@ -7,7 +7,9 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
                     <h6>Information Setting</h6>
+                    @can('show-checkout-transaction')
                     <a href="{{ route('information-setting.order-page') }}" class="btn btn-xs btn-primary text-white {{ !is_null($information_setting->stakeholder_email) ? '' : 'disabled' }}">Extend Expired Date</a>
+                    @endcan
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
@@ -28,7 +30,7 @@
                             <div class="my-4">
                                 <input type="text" name="application_name" class="form-control"
                                     placeholder="Application Name" aria-label="Application Name"
-                                    value="{{ old('application_name', $information_setting->application_name) }}">
+                                    value="{{ old('application_name', $information_setting->application_name) }}" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>
                             </div>
 
                             <div class="my-4">
@@ -39,18 +41,20 @@
                             </div>
 
                             <div class="my-4">
-                                <textarea name="application_description" rows="3" placeholder="Application Description" class="form-control">{{ old('application_description', $information_setting->application_description) }}</textarea>
+                                <textarea name="application_description" rows="3" placeholder="Application Description" class="form-control" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>{{ old('application_description', $information_setting->application_description) }}</textarea>
                             </div>
 
                             <div class="my-4">
                                 <input type="email" class="form-control" placeholder="Stakeholder Email"
                                     aria-label="Stakeholder Email"
                                     value="{{ old('stakeholder_email', $information_setting->stakeholder_email) }}"
-                                    name="stakeholder_email">
-                                @if (is_null($information_setting->stakeholder_email))
-                                    <small class="text-danger">please fill these column to verified this application is
-                                        yours</small>
-                                @endif
+                                    name="stakeholder_email" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>
+                                @can('update-information-setting')
+                                    @if (is_null($information_setting->stakeholder_email))
+                                        <small class="text-danger">please fill these column to verified this application is
+                                            yours</small>
+                                    @endif
+                                @endcan
                             </div>
 
                             <div class="my-4">
@@ -60,7 +64,7 @@
                             </div>
 
                             <div class="d-grid mb-3">
-                                <button type="submit" class="btn btn-info">Update</button>
+                                <button type="submit" class="btn btn-info text-white" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>Update</button>
                             </div>
                         </form>
                     </div>

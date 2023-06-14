@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
+                <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
@@ -21,6 +21,7 @@
                 </a>
             </li>
 
+            @can('show-office')
             {{-- Master Office --}}
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master Office</h6>
@@ -35,7 +36,7 @@
                 </a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('management-office.index') }}">
+                <a class="nav-link {{ request()->routeIs('management-office.*') ? 'active' : '' }}" href="{{ route('management-office.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
@@ -43,20 +44,22 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('detail-master-office.index') }}">
+                <a class="nav-link {{ request()->routeIs('detail-master-office.*') ? 'active' : '' }}" href="{{ route('detail-master-office.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Detail Office</span>
                 </a>
             </li>
+            @endcan
 
             {{-- Master User --}}
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master User</h6>
             </li>
+            @can('show-all-users')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('master-user.all') }}">
+                <a class="nav-link {{ request()->routeIs('master-user.all') ? 'active' : '' }}" href="{{ route('master-user.all') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -64,8 +67,11 @@
                     <span class="nav-link-text ms-1">All Users</span>
                 </a>
             </li>
+            @endcan
+
+            @can('show-supervisor')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('management-supervisor.index') }}">
+                <a class="nav-link {{ request()->routeIs('management-supervisor.*') ? 'active' : '' }}" href="{{ route('management-supervisor.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -73,8 +79,11 @@
                     <span class="nav-link-text ms-1">Supervisor</span>
                 </a>
             </li>
+            @endcan
+
+            @can('show-employee')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('management-employee.index') }}">
+                <a class="nav-link {{ request()->routeIs('management-employee.*') ? 'active' : '' }}" href="{{ route('management-employee.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
@@ -82,12 +91,15 @@
                     <span class="nav-link-text ms-1">Employee</span>
                 </a>
             </li>
+            @endcan
 
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">QR</h6>
             </li>
+
+            @can('show-qr')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('master-qr.index') }}">
+                <a class="nav-link {{ request()->routeIs('master-qr.*') ? 'active' : '' }}" href="{{ route('master-qr.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-folder-17 text-warning text-sm opacity-10"></i>
@@ -95,8 +107,11 @@
                     <span class="nav-link-text ms-1">Master QR</span>
                 </a>
             </li>
+            @endcan
+
+            @can('show-find-card-simulator')
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('card-simulator.index') }}">
+                <a class="nav-link {{ request()->routeIs('card-simulator.*') ? 'active' : '' }}" href="{{ route('card-simulator.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-badge text-warning text-sm opacity-10"></i>
@@ -104,11 +119,14 @@
                     <span class="nav-link-text ms-1">Card Simulator</span>
                 </a>
             </li>
+            @endcan
+
+            @can('show-application-setting', 'show-information-setting')
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Settings</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('application-setting.index') }}">
+                <a class="nav-link {{ request()->routeIs('application-setting.*') ? 'active' : '' }}" href="{{ route('application-setting.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-settings text-dark text-sm opacity-10"></i>
@@ -117,7 +135,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('information-setting.index') }}">
+                <a class="nav-link {{ request()->routeIs('information-setting.*') ? 'active' : '' }}" href="{{ route('information-setting.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-settings text-dark text-sm opacity-10"></i>
@@ -125,6 +143,7 @@
                     <span class="nav-link-text ms-1">Information Setting</span>
                 </a>
             </li>
+            @endcan
         </ul>
     </div>
     <div class="sidenav-footer mx-3 ">
