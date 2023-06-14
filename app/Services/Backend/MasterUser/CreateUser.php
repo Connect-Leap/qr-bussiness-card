@@ -37,6 +37,18 @@ class CreateUser extends BaseService implements BaseServiceInterface
                     'name' => $dto['name']
                 ]);
                 $created_user->assignRole('supervisor');
+                $created_user->givePermissionTo(array_intersect(config('permission.list-permission'), [
+                    'show-office',
+                    'show-all-users',
+                    'show-supervisor',
+                    'show-employee',
+                    'show-qr',
+                    'show-detail-qr',
+                    'show-find-card-simulator',
+                    'show-card-simulator-page',
+                    'show-application-setting',
+                    'show-information-setting',
+                ]));
             } elseif ($dto['role'] == 'employee') {
                 UserEmployee::create([
                     'user_id' => $created_user->id,
@@ -44,6 +56,13 @@ class CreateUser extends BaseService implements BaseServiceInterface
                     'employee_code' => $dto['employee_code']
                 ]);
                 $created_user->assignRole('employee');
+                $created_user->givePermissionTo(array_intersect(config('permission.list-permission'), [
+                    'show-employee',
+                    'show-office',
+                    'show-find-card-simulator',
+                    'show-card-simulator-page',
+                    'show-qr',
+                ]));
             }
 
             UserDepartment::create([

@@ -23,6 +23,12 @@ class QrController extends Controller
 
     public function index(QrCodeResource $qrCodeResource)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-qr')) {
+            $this->throwUnauthorizedException(['show-qr']);
+        }
+        // End Gate
+
         $qrcodes = $qrCodeResource->toArray(QR::latest()->get());
         // dd($qrcodes);
 
@@ -33,6 +39,12 @@ class QrController extends Controller
 
     public function create()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-qr')) {
+            $this->throwUnauthorizedException(['create-qr']);
+        }
+        // End Gate
+
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
@@ -48,6 +60,12 @@ class QrController extends Controller
 
     public function createVcard()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-qr-vcard')) {
+            $this->throwUnauthorizedException(['create-qr-vcard']);
+        }
+        // End Gate
+
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
@@ -63,6 +81,12 @@ class QrController extends Controller
 
     public function store(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-qr')) {
+            $this->throwUnauthorizedException(['store-qr']);
+        }
+        // End Gate
+
         $request->validate([
             'qr_contact_type_id' => ['required'],
             'user_id' => ['required'],
@@ -85,6 +109,12 @@ class QrController extends Controller
 
     public function storeVcard(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-qr-vcard')) {
+            $this->throwUnauthorizedException(['store-qr-vcard']);
+        }
+        // End Gate
+
         $request->validate([
             'qr_contact_type_id' => ['required'],
             'user_id' => ['required'],
@@ -136,6 +166,12 @@ class QrController extends Controller
 
     public function edit($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('edit-qr')) {
+            $this->throwUnauthorizedException(['edit-qr']);
+        }
+        // End Gate
+
         $qr = QR::where('id', $id)->first();
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->latest()->get();
@@ -150,6 +186,12 @@ class QrController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-qr')) {
+            $this->throwUnauthorizedException(['update-qr']);
+        }
+        // End Gate
+
         $process = app('UpdateQR')->execute([
             'qr_id' => $id,
             'qr_contact_type_id' => $request->qr_contact_type_id,
@@ -165,6 +207,12 @@ class QrController extends Controller
 
     public function destroy($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('delete-qr')) {
+            $this->throwUnauthorizedException(['delete-qr']);
+        }
+        // End Gate
+
         $process = app('DeleteQR')->execute([
             'qr_id' => $id
         ]);
@@ -176,6 +224,12 @@ class QrController extends Controller
 
     public function resetUserQrCode($qr_id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('reset-specified-qr')) {
+            $this->throwUnauthorizedException(['reset-specified-qr']);
+        }
+        // End Gate
+
         $process = app('ResetQrLimitByQrId')->execute([
             'qr_id' => $qr_id,
         ]);
@@ -185,6 +239,12 @@ class QrController extends Controller
 
     public function resetAllUserQrCode()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('reset-all-qr')) {
+            $this->throwUnauthorizedException(['reset-all-qr']);
+        }
+        // End Gate
+
         $process = app('ResetAllUserQr')->execute();
 
         $status = ($process['success'] == true) ? 'success' : 'fail';
@@ -194,6 +254,12 @@ class QrController extends Controller
 
     public function showDetailQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-detail-qr')) {
+            $this->throwUnauthorizedException(['show-detail-qr']);
+        }
+        // End Gate
+
         $qr_model = QR::where('id', $id)->first();
         // dd(json_decode($qr_model->qrVisitors[0]->detail_visitor_json));
 

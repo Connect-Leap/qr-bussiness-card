@@ -26,9 +26,11 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Office Contact
                                         </th>
+                                        @can('show-all-users')
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Show Employee
                                         </th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,9 +48,11 @@
                                         <td class="text-center">
                                             <p class="text-sm font-weight-bold mb-0">{{ $office->contact }}</p>
                                         </td>
+                                        @can('show-all-users')
                                         <td class="text-center align-middle">
                                             <a href="{{ route('detail-master-office.show-employee', $office->id) }}" class="btn btn-xs btn-success">Show Related Employee</a>
                                         </td>
+                                        @endcan
                                     </tr>
                                     @empty
                                     <tr>

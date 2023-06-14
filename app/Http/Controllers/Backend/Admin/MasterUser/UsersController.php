@@ -10,6 +10,12 @@ class UsersController extends Controller
 {
     public function seeAllUsers()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-all-users')) {
+            $this->throwUnauthorizedException(['show-all-users']);
+        }
+        // End Gate
+
         $roles = ['employee', 'supervisor'];
 
         $users = User::whereIn('role', $roles)->latest()->get();

@@ -10,6 +10,12 @@ class InformationSettingController extends Controller
 {
     public function showInformationSetting()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-information-setting')) {
+            $this->throwUnauthorizedException(['show-information-setting']);
+        }
+        // End Gate
+
         $information_setting = InformationSetting::first();
 
         if (!is_null($information_setting->expired_date)) {
@@ -27,6 +33,12 @@ class InformationSettingController extends Controller
 
     public function showCheckoutTransactionPage()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-checkout-transaction')) {
+            $this->throwUnauthorizedException(['show-checkout-transaction']);
+        }
+        // End Gate
+
         $information_setting = InformationSetting::first();
 
         if (is_null($information_setting->stakeholder_email)) {
@@ -52,6 +64,12 @@ class InformationSettingController extends Controller
 
     public function updateInformationSetting(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-information-setting')) {
+            $this->throwUnauthorizedException(['update-information-setting']);
+        }
+        // End Gate
+
         $process = app('UpdateInformationSetting')->execute([
             'application_name' => $request->application_name,
             'application_version' => $request->application_version,

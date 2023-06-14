@@ -17,6 +17,12 @@ class MasterEmployeeController extends Controller
      */
     public function index()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-employee')) {
+            $this->throwUnauthorizedException(['show-employee']);
+        }
+        // End Gate
+
         $users = User::where('role', 'employee')->latest()->get();
 
         return view('pages.master-user.employee.index', [
@@ -31,6 +37,12 @@ class MasterEmployeeController extends Controller
      */
     public function create()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-employee')) {
+            $this->throwUnauthorizedException(['create-employee']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
 
         return view('pages.master-user.employee.create', [
@@ -46,6 +58,12 @@ class MasterEmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-employee')) {
+            $this->throwUnauthorizedException(['store-employee']);
+        }
+        // End Gate
+
         $request->validate([
             'office_id' => ['required'],
             'name' => ['required', 'max:255'],
@@ -103,6 +121,12 @@ class MasterEmployeeController extends Controller
      */
     public function edit($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('edit-employee')) {
+            $this->throwUnauthorizedException(['edit-employee']);
+        }
+        // End Gate
+
         $user = User::where('id', $id)->first();
         $offices = Office::latest()->get();
 
@@ -121,6 +145,12 @@ class MasterEmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-employee')) {
+            $this->throwUnauthorizedException(['update-employee']);
+        }
+        // End Gate
+
         $request->validate([
             'office_id' => ['required'],
             'name' => ['required', 'max:255'],
@@ -165,6 +195,12 @@ class MasterEmployeeController extends Controller
      */
     public function destroy($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('delete-employee')) {
+            $this->throwUnauthorizedException(['delete-employee']);
+        }
+        // End Gate
+
         $process = app('DeleteUser')->execute([
             'user_id' => $id
         ]);

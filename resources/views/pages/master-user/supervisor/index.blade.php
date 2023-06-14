@@ -7,7 +7,9 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0">
                     <h6>Management Supervisor</h6>
+                    @can('create-supervisor')
                     <a href="{{ route('management-supervisor.create') }}" class="btn btn-info btn-sm">Create</a>
+                    @endcan
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="container">
@@ -45,9 +47,11 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Created at
                                         </th>
+                                        @can('edit-supervisor', 'delete-supervisor')
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Action
                                         </th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,10 +94,12 @@
                                         <td class="text-center">
                                             <p class="text-sm font-weight-bold mb-0">{{ $user->created_at }}</p>
                                         </td>
+                                        @can('edit-supervisor', 'delete-supervisor')
                                         <td class="text-center">
                                             <a href="{{ route('management-supervisor.edit', $user->id) }}" class="btn btn-xs btn-success">Edit</a>
                                             <a href="{{ route('management-supervisor.destroy', $user->id) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                         </td>
+                                        @endcan
                                     </tr>
                                     @empty
                                     <tr>
