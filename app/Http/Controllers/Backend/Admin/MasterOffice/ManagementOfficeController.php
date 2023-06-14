@@ -16,6 +16,12 @@ class ManagementOfficeController extends Controller
      */
     public function index()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-office')) {
+            $this->throwUnauthorizedException(['show-office']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
 
         return view('pages.master-office.management-office.index', [
@@ -30,6 +36,12 @@ class ManagementOfficeController extends Controller
      */
     public function create()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-office')) {
+            $this->throwUnauthorizedException(['create-office']);
+        }
+        // End Gate
+
         return view('pages.master-office.management-office.create');
     }
 
@@ -41,6 +53,12 @@ class ManagementOfficeController extends Controller
      */
     public function store(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-office')) {
+            $this->throwUnauthorizedException(['store-office']);
+        }
+        // End Gate
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'max:255'],
@@ -77,6 +95,12 @@ class ManagementOfficeController extends Controller
      */
     public function edit($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('edit-office')) {
+            $this->throwUnauthorizedException(['edit-office']);
+        }
+        // End Gate
+
         $process = app('FindOfficeById')->execute([
             'office_id' => $id,
         ]);
@@ -97,6 +121,12 @@ class ManagementOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-office')) {
+            $this->throwUnauthorizedException(['update-office']);
+        }
+        // End Gate
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'max:255'],
@@ -125,6 +155,12 @@ class ManagementOfficeController extends Controller
      */
     public function destroy($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('delete-office')) {
+            $this->throwUnauthorizedException(['delete-office']);
+        }
+        // End Gate
+
         $process = app('DeleteOffice')->execute([
             'office_id' => $id
         ]);

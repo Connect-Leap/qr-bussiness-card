@@ -10,6 +10,12 @@ class DetailMasterOffice extends Controller
 {
     public function index()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-office')) {
+            $this->throwUnauthorizedException(['show-office']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
 
         return view('pages.master-office.office-list.index', [
@@ -19,6 +25,12 @@ class DetailMasterOffice extends Controller
 
     public function showEmployee($office_id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-all-users')) {
+            $this->throwUnauthorizedException(['show-all-users']);
+        }
+        // End Gate
+
         $process = app('ShowRelatedUser')->execute([
             'office_id' => $office_id
         ]);

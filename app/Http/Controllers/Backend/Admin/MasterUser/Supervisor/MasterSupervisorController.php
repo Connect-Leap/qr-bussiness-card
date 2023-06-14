@@ -17,6 +17,12 @@ class MasterSupervisorController extends Controller
      */
     public function index()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-supervisor')) {
+            $this->throwUnauthorizedException(['show-supervisor']);
+        }
+        // End Gate
+
         $users = User::where('role', 'supervisor')->latest()->get();
 
         return view('pages.master-user.supervisor.index', [
@@ -31,6 +37,12 @@ class MasterSupervisorController extends Controller
      */
     public function create()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-supervisor')) {
+            $this->throwUnauthorizedException(['create-supervisor']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
 
         return view('pages.master-user.supervisor.create', [
@@ -46,6 +58,12 @@ class MasterSupervisorController extends Controller
      */
     public function store(Request $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-supervisor')) {
+            $this->throwUnauthorizedException(['store-supervisor']);
+        }
+        // End Gate
+
         $request->validate([
             'office_id' => ['required'],
             'name' => ['required', 'max:255'],
@@ -100,6 +118,12 @@ class MasterSupervisorController extends Controller
      */
     public function edit($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('edit-supervisor')) {
+            $this->throwUnauthorizedException(['edit-supervisor']);
+        }
+        // End Gate
+
         $user = User::where('id', $id)->first();
         $offices = Office::latest()->get();
 
@@ -118,6 +142,12 @@ class MasterSupervisorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('update-supervisor')) {
+            $this->throwUnauthorizedException(['update-supervisor']);
+        }
+        // End Gate
+
         $request->validate([
             'office_id' => ['required'],
             'name' => ['required', 'max:255'],
@@ -159,6 +189,12 @@ class MasterSupervisorController extends Controller
      */
     public function destroy($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('delete-supervisor')) {
+            $this->throwUnauthorizedException(['delete-supervisor']);
+        }
+        // End Gate
+
         $process = app('DeleteUser')->execute([
             'user_id' => $id
         ]);
