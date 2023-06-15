@@ -21,6 +21,16 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.show') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-badge text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">User Profile</span>
+                </a>
+            </li>
+
             @can('show-office')
             {{-- Master Office --}}
             <li class="nav-item mt-3">

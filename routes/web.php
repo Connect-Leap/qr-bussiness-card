@@ -73,6 +73,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         });
     });
 
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [UserProfileController::class, 'show'])->name('profile.show');
+    });
+
     // Law Policy
     Route::get('/privacy-policy', function () {
         return view('pages.law-policy.privacy-policy');
