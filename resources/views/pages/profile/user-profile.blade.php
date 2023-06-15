@@ -75,14 +75,14 @@
                 <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
-                            <li class="nav-item">
+                            <li class="btn-tab nav-item" id="user-profile-tab">
                                 <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
                                     <i class="fa fa-user"></i>
                                     <span class="ms-2">Profile</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="btn-tab nav-item" id="card-simulation-tab">
                                 <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
                                     <i class="fa fa-id-card"></i>
@@ -182,14 +182,14 @@
             </div>
         </div>
 
-        <div class="row" id="card-simulator-section">
+        <div class="row" id="card-simulation-section">
             <div class="col-md-12">
                 <div class="card">
                     <form role="form" method="POST" action="" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
-                                <p class="mb-0">Edit Profile</p>
+                                <p class="mb-0">Card Simulation</p>
                                 <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
                             </div>
                         </div>
@@ -275,6 +275,31 @@
 
 @push('js')
 
+<script>
+    $('#card-simulation-section').hide()
 
+    $('li.btn-tab').click(function() {
+        let tabId = $(this).attr('id')
+
+        if (tabId == "user-profile-tab") {
+            showProfileSection()
+        } else {
+            showCardSimulationSection()
+        }
+    })
+
+    function showProfileSection()
+    {
+        $('#card-simulation-section').hide()
+        $('#user-profile-section').fadeIn(700)
+    }
+
+    function showCardSimulationSection()
+    {
+        $('#user-profile-section').hide()
+        $('#card-simulation-section').fadeIn(700)
+    }
+
+</script>
 
 @endpush
