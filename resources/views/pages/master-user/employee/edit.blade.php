@@ -51,6 +51,9 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <input type="tel" name="phone_number" class="form-control" placeholder="Employee Phone Number" aria-label="Employee Phone Number" min="9" max="13" value="{{ old('phone_number', $user->phone_number) }}">
+                            </div>
+                            <div class="mb-3">
                                 <input type="text" name="employee_code" class="form-control" placeholder="Employee Code" aria-label="Employee Code" value="{{ old('employee_code', $user->employee->employee_code) }}">
                             </div>
                             <div class="mb-3">

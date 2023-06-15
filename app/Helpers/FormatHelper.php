@@ -18,10 +18,10 @@ function storageLinkFormatter(string $path, string $content, string $extension)
     return url($path).'/'.$content.'.'.$extension;
 }
 
-function diffDatetimeCounter(mixed $login_at_time)
+function diffDatetimeCounter(mixed $date)
 {
     $now_time = new DateTime();
-    $login_at_time = new DateTime($login_at_time);
+    $date = new DateTime($date);
 
-    return $now_time->diff($login_at_time)->format('%i minutes %s seconds');
+    return $now_time->diff($date)->format('%h hour %i minutes %s seconds');
 }

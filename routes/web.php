@@ -75,6 +75,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [UserProfileController::class, 'show'])->name('profile.show');
+        Route::put('/update', [UserProfileController::class, 'update'])->name('profile.update');
     });
 
     // Law Policy
