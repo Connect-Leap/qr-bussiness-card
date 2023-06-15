@@ -10,6 +10,14 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        return view('pages.profile.user-profile');
+        $authenticated_user = auth()->user();
+        $total_online_hour = diffDatetimeCounter(auth()->user()->login_at);
+        $total_usage_hour = diffDatetimeCounter(auth()->user()->created_at);
+
+        return view('pages.profile.user-profile', [
+            'total_online_hour' => $total_online_hour,
+            'total_usage_hour' => $total_usage_hour,
+            'user' => $authenticated_user,
+        ]);
     }
 }

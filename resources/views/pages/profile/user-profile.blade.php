@@ -3,19 +3,19 @@
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
     <div class="row mt-4 mx-3">
-        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Users</p>
-                                <h5 class="font-weight-bolder">
-
-                                </h5>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Online Hour</p>
+                                <h6 class="font-weight-bolder">
+                                    {{ $total_online_hour }}
+                                </h6>
                                 <p class="mb-0">
-                                    Since
-                                    <span class="text-success text-sm font-weight-bolder">{{ now() }}</span>
+                                    Login at
+                                    <span class="text-success text-sm font-weight-bolder">{{ $user->login_at }}</span>
                                 </p>
                             </div>
                         </div>
@@ -28,44 +28,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+        <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Supervisor</p>
-                                <h5 class="font-weight-bolder">
-
-                                </h5>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Usage Hour</p>
+                                <h6 class="font-weight-bolder">
+                                    {{ $total_usage_hour }}
+                                </h6>
                                 <p class="mb-0">
-                                    Since
-                                    <span class="text-success text-sm font-weight-bolder">{{ now() }}</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape bg-gradient-info shadow-info text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Employee</p>
-                                <h5 class="font-weight-bolder">
-
-                                </h5>
-                                <p class="mb-0">
-                                    Since
-                                    <span class="text-success text-sm font-weight-bolder">{{ now() }}</span>
+                                    Since Registered at
+                                    <span class="text-success text-sm font-weight-bolder">{{ $user->created_at }}</span>
                                 </p>
                             </div>
                         </div>
@@ -90,10 +65,10 @@
                 <div class="col-auto my-auto">
                     <div class="h-100">
                         <h5 class="mb-1">
-                            {{ auth()->user()->firstname ?? 'Firstname' }} {{ auth()->user()->lastname ?? 'Lastname' }}
+                            {{ $user->hasRole('admin') ? $user->admin->name : ($user->hasRole('supervisor') ? $user->supervisor->name : $user->employee->name) }}
                         </h5>
                         <p class="mb-0 font-weight-bold text-sm">
-                            Public Relations
+                            {{ $user->position->name }}
                         </p>
                     </div>
                 </div>
@@ -103,14 +78,14 @@
                             <li class="nav-item">
                                 <a class="nav-link mb-0 px-0 py-1 active d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                    <i class="ni ni-app"></i>
+                                    <i class="fa fa-user"></i>
                                     <span class="ms-2">Profile</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                    <i class="ni ni-email-83"></i>
+                                    <i class="fa fa-id-card"></i>
                                     <span class="ms-2">Card Simulation</span>
                                 </a>
                             </li>
