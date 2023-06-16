@@ -175,7 +175,7 @@ class QrController extends Controller
         $qr = QR::where('id', $id)->first();
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->latest()->get();
-        $contact_types = QrContactType::latest()->get();
+        $contact_types = QrContactType::where('name', '!=', 'VCard')->latest()->get();
 
         return view('pages.master-qr.edit', [
             'qr' => $qr,
