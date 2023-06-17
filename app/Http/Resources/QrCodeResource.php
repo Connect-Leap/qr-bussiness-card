@@ -17,6 +17,7 @@ class QrCodeResource
         $merge_array = array();
 
         foreach($qr_model as $qr) {
+            $qr_file_storage = $qr->fileStorage()->get();
             $short_url = (!is_null($qr->redirect_link)) ? ShortURL::findByDestinationURL($qr->redirect_link)->first() : null;
             $merge_array[] =  [
                 'qrcode' =>  [
@@ -37,6 +38,14 @@ class QrCodeResource
                     'vcard_string' => $qr->vcard_string ?? null,
                     'usage_limit' => $qr->usage_limit,
                     'status' => $qr->status,
+                    'file_storage' => [
+                        'vcf_file' => array_values(array_filter($qr_file_storage->toArray(), function($value) {
+                            return $value['file_type'] === "vcard/vcf";
+                        }, ARRAY_FILTER_USE_BOTH)),
+                        'image_file' => array_values(array_filter($qr_file_storage->toArray(), function($value) {
+                            return $value['file_type'] === "image/png";
+                        }, ARRAY_FILTER_USE_BOTH)),
+                    ],
                 ],
                 'short_url' =>  [
                     'destination_url' => $short_url->destination_url ?? [],

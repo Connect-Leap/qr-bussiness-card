@@ -48,6 +48,6 @@ class UserAdminSeeder extends Seeder
         ]);
 
         $created_user->assignRole('admin');
-        $created_user->givePermissionTo(config('permission.list-permission'));
+        $created_user->givePermissionTo(array_diff(config('permission.list-permission'), ['edit-qr', 'update-qr']));
     }
 }
