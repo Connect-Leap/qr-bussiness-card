@@ -98,13 +98,15 @@
                                                 <span
                                                     class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                             </td>
-                                            @can('reset-specified-qr', 'show-detail-qr', 'edit-qr', 'delete-qr')
+                                            @can('reset-specified-qr', 'show-detail-qr')
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
-                                                @if(!is_null($qrcode['qrcode']['redirect_link']))
-                                                <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
-                                                @endif
+                                                @can('edit-qr', 'delete-qr')
+                                                    @if(!is_null($qrcode['qrcode']['redirect_link']))
+                                                    <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
+                                                    @endif
+                                                @endcan
                                                 <a href="{{ route('master-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                             </td>
                                             @endcan
