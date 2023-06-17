@@ -217,7 +217,7 @@ class QrController extends Controller
             'qr_id' => $id
         ]);
 
-        if (!$process['success']) return response()->json(['error' => $process['message']], $process['response_code']);
+        if (!$process['success']) return back()->with('fail', $process['message']);
 
         return response()->json(['success' => $process['message']], $process['response_code']);
     }
