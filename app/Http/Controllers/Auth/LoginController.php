@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\AuthenticationLogging;
 
 class LoginController extends Controller
 {
+
+    use AuthenticationLogging;
+
     /**
      * Display login page.
      *
@@ -32,6 +36,8 @@ class LoginController extends Controller
 
             session()->flash('success', $process['message']);
 
+            $this->updateAuthLogging(auth()->id());
+
             return redirect()->intended('dashboard');
         } else {
             return back()->with('fail', $process['message']);
@@ -41,6 +47,8 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $this->updateAuthLogging(auth()->id(), false);
+
         Auth::logout();
 
         $request->session()->invalidate();

@@ -21,6 +21,9 @@ return new class extends Migration
             $table->enum('role', ['admin', 'supervisor', 'employee']);
             $table->enum('gender', ['male',  'female']);
             $table->string('phone_number')->nullable();
+            $table->boolean('is_login')->default(false);
+            $table->timestamp('login_at')->nullable();
+            $table->timestamp('logout_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

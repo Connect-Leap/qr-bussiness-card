@@ -30,7 +30,7 @@ class QrController extends Controller
         // End Gate
 
         $qrcodes = $qrCodeResource->toArray(QR::latest()->get());
-        // dd($qrcodes);
+        // dd($qrcodes[0]['qrcode']['file_storage']['image_file'][0]);
 
         return view('pages.master-qr.index', [
             'qrcodes' => $qrcodes,
@@ -175,7 +175,7 @@ class QrController extends Controller
         $qr = QR::where('id', $id)->first();
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->latest()->get();
-        $contact_types = QrContactType::latest()->get();
+        $contact_types = QrContactType::where('name', '!=', 'VCard')->latest()->get();
 
         return view('pages.master-qr.edit', [
             'qr' => $qr,
@@ -217,7 +217,7 @@ class QrController extends Controller
             'qr_id' => $id
         ]);
 
-        if (!$process['success']) return response()->json(['error' => $process['message']], $process['response_code']);
+        if (!$process['success']) return back()->with('fail', $process['message']);
 
         return response()->json(['success' => $process['message']], $process['response_code']);
     }

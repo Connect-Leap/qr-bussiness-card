@@ -63,7 +63,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <input type="text" name="user_position" class="form-control" placeholder="Employee Position" aria-label="Employee Position" name="{{ old('user_position') }}">
+                                    <input type="text" name="user_position" class="form-control" placeholder="Employee Position" aria-label="Employee Position" value="{{ old('user_position') }}">
                                 </div>
                                 <div class="col-6">
                                     <input type="number" name="user_position_period" class="form-control" placeholder="Employee Position Year Period (2022, 2023, etc)" aria-label="Employee Position Year Period (2022, 2023, etc)" value="{{ old('user_position_period') }}">
@@ -79,7 +79,7 @@
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (+62, etc)"
-                                    aria-label="Country Name" value="{{ old('country_phone_cpde') }}">
+                                    aria-label="Country Name" value="{{ old('country_phone_code') }}">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Submit</button>

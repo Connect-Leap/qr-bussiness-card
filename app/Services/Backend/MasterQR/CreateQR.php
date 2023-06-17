@@ -3,15 +3,19 @@
 namespace App\Services\Backend\MasterQR;
 
 use App\Models\QR;
-use App\Models\QrContactType;
 use App\Models\User;
-use App\Services\BaseService;
-use App\Services\BaseServiceInterface;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\QrContactType;
+use App\Models\QrFileStorage;
+use App\Services\BaseService;
+use App\Traits\QrFileStorageTrait;
+use Illuminate\Support\Facades\DB;
+use App\Services\BaseServiceInterface;
 
 class CreateQR extends BaseService implements BaseServiceInterface
 {
+    use QrFileStorageTrait;
+
     public function process($dto)
     {
         DB::beginTransaction();
@@ -34,12 +38,38 @@ class CreateQR extends BaseService implements BaseServiceInterface
                 $builder = new \AshAllenDesign\ShortURL\Classes\Builder();
                 $builder->destinationUrl($qrcode_model['redirect_link'])->urlKey($make_slug)->make();
 
+                $qr_file_storage_trait = $this->storeQrToStorageDisk(route('master-qr.qr-processing', [
+                    'urlkey' => $make_slug,
+                    'qr_id' => $qrcode_model['id'],
+                ]));
+
+                $store_to_file_storage = app('StoreToFileStorage')->execute([
+                    'file_size' => 24000,
+                    'file_driver' => config('filesystems.default'),
+                    'file_extension' => $qr_file_storage_trait['extension'],
+                    'file_original_name' => $qr_file_storage_trait['output_file'],
+                    'file_name' => $qr_file_storage_trait['output_file'],
+                    'file_path' => 'storage/app/public/qr-code/',
+                    'file_type' => 'image/png',
+                    'file_url' => storageLinkFormatter('storage/qr-code', $qr_file_storage_trait['filename'], $qr_file_storage_trait['extension']),
+                    'is_used' => USED,
+                ]);
+
+                $store_to_pivot = QrFileStorage::create([
+                    'qr_id' => $qrcode_model['id'],
+                    'file_storage_id' => $store_to_file_storage['data']['file_storage_id'],
+                ]);
+
                 DB::commit();
 
                 $this->results['response_code'] = 200;
                 $this->results['success'] = true;
                 $this->results['message'] = 'QR Successfully Created';
-                $this->results['data'] = $qrcode_model;
+                $this->results['data'] = [
+                    'qr' => $qrcode_model,
+                    'pivot' => $store_to_pivot,
+                    'file_storage' => $store_to_file_storage,
+                ];
             } else {
                 $this->results['response_code'] = 403;
                 $this->results['success'] = false;

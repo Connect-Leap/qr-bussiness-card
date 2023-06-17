@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use JeroenDesloovere\VCard\VCard;
 use Illuminate\Support\Str;
+use App\Traits\QrFileStorageTrait;
 
 class CreateQRVCard extends BaseService implements BaseServiceInterface
 {
+    use QrFileStorageTrait;
+
     public function process($dto)
     {
         $user = User::where('id', $dto['user_id'])->first();
@@ -39,22 +42,43 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
                 'status' => $dto['status'],
             ]);
 
-            $store_to_file_storage = app('StoreToFileStorage')->execute([
-                'file_size' => 1,
-                'file_driver' => config('filesystems.default'),
-                'file_extension' => $vcard_process['vcard_extension'],
-                'file_original_name' => $vcard_process['vcard_filename'],
-                'file_name' => $vcard_process['vcard_filename'],
-                'file_path' => 'storage/app/public/vcard/',
-                'file_type' => 'vcard/vcf',
-                'file_url' => storageLinkFormatter('storage/vcard', $vcard_process['vcard_filename'], $vcard_process['vcard_extension']),
-                'is_used' => USED,
-            ]);
+            $qr_file_storage_trait = $this->storeQrToStorageDisk(route('master-qr.qr-vcard-processing', [
+                'qr_id' => $create_qr['id']
+            ]));
 
-            $store_to_pivot = QrFileStorage::create([
-                'qr_id' => $create_qr->id,
-                'file_storage_id' => $store_to_file_storage['data']['file_storage_id'],
-            ]);
+            $file_storage_data_array = array(
+                [
+                    'file_size' => 1,
+                    'file_driver' => config('filesystems.default'),
+                    'file_extension' => $vcard_process['vcard_extension'],
+                    'file_original_name' => $vcard_process['vcard_filename'],
+                    'file_name' => $vcard_process['vcard_filename'],
+                    'file_path' => 'storage/app/public/vcard/',
+                    'file_type' => 'vcard/vcf',
+                    'file_url' => storageLinkFormatter('storage/vcard', $vcard_process['vcard_filename'], $vcard_process['vcard_extension']),
+                    'is_used' => USED,
+                ],
+                [
+                    'file_size' => 24000,
+                    'file_driver' => config('filesystems.default'),
+                    'file_extension' => $qr_file_storage_trait['extension'],
+                    'file_original_name' => $qr_file_storage_trait['output_file'],
+                    'file_name' => $qr_file_storage_trait['output_file'],
+                    'file_path' => 'storage/app/public/qr-code/',
+                    'file_type' => 'image/png',
+                    'file_url' => storageLinkFormatter('storage/qr-code', $qr_file_storage_trait['filename'], $qr_file_storage_trait['extension']),
+                    'is_used' => USED,
+                ]
+            );
+
+            foreach($file_storage_data_array as $file_storage_data) {
+                $store_to_file_storage = app('StoreToFileStorage')->execute($file_storage_data);
+
+                $store_to_pivot = QrFileStorage::create([
+                    'qr_id' => $create_qr->id,
+                    'file_storage_id' => $store_to_file_storage['data']['file_storage_id'],
+                ]);
+            }
 
             DB::commit();
 
@@ -66,7 +90,7 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
                 'pivot' => $store_to_pivot,
                 'file_storage' => $store_to_file_storage
             ];
-        } catch(\Exception $err) {
+        } catch (\Exception $err) {
 
             DB::rollBack();
 
@@ -75,7 +99,6 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
             $this->results['message'] = $err->getMessage();
             $this->results['data'] = [];
         }
-
     }
 
     private function VCard(

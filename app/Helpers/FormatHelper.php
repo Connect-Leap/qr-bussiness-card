@@ -1,6 +1,6 @@
 <?php
 
-function whatsappNumberFormatter($url)
+function whatsappNumberFormatter(mixed $url)
 {
     $parse_url_query = parse_url($url, PHP_URL_QUERY);
     $seperate_index_and_value = explode('=', $parse_url_query);
@@ -16,4 +16,12 @@ function whatsappNumberFormatter($url)
 function storageLinkFormatter(string $path, string $content, string $extension)
 {
     return url($path).'/'.$content.'.'.$extension;
+}
+
+function diffDatetimeCounter(mixed $date)
+{
+    $now_time = new DateTime();
+    $date = new DateTime($date);
+
+    return $now_time->diff($date)->format('%h hour %i minutes %s seconds');
 }

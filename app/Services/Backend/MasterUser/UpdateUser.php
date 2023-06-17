@@ -25,7 +25,7 @@ class UpdateUser extends BaseService implements BaseServiceInterface
                 'office_id' => $dto['office_id'],
                 'email' => $dto['email'],
                 'gender' => $dto['gender'],
-                'phone_number' => $dto['phone_number'],
+                'phone_number' => $dto['phone_number'] ?? null,
             ]);
 
             if ($dto['role'] == 'supervisor') {
