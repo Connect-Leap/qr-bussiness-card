@@ -82,6 +82,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="modal-footer">
+                                                                <a class="btn btn-primary" href="{{ $qrcode['qrcode']['file_storage'][0]['file_url'] }}" download>Download QR</a>
                                                                 <button type="button" class="btn btn-danger"
                                                                     data-bs-dismiss="modal">Close</button>
                                                             </div>

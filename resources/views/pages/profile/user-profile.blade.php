@@ -229,8 +229,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Employee
-                                            Position</label>
+                                        <label for="example-text-input" class="form-control-label">Country Phone Code</label>
                                         <input type="text" name="country_phone_code" class="form-control"
                                             placeholder="Country Phone Code (+62, etc)" aria-label="Country Name"
                                             value="{{ old('country_phone_code', $user->nationality->country_phone_code) }}"
