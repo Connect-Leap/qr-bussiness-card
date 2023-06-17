@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "ashallendesign/short-url": "^7.6",
+        "barryvdh/laravel-snappy": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "jenssegers/agent": "^2.6",
         "jeroendesloovere/vcard": "^1.7",
