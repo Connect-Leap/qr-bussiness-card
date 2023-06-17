@@ -30,7 +30,7 @@ class QrController extends Controller
         // End Gate
 
         $qrcodes = $qrCodeResource->toArray(QR::latest()->get());
-        // dd($qrcodes);
+        // dd($qrcodes[0]['qrcode']['file_storage']['image_file'][0]);
 
         return view('pages.master-qr.index', [
             'qrcodes' => $qrcodes,

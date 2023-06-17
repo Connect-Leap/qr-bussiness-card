@@ -38,7 +38,14 @@ class QrCodeResource
                     'vcard_string' => $qr->vcard_string ?? null,
                     'usage_limit' => $qr->usage_limit,
                     'status' => $qr->status,
-                    'file_storage' => $qr_file_storage->toArray(),
+                    'file_storage' => [
+                        'vcf_file' => array_values(array_filter($qr_file_storage->toArray(), function($value) {
+                            return $value['file_type'] === "vcard/vcf";
+                        }, ARRAY_FILTER_USE_BOTH)),
+                        'image_file' => array_values(array_filter($qr_file_storage->toArray(), function($value) {
+                            return $value['file_type'] === "image/png";
+                        }, ARRAY_FILTER_USE_BOTH)),
+                    ],
                 ],
                 'short_url' =>  [
                     'destination_url' => $short_url->destination_url ?? [],
