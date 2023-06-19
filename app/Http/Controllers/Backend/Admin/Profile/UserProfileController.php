@@ -3,21 +3,26 @@
 namespace App\Http\Controllers\Backend\Admin\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QrCodeResource;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\QR;
 
 class UserProfileController extends Controller
 {
-    public function show()
+    public function show(QrCodeResource $qrCodeResource)
     {
+
         $authenticated_user = auth()->user();
         $total_online_hour = diffDatetimeCounter($authenticated_user->login_at);
         $total_usage_hour = diffDatetimeCounter($authenticated_user->created_at);
+        $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
 
         return view('pages.profile.user-profile', [
             'total_online_hour' => $total_online_hour,
             'total_usage_hour' => $total_usage_hour,
             'user' => $authenticated_user,
+            'qr' => $qr,
         ]);
     }
 
