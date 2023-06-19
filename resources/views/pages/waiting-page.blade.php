@@ -65,8 +65,7 @@
                     return response.text()
                 })
                 .then(function(text) {
-                    console.log(text)
-                    var file = new File([text], "{{ $filename }}.vcf", {type: 'text/vcard'});
+                    var file = new File([text], "{{ $filename }}.vcf", {type: 'text/plain'});
                     var filesArray = [file];
                     var shareData = { files: filesArray };
 
