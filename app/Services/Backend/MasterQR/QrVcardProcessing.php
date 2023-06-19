@@ -34,6 +34,7 @@ class QrVcardProcessing extends BaseService implements BaseServiceInterface
                 $this->results['message'] = 'Redirect Sucecssfully';
                 $this->results['data'] = [
                     'destination' => $get_qr_pivot_content->file_url,
+                    'filename' => $get_qr_pivot_content->file_name,
                     'qr_visitor' => $qr_visitor_model,
                     'qr_data' => $qr_model,
                 ];

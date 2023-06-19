@@ -60,28 +60,31 @@
 
             // console.log(data)
 
-            let shareData = {
-                title: "Connect Leap",
-                text: "Safely Connect",
-                url: "{{ $destination }}",
-            };
+            fetch("{{ $destination }}")
+                .then(function(response) {
+                    return response.text()
+                })
+                .then(function(text) {
+                    console.log(text)
+                    var file = new File([text], "{{ $filename }}.vcf", {type: 'text/vcard'});
+                    var filesArray = [file];
+                    var shareData = { files: filesArray };
 
-            // feature detecting navigator.canShare() also implies
-            // the same for the navigator.share()
-            if (!navigator.canShare) {
-                alert(`Your browser doesn't support the Web Share API.`);
-            }
+                    if (navigator.canShare && navigator.canShare(shareData)) {
 
-            if (navigator.canShare({ files })) {
-                try {
-                navigator.share(shareData);
-                    alert("Shared!")
-                } catch (error) {
-                    alert(`Error: ${error.message}`)
-                }
-            } else {
-                alert(`Your system doesn't support sharing these files.`)
-            }
+                    // Adding title afterwards as navigator.canShare just
+                    // takes files as input
+                    shareData.title = "vcard";
+
+                    navigator.share(shareData)
+                    .then(() => alert('Share was successfull'))
+                    .catch((error) => console.log('Sharing failed', error));
+
+                    } else {
+                        console.log("Your system doesn't support sharing files.")
+                    }
+
+                });
         }, 3000);
     </script>
 </body>

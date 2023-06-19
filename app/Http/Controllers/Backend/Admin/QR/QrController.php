@@ -165,6 +165,7 @@ class QrController extends Controller
 
         return view('pages.waiting-page', [
             'destination' => $process['data']['destination'],
+            'filename' => $process['data']['filename'],
         ]);
     }
 
