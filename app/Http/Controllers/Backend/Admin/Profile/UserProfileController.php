@@ -48,7 +48,19 @@ class UserProfileController extends Controller
 
         // dd($rules);
 
-        $request->validate($rules);
+        $request->validate($rules, [
+            'name.required' => 'The :attribute field is required.',
+            'gender.required' => 'The :attribute field is required.',
+            'email.required' => 'The :attribute field is required.',
+            'email.unique' => 'The :attribute has already been taken.',
+            'department_name.required' => 'The :attribute field is required.',
+            'user_position.required' => 'The :attribute field is required.',
+            'country_name.required' => 'The :attribute field is required.',
+            'country_code.required' => 'The :attribute field is required.',
+            'country_phone_code.required' => 'The :attribute field is required.',
+            'employee_code' => 'The :attribute field is required.',
+            'phone_number' =>'The :attribute field is required.',
+        ]);
 
         $data = [
             'office_id' => auth()->user()->office_id,
