@@ -13,7 +13,6 @@ class QrVcardProcessing extends BaseService implements BaseServiceInterface
     public function process($dto)
     {
         $qr_model = QR::where('id', $dto['qr_id'])->first();
-        $application_setting = ApplicationSetting::first();
 
         if (!empty($qr_model)) {
             $qr_visitor_model = QrVisitor::create([
@@ -35,7 +34,8 @@ class QrVcardProcessing extends BaseService implements BaseServiceInterface
                 $this->results['message'] = 'Redirect Sucecssfully';
                 $this->results['data'] = [
                     'destination' => $get_qr_pivot_content->file_url,
-                    'qr_visitor' => $qr_visitor_model
+                    'qr_visitor' => $qr_visitor_model,
+                    'qr_data' => $qr_model,
                 ];
             } elseif ($qr_model->usage_limit == 0 && $qr_model->status == VALID) {
                 $qr_model->update([
