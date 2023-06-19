@@ -58,23 +58,26 @@
         setTimeout(() => {
             $('#afterLoad').removeClass('d-none')
 
-            let shareData = {
-                title: 'Vcard',
-            }
+            // console.log(data)
 
             fetch("{{ $destination }}")
                 .then(function(response) {
                     return response.text()
                 })
-                .then(function(vcardString) {
+                .then(function(text) {
+                    // var file = new File([text], "{{ $filename }}.txt", {type: 'text/vcard'});
+                    // var filesArray = [file];
+                    // var shareData = { files: filesArray };
 
-                    shareData.text = vcardString
-
+                    let shareData = { text:text }
                     if (navigator.canShare && navigator.canShare(shareData)) {
 
-                        navigator.share(shareData)
-                            .then(() => alert('Share was successfull'))
-                            .catch((error) => alert('Sharing failed', error));
+                    // Adding title afterwards as navigator.canShare just
+                    // takes files as input
+
+                    navigator.share(shareData)
+                    .then(() => alert('Share was successfull'))
+                    .catch((error) => alert('Sharing failed, Permission Denied', error));
 
                     } else {
                         alert("Your system doesn't support sharing files.")
