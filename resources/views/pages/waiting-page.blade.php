@@ -74,7 +74,7 @@
 
             if (navigator.canShare({ files })) {
                 try {
-                await navigator.share(shareData);
+                navigator.share(shareData);
                     alert("Shared!")
                 } catch (error) {
                     alert(`Error: ${error.message}`)
