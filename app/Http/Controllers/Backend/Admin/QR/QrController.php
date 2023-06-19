@@ -164,7 +164,7 @@ class QrController extends Controller
         if (!$process['success']) return Redirect::to($process['data']['destination'], $process['response_code']);
 
         return view('pages.waiting-page', [
-            'qrdata' => $process['data']['qr_data']
+            'destination' => $process['data']['destination'],
         ]);
     }
 
