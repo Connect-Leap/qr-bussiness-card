@@ -65,24 +65,7 @@
                     return response.text()
                 })
                 .then(function(text) {
-                    var file = new File([text], "{{ $filename }}.txt", {type: 'text/plain'});
-                    var filesArray = [file];
-                    var shareData = { files: filesArray };
-
-                    if (navigator.canShare && navigator.canShare(shareData)) {
-
-                    // Adding title afterwards as navigator.canShare just
-                    // takes files as input
-                    shareData.title = "vcard";
-
-                    navigator.share(shareData)
-                    .then(() => alert('Share was successfull'))
-                    .catch((error) => alert('Sharing failed, Permission Denied', error));
-
-                    } else {
-                        alert("Your system doesn't support sharing files.")
-                    }
-
+                    window.open("data:text/x-vcard;urlencoded," + text);
                 });
         }, 3000);
     </script>
