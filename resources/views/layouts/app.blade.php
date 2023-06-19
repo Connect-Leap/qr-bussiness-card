@@ -70,6 +70,7 @@
     @include('layouts.app.toast')
     @include('layouts.app.delete')
     @include('layouts.app.datatable')
+    @include('layouts.app.check-mobile')
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
