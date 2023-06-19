@@ -26,6 +26,12 @@
             <div class="row justify-content-center align-items-center" style="height: 95vh">
                 <div class="col-12">
                     <h5 class="text-center">Open using Recomended System Contact </h5>
+                    <div class="text-center mt-4">
+                        <a href="{{ $destination }}" class="btn btn-primary">Download Contact File Here</a>
+                    </div>
+                    <div class="text-center">
+                        <sup class="text-danger text-xs">Click button above if Popup not showed up</sup>
+                    </div>
                 </div>
             </div>
         </section>
@@ -53,18 +59,29 @@
             $('#afterLoad').removeClass('d-none')
 
             // console.log(data)
-            if (isMobileTablet()) {
-                navigator.share({
-                    title: 'Connect Leap Share Contact',
-                    url: "{{ $destination }}"
-                }).then(() => {
-                    console.log('Thanks for sharing!');
-                }).catch(console.error);
-            } else {
-                window.location.href = "{{ $destination }}"
-                // console.log('')
+
+            let shareData = {
+                title: "Connect Leap",
+                text: "Safely Connect",
+                url: "{{ $destination }}",
+            };
+
+            // feature detecting navigator.canShare() also implies
+            // the same for the navigator.share()
+            if (!navigator.canShare) {
+                alert(`Your browser doesn't support the Web Share API.`);
             }
 
+            if (navigator.canShare({ files })) {
+                try {
+                await navigator.share(shareData);
+                    alert("Shared!")
+                } catch (error) {
+                    alert(`Error: ${error.message}`)
+                }
+            } else {
+                alert(`Your system doesn't support sharing these files.`)
+            }
         }, 3000);
     </script>
 </body>
