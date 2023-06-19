@@ -65,15 +65,15 @@
                     return response.text()
                 })
                 .then(function(text) {
-                    // var file = new File([text], "{{ $filename }}.txt", {type: 'text/vcard'});
-                    // var filesArray = [file];
-                    // var shareData = { files: filesArray };
+                    var file = new File([text], "{{ $filename }}.txt", {type: 'text/plain'});
+                    var filesArray = [file];
+                    var shareData = { files: filesArray };
 
-                    let shareData = { text:text }
                     if (navigator.canShare && navigator.canShare(shareData)) {
 
                     // Adding title afterwards as navigator.canShare just
                     // takes files as input
+                    shareData.title = "vcard";
 
                     navigator.share(shareData)
                     .then(() => alert('Share was successfull'))
