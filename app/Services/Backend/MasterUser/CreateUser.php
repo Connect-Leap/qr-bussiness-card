@@ -38,15 +38,34 @@ class CreateUser extends BaseService implements BaseServiceInterface
                 ]);
                 $created_user->assignRole('supervisor');
                 $created_user->givePermissionTo(array_intersect(config('permission.list-permission'), [
-                    'show-office',
-                    'show-all-users',
-                    'show-supervisor',
+                    // Profile
+                    'show-profile',
+                    'update-profile',
+                    // Office
+                    'show-detail-office',
+                    // Employee
                     'show-employee',
+                    'create-employee',
+                    'store-employee',
+                    'edit-employee',
+                    'update-employee',
+                    'delete-employee',
+                    // Qr
                     'show-qr',
                     'show-detail-qr',
+                    'create-qr',
+                    'create-qr-vcard',
+                    'store-qr',
+                    'store-qr-vcard',
+                    'delete-qr',
+                    'reset-specified-qr',
+                    'reset-all-qr',
+                    // Card Simulator
                     'show-find-card-simulator',
                     'show-card-simulator-page',
+                    // Application Setting
                     'show-application-setting',
+                    // Information Setting
                     'show-information-setting',
                 ]));
             } elseif ($dto['role'] == 'employee') {
@@ -57,11 +76,9 @@ class CreateUser extends BaseService implements BaseServiceInterface
                 ]);
                 $created_user->assignRole('employee');
                 $created_user->givePermissionTo(array_intersect(config('permission.list-permission'), [
-                    'show-employee',
-                    'show-office',
-                    'show-find-card-simulator',
-                    'show-card-simulator-page',
-                    'show-qr',
+                    // Profile
+                    'show-profile',
+                    'update-profile',
                 ]));
             }
 
