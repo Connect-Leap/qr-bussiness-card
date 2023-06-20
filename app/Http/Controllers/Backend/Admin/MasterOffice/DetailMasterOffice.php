@@ -36,7 +36,7 @@ class DetailMasterOffice extends Controller
             $this->throwUnauthorizedException(['show-detail-office']);
         }
 
-        if ($this->user()->office_id != $office_id) {
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $office_id) {
             $this->throwException(401);
         }
         // End Gate
