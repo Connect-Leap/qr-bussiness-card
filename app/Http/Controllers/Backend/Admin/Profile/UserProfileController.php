@@ -16,13 +16,15 @@ class UserProfileController extends Controller
         $authenticated_user = auth()->user();
         $total_online_hour = diffDatetimeCounter($authenticated_user->login_at);
         $total_usage_hour = diffDatetimeCounter($authenticated_user->created_at);
-        $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
+        if ($authenticated_user->hasRole('employee')) {
+            $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
+        }
 
         return view('pages.profile.user-profile', [
             'total_online_hour' => $total_online_hour,
             'total_usage_hour' => $total_usage_hour,
             'user' => $authenticated_user,
-            'qr' => $qr,
+            'qr' => $qr ?? [],
         ]);
     }
 
