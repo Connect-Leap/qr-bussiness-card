@@ -29,7 +29,7 @@
                                 <select name="office_id" class="form-select">
                                     <option value="" selected hidden>Office</option>
                                     @foreach($offices as $office)
-                                    <option value="{{ $office->id }}" @selected(old('office_id', $user->id))>{{ $office->name }}</option>
+                                    <option value="{{ $office->id }}" @selected(old('office_id', $user->office->id) == $office->id)>{{ $office->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

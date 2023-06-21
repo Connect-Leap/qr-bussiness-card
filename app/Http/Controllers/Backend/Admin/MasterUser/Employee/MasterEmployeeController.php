@@ -25,6 +25,12 @@ class MasterEmployeeController extends Controller
 
         $users = User::where('role', 'employee')->latest()->get();
 
+        if ($this->user()->hasRole('supervisor')) {
+            $users = $users->filter(function ($value) {
+                return $value->office->id === $this->user()->office_id;
+            });
+        }
+
         return view('pages.master-user.employee.index', [
             'users' => $users,
         ]);
@@ -44,6 +50,12 @@ class MasterEmployeeController extends Controller
         // End Gate
 
         $offices = Office::latest()->get();
+
+        if ($this->user()->hasRole('supervisor')) {
+            $offices = $offices->filter(function ($value) {
+                return $value->id === $this->user()->office_id;
+            });
+        }
 
         return view('pages.master-user.employee.create', [
             'offices' => $offices
@@ -125,10 +137,21 @@ class MasterEmployeeController extends Controller
         if (!$this->user()->hasPermissionTo('edit-employee')) {
             $this->throwUnauthorizedException(['edit-employee']);
         }
+
+        $get_office_id_from_route_parameter_user_id = User::where('id', $id)->get()->pluck('office.id')->first();;
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $get_office_id_from_route_parameter_user_id) {
+            $this->throwException(401);
+        }
         // End Gate
 
         $user = User::where('id', $id)->first();
+
         $offices = Office::latest()->get();
+        if ($this->user()->hasRole('supervisor')) {
+            $offices = $offices->filter(function ($value) {
+                return $value->id === $this->user()->office_id;
+            });
+        }
 
         return view('pages.master-user.employee.edit', [
             'user' => $user,
@@ -148,6 +171,11 @@ class MasterEmployeeController extends Controller
         // Gate
         if (!$this->user()->hasPermissionTo('update-employee')) {
             $this->throwUnauthorizedException(['update-employee']);
+        }
+
+        $get_office_id_from_route_parameter_user_id = User::where('id', $id)->get()->pluck('office.id')->first();;
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $get_office_id_from_route_parameter_user_id) {
+            $this->throwException(401);
         }
         // End Gate
 
@@ -199,6 +227,11 @@ class MasterEmployeeController extends Controller
         // Gate
         if (!$this->user()->hasPermissionTo('delete-employee')) {
             $this->throwUnauthorizedException(['delete-employee']);
+        }
+
+        $get_office_id_from_route_parameter_user_id = User::where('id', $id)->get()->pluck('office.id')->first();;
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $get_office_id_from_route_parameter_user_id) {
+            $this->throwException(401);
         }
         // End Gate
 

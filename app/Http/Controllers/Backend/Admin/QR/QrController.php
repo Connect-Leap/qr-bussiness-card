@@ -47,7 +47,16 @@ class QrController extends Controller
 
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
+
+        // Users
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
+        if ($this->user()->hasRole('supervisor')) {
+            $users = $users->filter(function ($value) {
+                return $value->office->id === $this->user()->office_id;
+            });
+        }
+        // End Users
+
         $settings = ApplicationSetting::latest()->get();
         $contact_types = QrContactType::where('name', '!=', 'VCard')->latest()->get();
 
