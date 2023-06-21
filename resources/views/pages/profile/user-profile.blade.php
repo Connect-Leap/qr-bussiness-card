@@ -83,7 +83,7 @@
                                     <span class="ms-2">Profile</span>
                                 </a>
                             </li>
-                            @if($user->hasRole('employee'))
+                            @if($user->hasRole('employee') && !is_null($user->Qr))
                             <li class="btn-tab nav-item" id="card-simulation-tab">
                                 <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
                                     data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
@@ -249,7 +249,7 @@
             </div>
         </div>
 
-        @if($user->hasRole('employee'))
+        @if($user->hasRole('employee') && !is_null($user->Qr))
         <div class="row" id="card-simulation-section">
             <div class="col-md-12">
                 <div class="card">

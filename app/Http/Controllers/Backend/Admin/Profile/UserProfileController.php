@@ -16,7 +16,7 @@ class UserProfileController extends Controller
         $authenticated_user = auth()->user();
         $total_online_hour = diffDatetimeCounter($authenticated_user->login_at);
         $total_usage_hour = diffDatetimeCounter($authenticated_user->created_at);
-        if ($authenticated_user->hasRole('employee')) {
+        if ($authenticated_user->hasRole('employee') && !is_null($authenticated_user->Qr)) {
             $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
         }
 
