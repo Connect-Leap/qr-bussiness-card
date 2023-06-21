@@ -7,6 +7,7 @@ use App\Http\Resources\QrCodeResource;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\QR;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserProfileController extends Controller
 {
@@ -26,6 +27,19 @@ class UserProfileController extends Controller
             'user' => $authenticated_user,
             'qr' => $qr ?? [],
         ]);
+    }
+
+    public function showCard(QrCodeResource $qrCodeResource)
+    {
+        $authenticated_user = auth()->user();
+        if ($authenticated_user->hasRole('employee') && !is_null($authenticated_user->Qr)) {
+            $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
+        }
+
+        $pdf = Pdf::loadView('pdf.card-simulation', ['user' => $authenticated_user, 'qr' => $qr ?? []])
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('card-simulation.pdf');
     }
 
     public function update(Request $request)

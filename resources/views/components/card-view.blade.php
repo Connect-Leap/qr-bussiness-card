@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="{{ asset('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
+                        <img src="{{ public_path('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
                         <span class="mt-1 fw-bold"
                             style="font-family: 'Baskervville', serif;">{{ $user->office->name ?? 'Admin' }}</span>
                     </div>
@@ -122,14 +122,27 @@
                 </div>
                 <div class="col-2">
                     @if (!is_null($qr['qrcode']['redirect_link']))
-                        {!! QrCode::size(80)->generate(route('master-qr.qr-processing', [
-                            'urlkey' => $qr['short_url']['url_key'],
-                            'qr_id' => $qr['qrcode']['id'],
-                        ])) !!}
+                        @if(request()->segment(2) == "show-card")
+                            <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate(route('master-qr.qr-processing', [
+                                'urlkey' => $qr['short_url']['url_key'],
+                                'qr_id' => $qr['qrcode']['id'],
+                            ]))) }} ">
+                        @else
+                            {!! QrCode::size(80)->generate(route('master-qr.qr-processing', [
+                                'urlkey' => $qr['short_url']['url_key'],
+                                'qr_id' => $qr['qrcode']['id'],
+                            ])) !!}
+                        @endif
                     @else
-                        {!! QrCode::size(80)->generate(route('master-qr.qr-vcard-processing', [
-                            'qr_id' => $qr['qrcode']['id']
-                        ])) !!}
+                        @if(request()->segment(2) == "show-card")
+                            <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate(route('master-qr.qr-vcard-processing', [
+                                'qr_id' => $qr['qrcode']['id']
+                            ]))) }} ">
+                        @else
+                            {!! QrCode::size(80)->generate(route('master-qr.qr-vcard-processing', [
+                                'qr_id' => $qr['qrcode']['id']
+                            ])) !!}
+                        @endif
                     @endif
                 </div>
             </div>
