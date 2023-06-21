@@ -29,8 +29,14 @@ class QrController extends Controller
         }
         // End Gate
 
-        $qrcodes = $qrCodeResource->toArray(QR::latest()->get());
-        // dd($qrcodes[0]['qrcode']['file_storage']['image_file'][0]);
+        $qr_model = QR::latest()->get();
+        if ($this->user()->hasRole('supervisor')) {
+            $qr_model = $qr_model->filter(function ($value) {
+                return $value->user->office->id === $this->user()->office_id;
+            });
+        }
+
+        $qrcodes = $qrCodeResource->toArray($qr_model);
 
         return view('pages.master-qr.index', [
             'qrcodes' => $qrcodes,
@@ -77,7 +83,16 @@ class QrController extends Controller
 
         $roles_cannot_have_qr = ['admin', 'supervisor'];
         $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
+
+        // Users
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
+        if ($this->user()->hasRole('supervisor')) {
+            $users = $users->filter(function ($value) {
+                return $value->office->id === $this->user()->office_id;
+            });
+        }
+        // End Users
+
         $settings = ApplicationSetting::latest()->get();
         $contact_type = QrContactType::where('name', 'VCard')->first();
 
