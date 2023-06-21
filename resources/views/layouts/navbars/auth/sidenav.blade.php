@@ -21,6 +21,7 @@
                 </a>
             </li>
 
+            @can('show-profile')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.show') }}">
                     <div
@@ -30,12 +31,14 @@
                     <span class="nav-link-text ms-1">User Profile</span>
                 </a>
             </li>
+            @endcan
 
-            @can('show-office')
+            @if(!auth()->user()->hasRole('employee'))
             {{-- Master Office --}}
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master Office</h6>
             </li>
+            @endif
             {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('profile') }}">
                     <div
@@ -45,6 +48,7 @@
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
             </li> --}}
+            @can('show-office')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('management-office.*') ? 'active' : '' }}" href="{{ route('management-office.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -53,6 +57,8 @@
                     <span class="nav-link-text ms-1">Management Office</span>
                 </a>
             </li>
+            @endcan
+            @can('show-detail-office')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('detail-master-office.*') ? 'active' : '' }}" href="{{ route('detail-master-office.index') }}">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -64,9 +70,11 @@
             @endcan
 
             {{-- Master User --}}
+            @if(!auth()->user()->hasRole('employee'))
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master User</h6>
             </li>
+            @endif
             @can('show-all-users')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('master-user.all') ? 'active' : '' }}" href="{{ route('master-user.all') }}">
@@ -103,9 +111,11 @@
             </li>
             @endcan
 
+            @if(!auth()->user()->hasRole('employee'))
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">QR</h6>
             </li>
+            @endif
 
             @can('show-qr')
             <li class="nav-item">

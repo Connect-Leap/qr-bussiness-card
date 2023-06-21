@@ -22,6 +22,12 @@ class CardSimulatorController extends Controller
             return $value->Qr !== null;
         })->values();
 
+        if ($this->user()->hasRole('supervisor')) {
+            $users = $users->filter(function ($value) {
+                return $value->office->id === $this->user()->office_id;
+            });
+        }
+
         return view('pages.master-qr.card-simulator.find-user', [
             'users' => $users,
         ]);
@@ -32,6 +38,16 @@ class CardSimulatorController extends Controller
         // Gate
         if (!$this->user()->hasPermissionTo('show-card-simulator-page')) {
             $this->throwUnauthorizedException(['show-card-simulator-page']);
+        }
+
+        $get_office_id_from_route_parameter_user_id = User::where('id', request()->get('user_id'))->get()->pluck('office.id')->first();
+
+        if (is_null($get_office_id_from_route_parameter_user_id)) {
+            $this->throwException(404, 'User Not Found');
+        }
+
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $get_office_id_from_route_parameter_user_id) {
+            $this->throwException(401);
         }
         // End Gate
 

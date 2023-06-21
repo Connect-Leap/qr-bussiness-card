@@ -24,7 +24,7 @@
                         <form action="{{ route('card-simulator.show') }}">
                             @csrf
                             <div class="my-4">
-                                <select name="user_id" class="form-select">
+                                <select name="user_id" class="form-select" required>
                                     <option value="" selected hidden>Select User</option>
                                     @foreach($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->employee->name }}</option>

@@ -160,8 +160,13 @@ return [
     ],
 
     'list-permission' => [
+        // User Profile
+        'show-profile',
+        'update-profile',
+
         // Office Permission
         'show-office',
+        'show-detail-office',
         'create-office',
         'store-office',
         'edit-office',

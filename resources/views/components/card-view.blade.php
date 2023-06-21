@@ -34,7 +34,7 @@
                                 ]),
                             ) !!}
                     @else
-                        {!! QrCode::backgoundColor(255, 255, 255, 0)->size(80)->generate(
+                        {!! QrCode::backgroundColor(255, 255, 255, 0)->size(80)->generate(
                                 route('master-qr.qr-vcard-processing', [
                                     'qr_id' => $qr['qrcode']['id'],
                                 ]),
@@ -82,7 +82,7 @@
                                 ]),
                             ) !!}
                     @else
-                        {!! QrCode::backgoundColor(255, 255, 255, 0)->color(255, 255, 255)->size(80)->generate(
+                        {!! QrCode::backgroundColor(255, 255, 255, 0)->color(255, 255, 255)->size(80)->generate(
                                 route('master-qr.qr-vcard-processing', [
                                     'qr_id' => $qr['qrcode']['id'],
                                 ]),
@@ -98,16 +98,16 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="{{ asset('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
+                        <img src="{{ public_path('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
                         <span class="mt-1 fw-bold"
-                            style="font-family: 'Baskervville', serif;">{{ $user->office->name }}</span>
+                            style="font-family: 'Baskervville', serif;">{{ $user->office->name ?? 'Admin' }}</span>
                     </div>
                 </div>
             </div>
             <div class="row my-5">
                 <div class="col-12">
                     <p class="fw-bold" style="font-family: 'Baskervville', serif; font-size: 30pt; line-height: 30px">
-                        {{ $user->employee->name }} <br><span
+                        {{ $user->hasRole('admin') ? $user->admin->name : ($user->hasRole('supervisor') ? $user->supervisor->name : $user->employee->name) }} <br><span
                             style="font-size: 15pt">{{ $user->position->name }}</span>
                     </p>
                 </div>
@@ -117,23 +117,32 @@
             <div class="row mt-2">
                 <div class="col-10">
                     <p class="fw-bold" style="font-family: 'Baskervville', serif; font-size: 12pt; line-height: 30px">
-                        {{ $user->office->name }} <br> {{ $user->office->address }} <br> {{ $user->office->contact }}
+                        {{ $user->office->name ?? 'Admin' }} <br> {{ $user->office->address ?? '-' }} <br> {{ $user->office->contact ?? '-' }}
                     </p>
                 </div>
                 <div class="col-2">
                     @if (!is_null($qr['qrcode']['redirect_link']))
-                        {!! QrCode::backgroundColor(255, 255, 255, 0)->size(80)->generate(
-                                route('master-qr.qr-processing', [
-                                    'urlkey' => $qr['short_url']['url_key'],
-                                    'qr_id' => $qr['qrcode']['id'],
-                                ]),
-                            ) !!}
+                        @if(request()->segment(2) == "show-card")
+                            <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate(route('master-qr.qr-processing', [
+                                'urlkey' => $qr['short_url']['url_key'],
+                                'qr_id' => $qr['qrcode']['id'],
+                            ]))) }} ">
+                        @else
+                            {!! QrCode::size(80)->generate(route('master-qr.qr-processing', [
+                                'urlkey' => $qr['short_url']['url_key'],
+                                'qr_id' => $qr['qrcode']['id'],
+                            ])) !!}
+                        @endif
                     @else
-                        {!! QrCode::backgoundColor(255, 255, 255, 0)->size(80)->generate(
-                                route('master-qr.qr-vcard-processing', [
-                                    'qr_id' => $qr['qrcode']['id'],
-                                ]),
-                            ) !!}
+                        @if(request()->segment(2) == "show-card")
+                            <img src="data:image/png;base64, {{ base64_encode(QrCode::size(80)->generate(route('master-qr.qr-vcard-processing', [
+                                'qr_id' => $qr['qrcode']['id']
+                            ]))) }} ">
+                        @else
+                            {!! QrCode::size(80)->generate(route('master-qr.qr-vcard-processing', [
+                                'qr_id' => $qr['qrcode']['id']
+                            ])) !!}
+                        @endif
                     @endif
                 </div>
             </div>

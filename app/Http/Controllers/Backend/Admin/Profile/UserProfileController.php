@@ -3,22 +3,43 @@
 namespace App\Http\Controllers\Backend\Admin\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QrCodeResource;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\QR;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserProfileController extends Controller
 {
-    public function show()
+    public function show(QrCodeResource $qrCodeResource)
     {
+
         $authenticated_user = auth()->user();
         $total_online_hour = diffDatetimeCounter($authenticated_user->login_at);
         $total_usage_hour = diffDatetimeCounter($authenticated_user->created_at);
+        if ($authenticated_user->hasRole('employee') && !is_null($authenticated_user->Qr)) {
+            $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
+        }
 
         return view('pages.profile.user-profile', [
             'total_online_hour' => $total_online_hour,
             'total_usage_hour' => $total_usage_hour,
             'user' => $authenticated_user,
+            'qr' => $qr ?? [],
         ]);
+    }
+
+    public function showCard(QrCodeResource $qrCodeResource)
+    {
+        $authenticated_user = auth()->user();
+        if ($authenticated_user->hasRole('employee') && !is_null($authenticated_user->Qr)) {
+            $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
+        }
+
+        $pdf = Pdf::loadView('pdf.card-simulation', ['user' => $authenticated_user, 'qr' => $qr ?? []])
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('card-simulation.pdf');
     }
 
     public function update(Request $request)
@@ -43,7 +64,19 @@ class UserProfileController extends Controller
 
         // dd($rules);
 
-        $request->validate($rules);
+        $request->validate($rules, [
+            'name.required' => 'The :attribute field is required.',
+            'gender.required' => 'The :attribute field is required.',
+            'email.required' => 'The :attribute field is required.',
+            'email.unique' => 'The :attribute has already been taken.',
+            'department_name.required' => 'The :attribute field is required.',
+            'user_position.required' => 'The :attribute field is required.',
+            'country_name.required' => 'The :attribute field is required.',
+            'country_code.required' => 'The :attribute field is required.',
+            'country_phone_code.required' => 'The :attribute field is required.',
+            'employee_code' => 'The :attribute field is required.',
+            'phone_number' =>'The :attribute field is required.',
+        ]);
 
         $data = [
             'office_id' => auth()->user()->office_id,

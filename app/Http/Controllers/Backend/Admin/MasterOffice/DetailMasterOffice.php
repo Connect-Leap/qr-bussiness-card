@@ -11,12 +11,18 @@ class DetailMasterOffice extends Controller
     public function index()
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('show-office')) {
-            $this->throwUnauthorizedException(['show-office']);
+        if (!$this->user()->hasPermissionTo('show-detail-office')) {
+            $this->throwUnauthorizedException(['show-detail-office']);
         }
         // End Gate
 
         $offices = Office::latest()->get();
+
+        if ($this->user()->hasRole('supervisor')) {
+            $offices = $offices->filter(function ($value) {
+                return $value->id === $this->user()->office_id;
+            });
+        }
 
         return view('pages.master-office.office-list.index', [
             'offices' => $offices
@@ -26,8 +32,12 @@ class DetailMasterOffice extends Controller
     public function showEmployee($office_id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('show-all-users')) {
-            $this->throwUnauthorizedException(['show-all-users']);
+        if (!$this->user()->hasPermissionTo('show-detail-office')) {
+            $this->throwUnauthorizedException(['show-detail-office']);
+        }
+
+        if (!$this->user()->hasRole('admin') && $this->user()->office_id != $office_id) {
+            $this->throwException(401);
         }
         // End Gate
 
