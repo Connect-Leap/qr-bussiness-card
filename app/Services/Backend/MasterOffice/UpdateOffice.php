@@ -22,6 +22,7 @@ class UpdateOffice extends BaseService implements BaseServiceInterface
             $office->address = $dto['address'];
             $office->email = $dto['email'];
             $office->contact = $dto['contact'];
+            $office->company_link = $dto['company_link'];
             $office->save();
 
             $this->results['success'] = true;

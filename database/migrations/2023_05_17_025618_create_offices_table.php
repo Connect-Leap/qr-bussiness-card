@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('contact');
+            $table->string('company_link')->nullable();
             $table->timestamps();
         });
     }

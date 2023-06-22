@@ -26,17 +26,21 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <input type="text" name="name" class="form-control" placeholder="Office Name" aria-label="Office Name" value="{{ old('name', $office->name) }}">
+                                <input type="text" name="name" class="form-control" placeholder="Office Name" aria-label="Office Name" value="{{ old('name', $office->name) }}" required>
                             </div>
                             <div class="mb-3">
-                                <textarea name="address" class="form-control" rows="5" placeholder="Office Address">{{ old('address', $office->address) }}</textarea>
+                                <textarea name="address" class="form-control" rows="5" placeholder="Office Address" required>{{ old('address', $office->address) }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <input type="email" name="email" class="form-control" placeholder="Office Email" aria-label="Office Email" value="{{ old('email', $office->email) }}">
+                                <input type="email" name="email" class="form-control" placeholder="Office Email" aria-label="Office Email" value="{{ old('email', $office->email) }}" required>
                             </div>
                             <div class="mb-3">
                                 <input type="number" name="contact" min="0" class="form-control" placeholder="Office Contact"
-                                    aria-label="Office Contact" value="{{ old('contact', $office->contact) }}">
+                                    aria-label="Office Contact" value="{{ old('contact', $office->contact) }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="company_link" class="form-control" placeholder="Company Link Address (Optional)"
+                                    aria-label="Company Link Address (Optional)" value="{{ old('company_link', $office->company_link) }}">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Update</button>

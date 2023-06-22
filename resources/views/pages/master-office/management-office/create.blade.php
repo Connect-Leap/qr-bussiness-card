@@ -25,17 +25,21 @@
                         <form action="{{ route('management-office.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <input type="text" name="name" class="form-control" placeholder="Office Name" aria-label="Office Name">
+                                <input type="text" name="name" class="form-control" placeholder="Office Name" aria-label="Office Name" required>
                             </div>
                             <div class="mb-3">
-                                <textarea name="address" class="form-control" rows="5" placeholder="Office Address"></textarea>
+                                <textarea name="address" class="form-control" rows="5" placeholder="Office Address" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <input type="email" name="email" class="form-control" placeholder="Office Email" aria-label="Office Email">
+                                <input type="email" name="email" class="form-control" placeholder="Office Email" aria-label="Office Email" required>
                             </div>
                             <div class="mb-3">
                                 <input type="number" name="contact" min="0" class="form-control" placeholder="Office Contact"
-                                    aria-label="Office Contact">
+                                    aria-label="Office Contact" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" name="company_link" class="form-control" placeholder="Company Link Address (Optional)"
+                                    aria-label="Company Link Address (Optional)">
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Submit</button>

@@ -15,6 +15,7 @@ class CreateOffice extends BaseService implements BaseServiceInterface
             'address' => $dto['address'],
             'email' => $dto['email'],
             'contact' => $dto['contact'],
+            'company_link' => $dto['company_link'],
         ]);
 
         $this->results['success'] = true;
