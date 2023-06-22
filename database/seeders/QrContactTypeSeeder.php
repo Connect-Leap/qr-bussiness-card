@@ -28,6 +28,11 @@ class QrContactTypeSeeder extends Seeder
                     'application_year' => now(),
                 ],
                 [
+                    'name' => 'Other',
+                    'format_link' => 'https://google.com',
+                    'application_year' => now(),
+                ],
+                [
                     'name' => 'VCard',
                     'format_link' => null,
                     'application_year' => null,

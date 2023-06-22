@@ -31,7 +31,8 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
                 $user->position->name,
                 ucfirst($user->role),
                 $user->email,
-                $user->phone_number
+                $user->phone_number,
+                $user->office->company_link ?? null,
             );
 
             $create_qr = QR::create([
@@ -108,6 +109,7 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
         $input_role,
         $input_email,
         $input_phonenumber,
+        $input_url = null,
     ) {
 
         $result['vcard_string'] = null;
@@ -131,6 +133,9 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
         $vcard->addRole($input_role);
         $vcard->addEmail($input_email);
         $vcard->addPhoneNumber($input_phonenumber, 'WORK');
+        if(!is_null($input_url)) {
+            $vcard->addURL($input_url);
+        }
 
         // save vcard on disk
         $vcard->setSavePath(storage_path('app/public/vcard'));

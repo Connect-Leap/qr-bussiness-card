@@ -26,7 +26,7 @@ class CreateQR extends BaseService implements BaseServiceInterface
                 $qrcode_model = QR::create([
                     'qr_contact_type_id' => $dto['qr_contact_type_id'],
                     'user_id' => $dto['user_id'],
-                    'redirect_link' => ($dto['qr_contact_type_id'] == 1) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
+                    'redirect_link' => ($dto['qr_contact_type_id'] == 1 || $dto['qr_contact_type_id'] == 3) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
                     'usage_limit' => $dto['usage_limit'],
                     'status' => $dto['status'],
                 ]);

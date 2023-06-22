@@ -70,7 +70,8 @@ class ManagementOfficeController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'email' => $request->email,
-            'contact' => $request->contact
+            'contact' => $request->contact,
+            'company_link' => $request->company_link ?? null,
         ]);
 
         return redirect()->route('management-office.index')->with('success', $process['message']);
@@ -140,6 +141,7 @@ class ManagementOfficeController extends Controller
             'address' => $request->address,
             'email' => $request->email,
             'contact' => $request->contact,
+            'company_link' => $request->company_link ?? null,
         ]);
 
         if (!$process['success']) return redirect()->route('management-office.index')->with('fail', $process['message']);
