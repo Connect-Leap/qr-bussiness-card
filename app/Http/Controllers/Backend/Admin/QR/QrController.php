@@ -10,6 +10,8 @@ use App\Models\QrContactType;
 use Illuminate\Http\Response;
 use App\Models\ApplicationSetting;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Qr\NonVcard\StoreQrRequest;
+use App\Http\Requests\Qr\Vcard\StoreQrRequest as StoreQrVcardRequest;
 use App\Http\Resources\QrCodeResource;
 use JeroenDesloovere\VCard\VCardParser;
 use Illuminate\Support\Facades\Redirect;
@@ -103,20 +105,13 @@ class QrController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreQrRequest $request)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('store-qr')) {
             $this->throwUnauthorizedException(['store-qr']);
         }
         // End Gate
-
-        $request->validate([
-            'qr_contact_type_id' => ['required'],
-            'user_id' => ['required'],
-            'redirect_link' => ['required', 'unique:qrs,redirect_link'],
-            'usage_limit' => ['required'],
-        ]);
 
         $process = app('CreateQR')->execute([
             'qr_contact_type_id' => $request->qr_contact_type_id,
@@ -131,19 +126,13 @@ class QrController extends Controller
         return redirect()->route('master-qr.index')->with('success', $process['message']);
     }
 
-    public function storeVcard(Request $request)
+    public function storeVcard(StoreQrVcardRequest $request)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('store-qr-vcard')) {
             $this->throwUnauthorizedException(['store-qr-vcard']);
         }
         // End Gate
-
-        $request->validate([
-            'qr_contact_type_id' => ['required'],
-            'user_id' => ['required'],
-            'usage_limit' => ['required'],
-        ]);
 
         $process = app('CreateQRVCard')->execute([
             'qr_contact_type_id' => $request->qr_contact_type_id,

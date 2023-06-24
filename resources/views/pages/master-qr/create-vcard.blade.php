@@ -25,13 +25,13 @@
                         <form action="{{ route('master-qr.store-vcard') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <select name="qr_contact_type_id" class="form-select">
+                                <select name="qr_contact_type_id" class="form-select" required>
                                     <option value="" selected hidden>Select Contact Type</option>
                                     <option value="{{ $contact_type->id }}" selected>{{ $contact_type->name }}</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <select name="user_id" class="form-select">
+                                <select name="user_id" class="form-select" required>
                                     <option value="" selected hidden>Select User</option>
                                     @foreach($users as $user)
                                     <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>{{ $user->email }}</option>
@@ -39,7 +39,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <select name="usage_limit" class="form-select">
+                                <select name="usage_limit" class="form-select" required>
                                     <option value="" selected hidden>Select Scan Usage Limit</option>
                                     @forelse($settings as $setting)
                                     <option value="{{ $setting->default_scan_limit }}" @selected(old('usage_limit') == $setting->id)>{{ $setting->default_scan_limit }}</option>
