@@ -149,7 +149,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center gap-3">
-                        <img src="{{ public_path('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('img/card-asset/icon-logo.png') }}" class="img-fluid" alt="">
                         <span class="mt-1 fw-bold"
                             style="font-family: 'Baskervville', serif;">{{ $user->office->name ?? 'Admin' }}</span>
                     </div>
