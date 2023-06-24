@@ -169,18 +169,16 @@
                                             <input type="tel" name="phone_number" class="form-control"
                                                 placeholder="Employee Phone Number" aria-label="Employee Phone Number"
                                                 min="9" max="13"
-                                                value="{{ old('phone_number', $user->phone_number) }}">
+                                                value="{{ old('phone_number', $user->phone_number) }}" required>
                                         </div>
                                     </div>
-                                @endif
-                                @if ($user->hasRole('employee'))
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Employee
                                                 Code</label>
                                             <input type="text" name="employee_code" class="form-control"
                                                 placeholder="Employee Code" aria-label="Employee Code"
-                                                value="{{ old('employee_code', $user->employee->employee_code) }}">
+                                                value="{{ old('employee_code', $user->employee->employee_code) }}" required>
                                         </div>
                                     </div>
                                 @endif
@@ -191,7 +189,7 @@
                                                 Name</label>
                                             <input type="text" name="department_name" class="form-control"
                                                 placeholder="Department Name" aria-label="Department Name"
-                                                value="{{ old('department_name', $user->department->name) }}">
+                                                value="{{ old('department_name', $user->department->name) }}" required>
                                         </div>
                                     </div>
                                 @endif

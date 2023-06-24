@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Http\Resources\QrCodeResource;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -42,42 +43,8 @@ class UserProfileController extends Controller
         return $pdf->stream('card-simulation.pdf');
     }
 
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
-        // dd($request->all());
-        $rules = [
-            'name' => ['required', 'max:255'],
-            'gender' => ['required'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore(auth()->id())],
-            'department_name' => ['required', 'max:255'],
-            'user_position' => ['required', 'max:255'],
-            'user_position_period' => ['required'],
-            'country_name' => ['required', 'max:255'],
-            'country_code' => ['required', 'min:2'],
-            'country_phone_code' => ['required', 'min:2'],
-        ];
-
-        if (auth()->user()->role == "employee") {
-            $rules['employee_code'] = ['required'];
-            $rules['phone_number'] = ['required', 'min:9', 'max:13'];
-        }
-
-        // dd($rules);
-
-        $request->validate($rules, [
-            'name.required' => 'The :attribute field is required.',
-            'gender.required' => 'The :attribute field is required.',
-            'email.required' => 'The :attribute field is required.',
-            'email.unique' => 'The :attribute has already been taken.',
-            'department_name.required' => 'The :attribute field is required.',
-            'user_position.required' => 'The :attribute field is required.',
-            'country_name.required' => 'The :attribute field is required.',
-            'country_code.required' => 'The :attribute field is required.',
-            'country_phone_code.required' => 'The :attribute field is required.',
-            'employee_code' => 'The :attribute field is required.',
-            'phone_number' =>'The :attribute field is required.',
-        ]);
-
         $data = [
             'office_id' => auth()->user()->office_id,
             'user_id' => auth()->id(),
