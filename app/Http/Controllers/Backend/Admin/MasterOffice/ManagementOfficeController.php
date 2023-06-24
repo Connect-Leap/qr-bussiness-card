@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Admin\MasterOffice;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Office\StoreOfficeRequest;
+use App\Http\Requests\Office\UpdateOfficeRequest;
 use App\Models\Office;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -51,20 +53,13 @@ class ManagementOfficeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOfficeRequest $request)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('store-office')) {
             $this->throwUnauthorizedException(['store-office']);
         }
         // End Gate
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:offices,email'],
-            'contact' => ['required', 'min:9', 'max:13'],
-        ]);
 
         $process = app('CreateOffice')->execute([
             'name' => $request->name,
@@ -120,20 +115,13 @@ class ManagementOfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateOfficeRequest $request, $id)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('update-office')) {
             $this->throwUnauthorizedException(['update-office']);
         }
         // End Gate
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'email' => ['required', 'email', Rule::unique('offices')->ignore($id)],
-            'contact' => ['required', 'min:9', 'max:13'],
-        ]);
 
         $process = app('UpdateOffice')->execute([
             'office_id' => $id,
