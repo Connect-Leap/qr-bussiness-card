@@ -255,7 +255,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="mb-0">Card Simulation</p>
                             <div>
-                                <a href="{{ route('profile.show-card') }}" class="btn btn-xs btn-primary">
+                                <a href="{{ route('profile.show-card') }}" class="btn btn-xs btn-primary" target="_blank">
                                     <i class="fa fa-download"></i>
                                     Download Card
                                 </a>

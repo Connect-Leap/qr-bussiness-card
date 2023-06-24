@@ -9,6 +9,9 @@
         .row {
             display: table;
         }
+        .fw-bold {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
