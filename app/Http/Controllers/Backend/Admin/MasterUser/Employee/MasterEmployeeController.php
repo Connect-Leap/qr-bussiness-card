@@ -7,6 +7,8 @@ use App\Models\Office;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\Employee\StoreEmployeeRequest;
+use App\Http\Requests\Users\Employee\UpdateEmployeeRequest;
 
 class MasterEmployeeController extends Controller
 {
@@ -68,29 +70,13 @@ class MasterEmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('store-employee')) {
             $this->throwUnauthorizedException(['store-employee']);
         }
         // End Gate
-
-        $request->validate([
-            'office_id' => ['required'],
-            'name' => ['required', 'max:255'],
-            'employee_code' => ['required'],
-            'gender' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:6'],
-            'phone_number' => ['required', 'min:9', 'max:13'],
-            'department_name' => ['required', 'max:255'],
-            'user_position' => ['required', 'max:255'],
-            'user_position_period' => ['required'],
-            'country_name' => ['required', 'max:255'],
-            'country_code' => ['required', 'min:2'],
-            'country_phone_code' => ['required', 'min:2'],
-        ]);
 
         $process = app('CreateUser')->execute([
             'office_id' => $request->office_id,
@@ -166,7 +152,7 @@ class MasterEmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
         // Gate
         if (!$this->user()->hasPermissionTo('update-employee')) {
@@ -178,21 +164,6 @@ class MasterEmployeeController extends Controller
             $this->throwException(401);
         }
         // End Gate
-
-        $request->validate([
-            'office_id' => ['required'],
-            'name' => ['required', 'max:255'],
-            'employee_code' => ['required'],
-            'gender' => ['required'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($id)],
-            'phone_number' => ['required', 'min:9', 'max:13'],
-            'department_name' => ['required', 'max:255'],
-            'user_position' => ['required', 'max:255'],
-            'user_position_period' => ['required'],
-            'country_name' => ['required', 'max:255'],
-            'country_code' => ['required', 'min:2'],
-            'country_phone_code' => ['required', 'min:2'],
-        ]);
 
         $process = app('UpdateUser')->execute([
             'office_id' => $request->office_id,

@@ -26,7 +26,7 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <select name="office_id" class="form-select">
+                                <select name="office_id" class="form-select" required>
                                     <option value="" selected hidden>Office</option>
                                     @foreach($offices as $office)
                                     <option value="{{ $office->id }}" @selected(old('office_id', $user->office->id) == $office->id)>{{ $office->name }}</option>
@@ -35,10 +35,10 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name', $user->employee->name) }}">
+                                    <input type="text" name="name" class="form-control" placeholder="User Name" aria-label="User Name" value="{{ old('name', $user->employee->name) }}" required>
                                 </div>
                                 <div class="col-6">
-                                    <select name="gender" class="form-select">
+                                    <select name="gender" class="form-select" required>
                                         <option value="" selected hidden>Gender</option>
                                         <option value="male" @selected(old('gender', $user->gender) == 'male')>Male</option>
                                         <option value="female" @selected(old('gender', $user->gender) == 'female')>Female</option>
@@ -47,37 +47,37 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12">
-                                    <input type="email" name="email" class="form-control" placeholder="User Email" aria-label="User Email" value="{{ old('email', $user->email) }}">
+                                    <input type="email" name="email" class="form-control" placeholder="User Email" aria-label="User Email" value="{{ old('email', $user->email) }}" required>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="tel" name="phone_number" class="form-control" placeholder="Employee Phone Number" aria-label="Employee Phone Number" min="9" max="13" value="{{ old('phone_number', $user->phone_number) }}">
+                                <input type="tel" name="phone_number" class="form-control" placeholder="Employee Phone Number" aria-label="Employee Phone Number" min="9" max="13" value="{{ old('phone_number', $user->phone_number) }}" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="employee_code" class="form-control" placeholder="Employee Code" aria-label="Employee Code" value="{{ old('employee_code', $user->employee->employee_code) }}">
+                                <input type="text" name="employee_code" class="form-control" placeholder="Employee Code" aria-label="Employee Code" value="{{ old('employee_code', $user->employee->employee_code) }}" required>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="department_name" class="form-control" placeholder="Department Name" aria-label="Department Name" value="{{ old('department_name', $user->department->name) }}">
+                                <input type="text" name="department_name" class="form-control" placeholder="Department Name" aria-label="Department Name" value="{{ old('department_name', $user->department->name) }}" required>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <input type="text" name="user_position" class="form-control" placeholder="Employee Position" aria-label="Employee Position" name="user_position" value="{{ old('user_position', $user->position->name) }}">
+                                    <input type="text" name="user_position" class="form-control" placeholder="Employee Position" aria-label="Employee Position" name="user_position" value="{{ old('user_position', $user->position->name) }}" required>
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="user_position_period" class="form-control" placeholder="Employee Position Year Period (2022, 2023, etc)" aria-label="Employee Position Year Period (2022, 2023, etc)" value="{{ old('user_position_period', $user->position->period) }}">
+                                    <input type="number" name="user_position_period" class="form-control" placeholder="Employee Position Year Period (2022, 2023, etc)" aria-label="Employee Position Year Period (2022, 2023, etc)" value="{{ old('user_position_period', $user->position->period) }}" required>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="country_name" class="form-control" placeholder="Country Name"
-                                    aria-label="Country Name" value="{{ old('country_name', $user->nationality->country_name) }}">
+                                    aria-label="Country Name" value="{{ old('country_name', $user->nationality->country_name) }}" required>
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="country_code" class="form-control" placeholder="Country Code (JPN, INA, etc)"
-                                    aria-label="Country Code" value="{{ old('country_code', $user->nationality->country_code) }}">
+                                    aria-label="Country Code" value="{{ old('country_code', $user->nationality->country_code) }}" required>
                             </div>
                             <div class="mb-3">
                                 <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (+62, etc)"
-                                    aria-label="Country Name" value="{{ old('country_phone_code', $user->nationality->country_phone_code) }}">
+                                    aria-label="Country Name" value="{{ old('country_phone_code', $user->nationality->country_phone_code) }}" required>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Update</button>

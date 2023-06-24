@@ -48,4 +48,11 @@ class StoreSupervisorRequest extends FormRequest
             'min' => 'The :attribute must be at least :min characters',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'office_id' => 'office'
+        ];
+    }
 }
