@@ -16,7 +16,7 @@ class ApplicationSettingSeeder extends Seeder
     public function run()
     {
         ApplicationSetting::create([
-            'default_scan_limit' => 5,
+            'default_scan_limit' => 100,
             'default_rate_limit' => 3,
             'default_rate_time_limit' => 60
         ]);
