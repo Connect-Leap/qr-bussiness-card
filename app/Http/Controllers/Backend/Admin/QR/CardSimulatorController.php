@@ -24,7 +24,7 @@ class CardSimulatorController extends Controller
 
         if ($this->user()->hasRole('supervisor')) {
             $users = $users->filter(function ($value) {
-                return $value->office->id === $this->user()->office_id;
+                return $value->office->id == $this->user()->office_id;
             });
         }
 

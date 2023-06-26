@@ -20,7 +20,7 @@ class DetailMasterOffice extends Controller
 
         if ($this->user()->hasRole('supervisor')) {
             $offices = $offices->filter(function ($value) {
-                return $value->id === $this->user()->office_id;
+                return $value->id == $this->user()->office_id;
             });
         }
 
