@@ -34,7 +34,7 @@ class QrController extends Controller
         $qr_model = QR::latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $qr_model = $qr_model->filter(function ($value) {
-                return $value->user->office->id === $this->user()->office_id;
+                return $value->user->office->id == $this->user()->office_id;
             });
         }
 
@@ -60,7 +60,7 @@ class QrController extends Controller
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $users = $users->filter(function ($value) {
-                return $value->office->id === $this->user()->office_id;
+                return $value->office->id == $this->user()->office_id;
             });
         }
         // End Users
@@ -90,7 +90,7 @@ class QrController extends Controller
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $users = $users->filter(function ($value) {
-                return $value->office->id === $this->user()->office_id;
+                return $value->office->id == $this->user()->office_id;
             });
         }
         // End Users
