@@ -9,24 +9,31 @@ use App\Models\QrContactType;
 use App\Models\QrFileStorage;
 use App\Services\BaseService;
 use App\Traits\QrFileStorageTrait;
+use App\Traits\SocialMediaFormatAudit;
 use Illuminate\Support\Facades\DB;
 use App\Services\BaseServiceInterface;
 
 class CreateQR extends BaseService implements BaseServiceInterface
 {
-    use QrFileStorageTrait;
+    use QrFileStorageTrait, SocialMediaFormatAudit;
 
     public function process($dto)
     {
         DB::beginTransaction();
         try {
             $qr_contact_type_model = QrContactType::where('format_link', $dto['redirect_link'])->first();
+            $social_media_auditor = $this->socialMediaFormatAudit($dto['qr_contact_type_id'], $dto['redirect_link']);
 
-            if (empty($qr_contact_type_model)) {
+            if (!$social_media_auditor) {
+                $this->results['response_code'] = 403;
+                $this->results['success'] = false;
+                $this->results['message'] = 'Please enter the link according to the selected contact type';
+                $this->results['data'] = [];
+            } elseif (empty($qr_contact_type_model)) {
                 $qrcode_model = QR::create([
                     'qr_contact_type_id' => $dto['qr_contact_type_id'],
                     'user_id' => $dto['user_id'],
-                    'redirect_link' => ($dto['qr_contact_type_id'] == 1 || $dto['qr_contact_type_id'] == 3) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
+                    'redirect_link' => ($dto['qr_contact_type_id'] == LINKEDIN || $dto['qr_contact_type_id'] == OTHER) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
                     'usage_limit' => $dto['usage_limit'],
                     'status' => $dto['status'],
                 ]);
