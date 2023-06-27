@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Admin\MasterUser\UserManagementController;
 use App\Http\Controllers\Backend\Admin\MasterUser\UsersController;
 use App\Http\Controllers\Backend\Admin\Profile\UserProfileController;
 use App\Http\Controllers\Backend\Admin\QR\CardSimulatorController;
+use App\Http\Controllers\Backend\Admin\QR\GeneralQrController;
 use App\Http\Controllers\Backend\Admin\QR\QrController;
 
 // List of Routes
@@ -53,6 +54,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::group(['prefix' => 'card-simulator'], function () {
             Route::get('/', [CardSimulatorController::class, 'findUserView'])->name('card-simulator.index');
             Route::get('/view-card', [CardSimulatorController::class, 'showCard'])->name('card-simulator.show');
+        });
+
+        Route::group(['prefix' => 'general-qr'], function () {
+            Route::get('/', [GeneralQrController::class, 'index'])->name('general-qr.index');
+            Route::get('/create', [GeneralQrController::class, 'create'])->name('general-qr.create');
+            Route::get('/create-vcard', [GeneralQrController::class, 'createVcard'])->name('general-qr.create-vcard');
+            Route::post('/create', [GeneralQrController::class, 'store'])->name('general-qr.store');
         });
     });
 

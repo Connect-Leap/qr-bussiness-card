@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('qrs', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->foreignId('qr_contact_type_id')->constrained('qr_contact_types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

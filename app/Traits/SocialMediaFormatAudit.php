@@ -27,6 +27,8 @@ trait SocialMediaFormatAudit
                 }
 
                 return $result;
+            default:
+                return true;
         }
 
     }

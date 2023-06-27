@@ -31,7 +31,7 @@ class QrController extends Controller
         }
         // End Gate
 
-        $qr_model = QR::latest()->get();
+        $qr_model = QR::where('office_id', null)->latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $qr_model = $qr_model->filter(function ($value) {
                 return $value->user->office->id == $this->user()->office_id;
@@ -114,7 +114,9 @@ class QrController extends Controller
         // End Gate
 
         $process = app('CreateQR')->execute([
+            'name' => null,
             'qr_contact_type_id' => $request->qr_contact_type_id,
+            'office_id' => null,
             'user_id' => $request->user_id,
             'redirect_link' => $request->redirect_link,
             'usage_limit' => $request->usage_limit,
@@ -135,7 +137,9 @@ class QrController extends Controller
         // End Gate
 
         $process = app('CreateQRVCard')->execute([
+            'name' => null,
             'qr_contact_type_id' => $request->qr_contact_type_id,
+            'office_id' => null,
             'user_id' => $request->user_id,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,

@@ -2,6 +2,7 @@
 
 namespace App\Services\Backend\MasterQR;
 
+use App\Models\Office;
 use App\Models\QR;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -31,16 +32,23 @@ class CreateQR extends BaseService implements BaseServiceInterface
                 $this->results['data'] = [];
             } elseif (empty($qr_contact_type_model)) {
                 $qrcode_model = QR::create([
+                    'name' => $dto['name'],
                     'qr_contact_type_id' => $dto['qr_contact_type_id'],
+                    'office_id' => $dto['office_id'],
                     'user_id' => $dto['user_id'],
                     'redirect_link' => ($dto['qr_contact_type_id'] == LINKEDIN || $dto['qr_contact_type_id'] == OTHER) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
                     'usage_limit' => $dto['usage_limit'],
                     'status' => $dto['status'],
                 ]);
 
-                $user = User::where('id', $dto['user_id'])->first();
 
-                $make_slug = Str::slug($user->employee->name);
+                $make_slug = "";
+                if (is_null($dto['office_id'])) {
+                    $make_slug = Str::slug(User::where('id', $dto['user_id'])->first()->employee->name).'-'.time();
+                } else {
+                    $make_slug = Str::slug(Office::where('id', $dto['office_id'])->first()->name).'-'.time();
+                }
+
 
                 $builder = new \AshAllenDesign\ShortURL\Classes\Builder();
                 $builder->destinationUrl($qrcode_model['redirect_link'])->urlKey($make_slug)->make();

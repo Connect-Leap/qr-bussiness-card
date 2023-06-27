@@ -28,7 +28,7 @@
                                         <th class="text-center">Show QR</th>
                                         <th class="text-center">Usage Limit Remain</th>
                                         <th class="text-center">QR Status</th>
-                                        @can('reset-specified-qr', 'show-detail-qr', 'edit-qr', 'delete-qr')
+                                        @can('reset-specified-user-qr', 'show-detail-user-qr', 'edit-user-qr', 'delete-user-qr')
                                         <th class="text-center">Action</th>
                                         @endcan
                                     </tr>
@@ -114,7 +114,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="text-center">
+                                            <td colspan="8" class="text-center">
                                                 <p class="text-sm font-weight-bold mb-0">Empty Data</p>
                                             </td>
                                         </tr>
