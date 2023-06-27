@@ -16,10 +16,17 @@ class GeneralQrController extends Controller
 {
     public function index(QrCodeResource $qrCodeResource)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-general-qr')) {
+            $this->throwUnauthorizedException(['show-general-qr']);
+        }
+        // End Gate
+
         $qr_model = QR::where('user_id', null)->latest()->get();
+
         if ($this->user()->hasRole('supervisor')) {
             $qr_model = $qr_model->filter(function ($value) {
-                return $value->user->office->id == $this->user()->office_id;
+                return $value->office->id == $this->user()->office_id;
             });
         }
 
@@ -32,6 +39,12 @@ class GeneralQrController extends Controller
 
     public function create()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-general-qr')) {
+            $this->throwUnauthorizedException(['create-general-qr']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $offices = $offices->filter(function ($value) {
@@ -51,6 +64,12 @@ class GeneralQrController extends Controller
 
     public function createVcard()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('create-general-qr-vcard')) {
+            $this->throwUnauthorizedException(['create-general-qr-vcard']);
+        }
+        // End Gate
+
         $offices = Office::latest()->get();
         if ($this->user()->hasRole('supervisor')) {
             $offices = $offices->filter(function ($value) {
@@ -70,6 +89,12 @@ class GeneralQrController extends Controller
 
     public function store(StoreQrRequest $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-general-qr')) {
+            $this->throwUnauthorizedException(['store-general-qr']);
+        }
+        // End Gate
+
         $process = app('CreateQR')->execute([
             'name' => $request->qr_name,
             'qr_contact_type_id' => $request->qr_contact_type_id,
@@ -89,6 +114,12 @@ class GeneralQrController extends Controller
 
     public function storeVcard(StoreQrVcardRequest $request)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('store-general-qr-vcard')) {
+            $this->throwUnauthorizedException(['store-general-qr-vcard']);
+        }
+        // End Gate
+
         $process = app('CreateQRVCard')->execute([
             'name' => ucwords('COMPANY PHONE CONTACT QR CODE'),
             'qr_contact_type_id' => $request->qr_contact_type_id,
@@ -105,6 +136,12 @@ class GeneralQrController extends Controller
 
     public function destroy($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('delete-general-qr')) {
+            $this->throwUnauthorizedException(['delete-general-qr']);
+        }
+        // End Gate
+
         $process = app('DeleteQR')->execute([
             'qr_id' => $id
         ]);
@@ -116,6 +153,12 @@ class GeneralQrController extends Controller
 
     public function resetGeneralQrCode($qr_id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('reset-specified-general-qr')) {
+            $this->throwUnauthorizedException(['reset-specified-general-qr']);
+        }
+        // End Gate
+
         $process = app('ResetQrLimitByQrId')->execute([
             'qr_id' => $qr_id,
         ]);
@@ -125,6 +168,12 @@ class GeneralQrController extends Controller
 
     public function resetAllGeneralQrCode()
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('reset-all-general-qr')) {
+            $this->throwUnauthorizedException(['reset-all-general-qr']);
+        }
+        // End Gate
+
         $process = app('ResetAllGeneralQr')->execute();
 
         $status = ($process['success'] == true) ? 'success' : 'fail';
@@ -134,6 +183,12 @@ class GeneralQrController extends Controller
 
     public function showDetailQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('show-detail-general-qr')) {
+            $this->throwUnauthorizedException(['show-detail-general-qr']);
+        }
+        // End Gate
+
         $qr_model = QR::where('id', $id)->first();
         // dd(json_decode($qr_model->qrVisitors[0]->detail_visitor_json));
 

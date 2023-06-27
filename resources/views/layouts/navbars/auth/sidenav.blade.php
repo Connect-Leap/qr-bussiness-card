@@ -117,6 +117,7 @@
             </li>
             @endif
 
+            @can('show-general-qr')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('general-qr.index') }}">
                     <div
@@ -126,6 +127,7 @@
                     <span class="nav-link-text ms-1">Create General QR</span>
                 </a>
             </li>
+            @endcan
 
             @can('show-user-qr')
             <li class="nav-item">

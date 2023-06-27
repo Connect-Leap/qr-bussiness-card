@@ -25,6 +25,9 @@
                         <form action="{{ route('general-qr.create-vcard') }}" method="POST">
                             @csrf
                             <div class="mb-3">
+                                <input type="text" name="qr_name" class="form-control {{ session()->has('fail') ? 'is-invalid' : '' }}" placeholder="QR Name" aria-label="QR Name" value="{{ old('qr_name') }}" required>
+                            </div>
+                            <div class="mb-3">
                                 <select name="qr_contact_type_id" class="form-select" required>
                                     <option value="" selected hidden>Select Contact Type</option>
                                     <option value="{{ $contact_type->id }}" selected>{{ $contact_type->name }}</option>

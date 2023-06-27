@@ -7,7 +7,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
                     <h6>General QR Configuration</h6>
-                    @can('reset-all-user-qr', 'create-user-qr', 'create-user-qr-vcard')
+                    @can('reset-all-general-qr', 'create-general-qr', 'create-general-qr-vcard')
                     <div class="d-flex gap-2">
                         <a class="btn btn-sm btn-warning" href="{{ route('general-qr.reset-all-general-qr-code') }}">Reset All Usage Limit</a>
                         <a href="{{ route('general-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
@@ -97,7 +97,7 @@
                                                 <span
                                                     class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                             </td>
-                                            @can('reset-specified-user-qr', 'show-detail-user-qr')
+                                            @can('reset-specified-general-qr', 'show-detail-general-qr')
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>

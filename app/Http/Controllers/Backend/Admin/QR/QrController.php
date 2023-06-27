@@ -49,7 +49,7 @@ class QrController extends Controller
     {
         // Gate
         if (!$this->user()->hasPermissionTo('create-user-qr')) {
-            $this->throwUnauthorizedException(['create-qr']);
+            $this->throwUnauthorizedException(['create-user-qr']);
         }
         // End Gate
 

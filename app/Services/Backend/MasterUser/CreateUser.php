@@ -60,6 +60,16 @@ class CreateUser extends BaseService implements BaseServiceInterface
                     'delete-user-qr',
                     'reset-specified-user-qr',
                     'reset-all-user-qr',
+                    // General QR
+                    'show-general-qr',
+                    'show-detail-general-qr',
+                    'create-general-qr',
+                    'create-general-qr-vcard',
+                    'store-general-qr',
+                    'store-general-qr-vcard',
+                    'delete-general-qr',
+                    'reset-specified-general-qr',
+                    'reset-all-general-qr',
                     // Card Simulator
                     'show-find-card-simulator',
                     'show-card-simulator-page',

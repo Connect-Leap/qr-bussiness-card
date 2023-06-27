@@ -205,6 +205,17 @@ return [
         'reset-specified-user-qr',
         'reset-all-user-qr',
 
+        // General QR Page Permission
+        'show-general-qr',
+        'show-detail-general-qr',
+        'create-general-qr',
+        'create-general-qr-vcard',
+        'store-general-qr',
+        'store-general-qr-vcard',
+        'delete-general-qr',
+        'reset-specified-general-qr',
+        'reset-all-general-qr',
+
         // Card Simulator Permission
         'show-find-card-simulator',
         'show-card-simulator-page',
