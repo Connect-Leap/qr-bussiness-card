@@ -290,4 +290,26 @@ class QrController extends Controller
             'qr_model' => $qr_model,
         ]);
     }
+
+    public function activateSpecifiedUserQr($id)
+    {
+        $process = app('ActivateSpecifiedQr')->execute([
+            'qr_id' => $id,
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
+    }
+
+    public function blockSpecifiedUserQr($id)
+    {
+        $process = app('BlockSpecifiedQr')->execute([
+            'qr_id' => $id,
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
+    }
 }

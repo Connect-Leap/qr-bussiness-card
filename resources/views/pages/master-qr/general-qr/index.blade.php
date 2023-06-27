@@ -101,6 +101,11 @@
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
+                                                @if($qrcode['qrcode']['status'] == VALID)
+                                                <a href="{{ route('general-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Block</a>
+                                                @else
+                                                <a href="{{ route('general-qr.activate', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-success">Activate</a>
+                                                @endif
                                                 {{-- @can('edit-user-qr', 'delete-user-qr')
                                                     @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                     <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>

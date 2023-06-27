@@ -32,6 +32,8 @@ class GeneralQrController extends Controller
 
         $qrcodes = $qrCodeResource->toArray($qr_model);
 
+        // dd($qrcodes[0]['qrcode']['status']);
+
         return view('pages.master-qr.general-qr.index', [
             'qrcodes' => $qrcodes,
         ]);
@@ -195,5 +197,27 @@ class GeneralQrController extends Controller
         return view('pages.master-qr.show-qr-visitor', [
             'qr_model' => $qr_model,
         ]);
+    }
+
+    public function activateSpecifiedGeneralQr($id)
+    {
+        $process = app('ActivateSpecifiedQr')->execute([
+            'qr_id' => $id,
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
+    }
+
+    public function blockSpecifiedGeneralQr($id)
+    {
+        $process = app('BlockSpecifiedQr')->execute([
+            'qr_id' => $id,
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
     }
 }

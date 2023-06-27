@@ -50,6 +50,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::put('/{id}', [QrController::class, 'update'])->name('master-qr.update');
         Route::delete('/{id}/destroy', [QrController::class, 'destroy'])->name('master-qr.destroy');
         Route::get('/{id}/show-detail-qr', [QrController::class, 'showDetailQr'])->name('master-qr.show-detail-qr');
+        Route::get('/{id}/activate', [QrController::class, 'activateSpecifiedUserQr'])->name('master-qr.activate');
+        Route::get('/{id}/block', [QrController::class, 'blockSpecifiedUserQr'])->name('master-qr.block');
 
         Route::group(['prefix' => 'card-simulator'], function () {
             Route::get('/', [CardSimulatorController::class, 'findUserView'])->name('card-simulator.index');
@@ -66,6 +68,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
             Route::get('/{id}/reset-limit', [GeneralQrController::class, 'resetGeneralQrCode'])->name('general-qr.reset-general-qr-code');
             Route::get('/reset-general-qr-limit', [GeneralQrController::class, 'resetAllGeneralQrCode'])->name('general-qr.reset-all-general-qr-code');
             Route::get('/{id}/show-detail-qr', [GeneralQrController::class, 'showDetailQr'])->name('general-qr.show-detail-qr');
+            Route::get('/{id}/activate', [GeneralQrController::class, 'activateSpecifiedGeneralQr'])->name('general-qr.activate');
+            Route::get('/{id}/block', [GeneralQrController::class, 'blockSpecifiedGeneralQr'])->name('general-qr.block');
         });
     });
 
