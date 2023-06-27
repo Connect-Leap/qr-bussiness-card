@@ -9,7 +9,7 @@
                     <h6>General QR Configuration</h6>
                     @can('reset-all-user-qr', 'create-user-qr', 'create-user-qr-vcard')
                     <div class="d-flex gap-2">
-                        <a class="btn btn-sm btn-warning" href="{{ route('master-qr.reset-all-user-qr-code') }}">Reset All Usage Limit</a>
+                        <a class="btn btn-sm btn-warning" href="{{ route('general-qr.reset-all-general-qr-code') }}">Reset All Usage Limit</a>
                         <a href="{{ route('general-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
                         <a href="{{ route('general-qr.create-vcard') }}" class="btn btn-info btn-sm">Create your QR with VCard</a>
                     </div>
@@ -99,14 +99,14 @@
                                             </td>
                                             @can('reset-specified-user-qr', 'show-detail-user-qr')
                                             <td class="text-center">
-                                                <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
-                                                <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
-                                                @can('edit-user-qr', 'delete-user-qr')
+                                                <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
+                                                <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
+                                                {{-- @can('edit-user-qr', 'delete-user-qr')
                                                     @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                     <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
                                                     @endif
-                                                @endcan
-                                                <a href="{{ route('master-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
+                                                @endcan --}}
+                                                <a href="{{ route('general-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                             </td>
                                             @endcan
                                         </tr>

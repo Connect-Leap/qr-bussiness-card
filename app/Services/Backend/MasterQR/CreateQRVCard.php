@@ -3,6 +3,7 @@
 namespace App\Services\Backend\MasterQR;
 
 use App\Models\FileStorage;
+use App\Models\Office;
 use App\Models\QR;
 use App\Models\QrFileStorage;
 use App\Models\User;
@@ -20,23 +21,43 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
 
     public function process($dto)
     {
-        $user = User::where('id', $dto['user_id'])->first();
+        $vcard_input = "";
+
+        if (is_null($dto['office_id'])) {
+            $vcard_input = User::where('id', $dto['user_id'])->first();
+        } else {
+            $vcard_input = Office::where('id', $dto['office_id'])->first();
+        }
 
         DB::beginTransaction();
 
         try {
-            $vcard_process = $this->VCard(
-                $user->employee->name,
-                $user->office->name,
-                $user->position->name,
-                ucfirst($user->role),
-                $user->email,
-                $user->phone_number,
-                $user->office->company_link ?? null,
-            );
+            if (is_null($dto['office_id'])) {
+                $vcard_process = $this->VCard(
+                    ucwords($vcard_input->employee->name),
+                    $vcard_input->office->name,
+                    $vcard_input->position->name,
+                    ucfirst($vcard_input->role),
+                    $vcard_input->email,
+                    $vcard_input->phone_number,
+                    $vcard_input->office->company_link ?? null,
+                );
+            } else {
+                $vcard_process = $this->VCard(
+                    ucwords($vcard_input->name),
+                    $vcard_input->name,
+                    null,
+                    'Office Contact',
+                    $vcard_input->email,
+                    $vcard_input->contact,
+                    $vcard_input->company_link ?? null,
+                );
+            }
 
             $create_qr = QR::create([
+                'name' => $dto['name'],
                 'qr_contact_type_id' => $dto['qr_contact_type_id'],
+                'office_id' => $dto['office_id'],
                 'user_id' => $dto['user_id'],
                 'vcard_string' => $vcard_process['vcard_string'],
                 'usage_limit' => $dto['usage_limit'],
@@ -105,7 +126,7 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
     private function VCard(
         $input_first_name,
         $input_company,
-        $input_jobtitle,
+        $input_jobtitle = null,
         $input_role,
         $input_email,
         $input_phonenumber,
@@ -129,7 +150,9 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
 
         // add work data
         $vcard->addCompany($input_company);
-        $vcard->addJobtitle($input_jobtitle);
+        if(!is_null($input_jobtitle)) {
+            $vcard->addJobtitle($input_jobtitle);
+        }
         $vcard->addRole($input_role);
         $vcard->addEmail($input_email);
         $vcard->addPhoneNumber($input_phonenumber, 'WORK');

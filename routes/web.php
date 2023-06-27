@@ -61,6 +61,11 @@ Route::group(['middleware' => ['web', 'auth']], function () {
             Route::get('/create', [GeneralQrController::class, 'create'])->name('general-qr.create');
             Route::get('/create-vcard', [GeneralQrController::class, 'createVcard'])->name('general-qr.create-vcard');
             Route::post('/create', [GeneralQrController::class, 'store'])->name('general-qr.store');
+            Route::post('/create-vcard', [GeneralQrController::class, 'storeVcard'])->name('general-qr.store-vcard');
+            Route::delete('/{id}/destroy', [GeneralQrController::class, 'destroy'])->name('general-qr.destroy');
+            Route::get('/{id}/reset-limit', [GeneralQrController::class, 'resetGeneralQrCode'])->name('general-qr.reset-general-qr-code');
+            Route::get('/reset-general-qr-limit', [GeneralQrController::class, 'resetAllGeneralQrCode'])->name('general-qr.reset-all-general-qr-code');
+            Route::get('/{id}/show-detail-qr', [GeneralQrController::class, 'showDetailQr'])->name('general-qr.show-detail-qr');
         });
     });
 

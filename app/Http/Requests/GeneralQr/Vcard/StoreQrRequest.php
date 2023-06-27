@@ -13,7 +13,7 @@ class StoreQrRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,24 @@ class StoreQrRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'qr_contact_type_id' => ['required'],
+            'office_id' => ['required'],
+            'usage_limit' => ['required'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => 'The :attribute field is required',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'qr_contact_type_id' => 'contact type',
+            'office_id' => 'office',
         ];
     }
 }

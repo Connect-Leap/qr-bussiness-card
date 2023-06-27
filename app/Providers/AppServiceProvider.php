@@ -19,6 +19,7 @@ use App\Services\Backend\MasterQR\CreateQRVCard;
 use App\Services\Backend\MasterQR\DeleteQR;
 use App\Services\Backend\MasterQR\QrProcessing;
 use App\Services\Backend\MasterQR\QrVcardProcessing;
+use App\Services\Backend\MasterQR\ResetAllGeneralQr;
 use App\Services\Backend\MasterQR\ResetAllUserQr;
 use App\Services\Backend\MasterQR\ResetQrLimitByQrId;
 use App\Services\Backend\MasterQR\UpdateQR;
@@ -66,6 +67,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('QrProcessing', QrProcessing::class);
         $this->registerService('QrVcardProcessing', QrVcardProcessing::class);
         $this->registerService('ResetQrLimitByQrId', ResetQrLimitByQrId::class);
+        $this->registerService('ResetAllGeneralQr', ResetAllGeneralQr::class);
         $this->registerService('ResetAllUserQr', ResetAllUserQr::class);
         $this->registerService('UpdateQR', UpdateQR::class);
         $this->registerService('DeleteQR', DeleteQR::class);

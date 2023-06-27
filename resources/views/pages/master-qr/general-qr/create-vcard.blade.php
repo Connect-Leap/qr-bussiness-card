@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         @endif
-                        <form action="" method="POST">
+                        <form action="{{ route('general-qr.create-vcard') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <select name="qr_contact_type_id" class="form-select" required>

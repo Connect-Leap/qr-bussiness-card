@@ -64,6 +64,7 @@ class QrController extends Controller
             });
         }
         // End Users
+
         $settings = ApplicationSetting::latest()->get();
         $contact_types = QrContactType::where('name', '!=', 'VCard')->latest()->get();
 
@@ -83,7 +84,7 @@ class QrController extends Controller
         // End Gate
 
         $roles_cannot_have_qr = ['admin', 'supervisor'];
-        $user_id_from_qr_model = QR::select('user_id')->latest()->get()->pluck('user_id')->toArray();
+        $user_id_from_qr_model = QR::select('user_id')->where('user_id', '!=', null)->latest()->get()->pluck('user_id')->toArray();
 
         // Users
         $users = User::whereNotIn('role', $roles_cannot_have_qr)->whereNotIn('id', $user_id_from_qr_model)->latest()->get();
