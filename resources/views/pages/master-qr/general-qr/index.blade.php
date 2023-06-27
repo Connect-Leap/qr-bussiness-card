@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'User QR Configuration'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'General QR Configuration'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
-                    <h6>User QR Configuration</h6>
-                    @can('reset-all-user-qr', 'create-user-qr', 'create-user-qr-vcard')
+                    <h6>General QR Configuration</h6>
+                    @can('reset-all-general-qr', 'create-general-qr', 'create-general-qr-vcard')
                     <div class="d-flex gap-2">
-                        <a class="btn btn-sm btn-warning" href="{{ route('master-qr.reset-all-user-qr-code') }}">Reset All Usage Limit</a>
-                        <a href="{{ route('master-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
-                        <a href="{{ route('master-qr.create-vcard') }}" class="btn btn-info btn-sm">Create your QR with VCard</a>
+                        <a class="btn btn-sm btn-warning" href="{{ route('general-qr.reset-all-general-qr-code') }}">Reset All Usage Limit</a>
+                        <a href="{{ route('general-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
+                        <a href="{{ route('general-qr.create-vcard') }}" class="btn btn-info btn-sm">Create your QR with VCard</a>
                     </div>
                     @endcan
                 </div>
@@ -22,15 +22,13 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">QR Name</th>
                                         <th class="text-center">Contact Type</th>
-                                        <th class="text-center">Office</th>
-                                        <th class="text-center">QR Owner (User)</th>
+                                        <th class="text-center">QR Owner (Office)</th>
                                         <th class="text-center">Show QR</th>
                                         <th class="text-center">Usage Limit Remain</th>
                                         <th class="text-center">QR Status</th>
-                                        @can('reset-specified-user-qr', 'show-detail-user-qr', 'edit-user-qr', 'delete-user-qr')
                                         <th class="text-center">Action</th>
-                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,17 +37,17 @@
                                             <td class="text-center">#</td>
                                             <td class="text-center">
                                                 <p class="text-sm font-weight-bold mb-0">
+                                                    {{ $qrcode['qrcode']['name'] }}
+                                                </p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-sm font-weight-bold mb-0">
                                                     {{ $qrcode['qrcode']['qr_contact_types']['qr_contact_type']['name'] }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
                                                 <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $qrcode['qrcode']['users']['office_name'] }}
-                                                </p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-sm font-weight-bold mb-0">
-                                                    {{ $qrcode['qrcode']['users']['email'] }}
+                                                    {{ $qrcode['qrcode']['qr_office'] }}
                                                 </p>
                                             </td>
                                             <td class="text-center">
@@ -99,16 +97,16 @@
                                                 <span
                                                     class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                             </td>
-                                            @can('reset-specified-user-qr', 'show-detail-user-qr')
+                                            @can('reset-specified-general-qr', 'show-detail-general-qr')
                                             <td class="text-center">
-                                                <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
-                                                <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
-                                                @can('edit-user-qr', 'delete-user-qr')
+                                                <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
+                                                <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
+                                                {{-- @can('edit-user-qr', 'delete-user-qr')
                                                     @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                     <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
                                                     @endif
-                                                @endcan
-                                                <a href="{{ route('master-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
+                                                @endcan --}}
+                                                <a href="{{ route('general-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                             </td>
                                             @endcan
                                         </tr>

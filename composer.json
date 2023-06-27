@@ -38,7 +38,8 @@
         },
         "files": [
             "app/Helpers/FormatHelper.php",
-            "app/Defines/Status.php"
+            "app/Defines/Status.php",
+            "app/Defines/SocialName.php"
         ]
     },
     "autoload-dev": {

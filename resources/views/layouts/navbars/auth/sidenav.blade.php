@@ -117,14 +117,26 @@
             </li>
             @endif
 
-            @can('show-qr')
+            @can('show-general-qr')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('general-qr.index') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-folder-17 text-warning text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Create General QR</span>
+                </a>
+            </li>
+            @endcan
+
+            @can('show-user-qr')
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('master-qr.*') ? 'active' : '' }}" href="{{ route('master-qr.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-folder-17 text-warning text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Master QR</span>
+                    <span class="nav-link-text ms-1">Create User QR</span>
                 </a>
             </li>
             @endcan
