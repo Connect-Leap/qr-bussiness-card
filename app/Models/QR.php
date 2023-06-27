@@ -35,5 +35,10 @@ class QR extends Model
         return $this->belongsToMany(FileStorage::class, 'qr_file_storages', 'qr_id', 'file_storage_id');
     }
 
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id', 'id');
+    }
+
 
 }

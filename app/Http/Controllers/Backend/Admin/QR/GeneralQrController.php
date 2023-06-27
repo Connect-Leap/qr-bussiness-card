@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers\Backend\Admin\QR;
 
+use App\Models\QR;
 use App\Models\Office;
 use Illuminate\Http\Request;
 use App\Models\QrContactType;
 use App\Models\ApplicationSetting;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QrCodeResource;
 use App\Http\Requests\GeneralQr\NonVcard\StoreQrRequest;
 
 class GeneralQrController extends Controller
 {
-    public function index()
+    public function index(QrCodeResource $qrCodeResource)
     {
-        return view('pages.master-qr.general-qr.index');
+        $qr_model = QR::where('user_id', null)->latest()->get();
+        if ($this->user()->hasRole('supervisor')) {
+            $qr_model = $qr_model->filter(function ($value) {
+                return $value->user->office->id == $this->user()->office_id;
+            });
+        }
+
+        $qrcodes = $qrCodeResource->toArray($qr_model);
+
+        return view('pages.master-qr.general-qr.index', [
+            'qrcodes' => $qrcodes,
+        ]);
     }
 
     public function create()

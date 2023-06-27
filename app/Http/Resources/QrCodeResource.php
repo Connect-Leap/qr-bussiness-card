@@ -22,6 +22,8 @@ class QrCodeResource
             $merge_array[] =  [
                 'qrcode' =>  [
                     'id' => $qr->id,
+                    'name' => $qr->name ?? null,
+                    'qr_office' => is_null($qr->office) ? null : $qr->office->name,
                     'qr_contact_types' =>  [
                         'id' => $qr->qr_contact_type_id,
                         'qr_contact_type' =>  [
@@ -29,7 +31,7 @@ class QrCodeResource
                             'format_link' => $qr->qrContactType->format_link
                         ]
                     ],
-                    'users' =>  [
+                    'users' => is_null($qr->user) ? null : [
                         'id' => $qr->user_id,
                         'email' => $qr->user->email,
                         'office_name' => $qr->user->office->name,
