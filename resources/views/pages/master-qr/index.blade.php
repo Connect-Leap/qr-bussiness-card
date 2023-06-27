@@ -103,11 +103,12 @@
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
-                                                @can('edit-user-qr', 'delete-user-qr')
+                                                <a href="{{ route('master-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Block</a>
+                                                {{-- @can('edit-user-qr', 'delete-user-qr')
                                                     @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                     <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
                                                     @endif
-                                                @endcan
+                                                @endcan --}}
                                                 <a href="{{ route('master-qr.destroy', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-danger btn-delete">Delete</a>
                                             </td>
                                             @endcan

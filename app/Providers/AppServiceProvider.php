@@ -14,6 +14,8 @@ use App\Services\Backend\MasterOffice\DeleteOffice;
 use App\Services\Backend\MasterOffice\FindOfficeById;
 use App\Services\Backend\MasterOffice\ShowRelatedUser;
 use App\Services\Backend\MasterOffice\UpdateOffice;
+use App\Services\Backend\MasterQR\ActivateSpecifiedQr;
+use App\Services\Backend\MasterQR\BlockSpecifiedQr;
 use App\Services\Backend\MasterQR\CreateQR;
 use App\Services\Backend\MasterQR\CreateQRVCard;
 use App\Services\Backend\MasterQR\DeleteQR;
@@ -71,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
         $this->registerService('ResetAllUserQr', ResetAllUserQr::class);
         $this->registerService('UpdateQR', UpdateQR::class);
         $this->registerService('DeleteQR', DeleteQR::class);
+        $this->registerService('BlockSpecifiedQr', BlockSpecifiedQr::class);
+        $this->registerService('ActivateSpecifiedQr', ActivateSpecifiedQr::class);
 
         // Application Configuration
         $this->registerService('CreateApplicationSetting', CreateApplicationSetting::class);

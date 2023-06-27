@@ -31,6 +31,7 @@ class CreateQR extends BaseService implements BaseServiceInterface
                 $this->results['message'] = 'Please enter the link according to the selected contact type';
                 $this->results['data'] = [];
             } elseif (empty($qr_contact_type_model)) {
+
                 $qrcode_model = QR::create([
                     'name' => $dto['name'],
                     'qr_contact_type_id' => $dto['qr_contact_type_id'],
@@ -40,7 +41,6 @@ class CreateQR extends BaseService implements BaseServiceInterface
                     'usage_limit' => $dto['usage_limit'],
                     'status' => $dto['status'],
                 ]);
-
 
                 $make_slug = "";
                 if (is_null($dto['office_id'])) {
