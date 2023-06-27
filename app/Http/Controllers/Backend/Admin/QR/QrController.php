@@ -26,7 +26,7 @@ class QrController extends Controller
     public function index(QrCodeResource $qrCodeResource)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('show-qr')) {
+        if (!$this->user()->hasPermissionTo('show-user-qr')) {
             $this->throwUnauthorizedException(['show-qr']);
         }
         // End Gate
@@ -48,7 +48,7 @@ class QrController extends Controller
     public function create()
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('create-qr')) {
+        if (!$this->user()->hasPermissionTo('create-user-qr')) {
             $this->throwUnauthorizedException(['create-qr']);
         }
         // End Gate
@@ -78,8 +78,8 @@ class QrController extends Controller
     public function createVcard()
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('create-qr-vcard')) {
-            $this->throwUnauthorizedException(['create-qr-vcard']);
+        if (!$this->user()->hasPermissionTo('create-user-qr-vcard')) {
+            $this->throwUnauthorizedException(['create-user-qr-vcard']);
         }
         // End Gate
 
@@ -108,8 +108,8 @@ class QrController extends Controller
     public function store(StoreQrRequest $request)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('store-qr')) {
-            $this->throwUnauthorizedException(['store-qr']);
+        if (!$this->user()->hasPermissionTo('store-user-qr')) {
+            $this->throwUnauthorizedException(['store-user-qr']);
         }
         // End Gate
 
@@ -129,8 +129,8 @@ class QrController extends Controller
     public function storeVcard(StoreQrVcardRequest $request)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('store-qr-vcard')) {
-            $this->throwUnauthorizedException(['store-qr-vcard']);
+        if (!$this->user()->hasPermissionTo('store-user-qr-vcard')) {
+            $this->throwUnauthorizedException(['store-user-qr-vcard']);
         }
         // End Gate
 
@@ -186,8 +186,8 @@ class QrController extends Controller
     public function edit($id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('edit-qr')) {
-            $this->throwUnauthorizedException(['edit-qr']);
+        if (!$this->user()->hasPermissionTo('edit-user-qr')) {
+            $this->throwUnauthorizedException(['edit-user-qr']);
         }
         // End Gate
 
@@ -206,8 +206,8 @@ class QrController extends Controller
     public function update(Request $request, $id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('update-qr')) {
-            $this->throwUnauthorizedException(['update-qr']);
+        if (!$this->user()->hasPermissionTo('update-user-qr')) {
+            $this->throwUnauthorizedException(['update-user-qr']);
         }
         // End Gate
 
@@ -227,8 +227,8 @@ class QrController extends Controller
     public function destroy($id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('delete-qr')) {
-            $this->throwUnauthorizedException(['delete-qr']);
+        if (!$this->user()->hasPermissionTo('delete-user-qr')) {
+            $this->throwUnauthorizedException(['delete-user-qr']);
         }
         // End Gate
 
@@ -244,8 +244,8 @@ class QrController extends Controller
     public function resetUserQrCode($qr_id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('reset-specified-qr')) {
-            $this->throwUnauthorizedException(['reset-specified-qr']);
+        if (!$this->user()->hasPermissionTo('reset-specified-user-qr')) {
+            $this->throwUnauthorizedException(['reset-specified-user-qr']);
         }
         // End Gate
 
@@ -259,8 +259,8 @@ class QrController extends Controller
     public function resetAllUserQrCode()
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('reset-all-qr')) {
-            $this->throwUnauthorizedException(['reset-all-qr']);
+        if (!$this->user()->hasPermissionTo('reset-all-user-qr')) {
+            $this->throwUnauthorizedException(['reset-all-user-qr']);
         }
         // End Gate
 
@@ -274,8 +274,8 @@ class QrController extends Controller
     public function showDetailQr($id)
     {
         // Gate
-        if (!$this->user()->hasPermissionTo('show-detail-qr')) {
-            $this->throwUnauthorizedException(['show-detail-qr']);
+        if (!$this->user()->hasPermissionTo('show-detail-user-qr')) {
+            $this->throwUnauthorizedException(['show-detail-user-qr']);
         }
         // End Gate
 

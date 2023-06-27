@@ -193,17 +193,17 @@ return [
         'delete-employee',
 
         // QR Page Permission
-        'show-qr',
-        'show-detail-qr',
-        'create-qr',
-        'create-qr-vcard',
-        'store-qr',
-        'store-qr-vcard',
-        'edit-qr',
-        'update-qr',
-        'delete-qr',
-        'reset-specified-qr',
-        'reset-all-qr',
+        'show-user-qr',
+        'show-detail-user-qr',
+        'create-user-qr',
+        'create-user-qr-vcard',
+        'store-user-qr',
+        'store-user-qr-vcard',
+        'edit-user-qr',
+        'update-user-qr',
+        'delete-user-qr',
+        'reset-specified-user-qr',
+        'reset-all-user-qr',
 
         // Card Simulator Permission
         'show-find-card-simulator',

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'QR Configuration'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'User QR Configuration'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
-                    <h6>QR Configuration</h6>
-                    @can('reset-all-qr', 'create-qr', 'create-qr-vcard')
+                    <h6>User QR Configuration</h6>
+                    @can('reset-all-user-qr', 'create-user-qr', 'create-user-qr-vcard')
                     <div class="d-flex gap-2">
                         <a class="btn btn-sm btn-warning" href="{{ route('master-qr.reset-all-user-qr-code') }}">Reset All Usage Limit</a>
                         <a href="{{ route('master-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
@@ -99,11 +99,11 @@
                                                 <span
                                                     class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                             </td>
-                                            @can('reset-specified-qr', 'show-detail-qr')
+                                            @can('reset-specified-user-qr', 'show-detail-user-qr')
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
-                                                @can('edit-qr', 'delete-qr')
+                                                @can('edit-user-qr', 'delete-user-qr')
                                                     @if(!is_null($qrcode['qrcode']['redirect_link']))
                                                     <a class="btn btn-xs btn-success" href="{{ route('master-qr.edit', $qrcode['qrcode']['id']) }}">Edit</a>
                                                     @endif
