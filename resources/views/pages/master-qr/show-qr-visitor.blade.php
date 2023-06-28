@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@push('app')
+
+<style>
+    .modal-dialog {
+        max-width: 70%;
+        width: auto !important;
+        margin-right: 80px;
+    }
+</style>
+
+@endpush
+
 @section('content')
     @include('layouts.navbars.auth.topnav', ['title' => 'Detail QR Code'])
     <div class="row mt-4 mx-4">
@@ -8,7 +20,7 @@
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
                     <h6>Detail QR Code</h6>
                     <div class="d-flex gap-2">
-                        <a href="{{ route('master-qr.index') }}" class="btn btn-info btn-sm">Back</a>
+                        <a href="{{ (request()->segment(2) == "general-qr") ? route('general-qr.index') : route('master-qr.index') }}" class="btn btn-info btn-sm">Back</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -38,7 +50,7 @@
                                                     data-bs-target="#exampleModal{{$loop->index + 1}}">
                                                     Click For Show Detail QR Visitor
                                                 </button>
-    
+
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="exampleModal{{$loop->index + 1}}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,22 +62,102 @@
                                                                     aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <ul class="text-start">
-                                                                    <li>{{ 'Country Name : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->country_name }}</li>
-                                                                    <li>{{ 'Country Code : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->country_code }}</li>
-                                                                    <li>{{ 'Region Code : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->region_code }}</li>
-                                                                    <li>{{ 'Region Name : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->region_name }}</li>
-                                                                    <li>{{ 'City Name : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->city_name }}</li>
-                                                                    <li>{{ 'Zip Code : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->zip_code }}</li>
-                                                                    <li>{{ 'Latitude : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->latitude }}</li>
-                                                                    <li>{{ 'Longitude : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->longitude }}</li>
-                                                                    <li>{{ 'Area Code : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->area_code }}</li>
-                                                                    <li>{{ 'Timezone : '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->timezone }}</li>
-                                                                    <li>{{ 'Device Name : '.json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->device_name }}</li>
-                                                                    <li>{{ 'Operating System : '.json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->operating_system_name }}</li>
-                                                                    <li>{{ 'Browser : '.json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->browser_name }}</li>
-                                                                    <li>{{ 'Is Robot ? : '.(json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->is_robot == false ? 'No' : 'Yes') }}</li>
-                                                                </ul>
+                                                                <div class="table-responsive p-0 mx-2 my-2 pb-2">
+                                                                    <table style="border: 2px solid black">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Country Name
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Country Code
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Region Code
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Region Name
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    City Name
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Zip Code
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Latitude - Longitude
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Area Code
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Timezone
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Device Type
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Device Name
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Operating System
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Browser
+                                                                                </th>
+                                                                                <th style="border: 2px solid black" class="text-center text-dark">
+                                                                                    Is Robot
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->country_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->country_code }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->region_code }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->region_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->city_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->zip_code }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->latitude.' - '.json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->longitude }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->area_code }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_location_data->timezone }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->device_type }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->device_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->operating_system_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->browser_name }}
+                                                                                </td>
+                                                                                <td style="border: 2px solid black" class="text-center text-dark">
+                                                                                    {{ (json_decode($qr_visitor->detail_visitor_json)->visitor_internet_data->is_robot == false ? 'No' : 'Yes') }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-danger"

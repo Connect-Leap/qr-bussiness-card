@@ -123,7 +123,7 @@ class GeneralQrController extends Controller
         // End Gate
 
         $process = app('CreateQRVCard')->execute([
-            'name' => ucwords('COMPANY PHONE CONTACT QR CODE'),
+            'name' => ucwords($request->qr_name),
             'qr_contact_type_id' => $request->qr_contact_type_id,
             'office_id' => $request->office_id,
             'user_id' => null,

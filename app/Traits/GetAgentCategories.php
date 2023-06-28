@@ -9,7 +9,15 @@ trait GetAgentCategories
         $value = "";
 
         if ($agent->isDesktop()) {
-
+            $value = DESKTOP;
+        } elseif ($agent->isMobile()) {
+            $value = MOBILE;
+        } elseif ($agent->isTablet()) {
+            $value = TABLET;
+        } else {
+            $value = "OTHER";
         }
+
+        return $value;
     }
 }

@@ -4,10 +4,11 @@ namespace App\Http\Resources;
 
 use Jenssegers\Agent\Agent;
 use App\Traits\ClientIp;
+use App\Traits\GetAgentCategories;
 
 class QrProcessingResource
 {
-    use ClientIp;
+    use ClientIp, GetAgentCategories;
 
     public function toArray($qr_visitor_data)
     {
@@ -28,6 +29,7 @@ class QrProcessingResource
                 'timezone' => ($qr_visitor_data == false) ? 'On Local Development' : $qr_visitor_data->timezone,
             ],
             'visitor_internet_data' => [
+                'device_type' => $this->getDeviceType($agent),
                 'device_name' => $agent->device(),
                 'operating_system_name' => $agent->platform(),
                 'browser_name' => $agent->browser(),
