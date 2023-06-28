@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\Configuration\ApplicationSettingControlle
 use App\Http\Controllers\Backend\Admin\Configuration\InformationSettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Admin\Dashboard\HomeController;
+use App\Http\Controllers\Backend\Admin\Dashboard\ShowScannerController;
 use App\Http\Controllers\Backend\Admin\MasterOffice\DetailMasterOffice;
 use App\Http\Controllers\Backend\Admin\MasterOffice\ManagementOfficeController;
 use App\Http\Controllers\Backend\Admin\MasterUser\Employee\MasterEmployeeController;
@@ -21,6 +22,7 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+    Route::get('/show-scanner-device', [ShowScannerController::class, 'show'])->name('show-scanner-device');
 
     Route::group(['prefix' => 'master-office'], function () {
 
