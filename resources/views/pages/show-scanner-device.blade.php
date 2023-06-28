@@ -13,14 +13,14 @@
 @endpush
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Detail QR Code'])
+    @include('layouts.navbars.auth.topnav', ['title' => 'Show Scanner Device'])
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-start justify-content-between pb-0 mb-3">
-                    <h6>Detail QR Code</h6>
+                    <h6>Show Scanner Device</h6>
                     <div class="d-flex gap-2">
-                        <a href="{{ (request()->segment(2) == "general-qr") ? route('general-qr.index') : route('master-qr.index') }}" class="btn btn-info btn-sm">Back</a>
+                        <a href="{{ route('home') }}" class="btn btn-info btn-sm">Back</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -36,7 +36,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($qr_model->qrVisitors as $qr_visitor)
+                                    @forelse($qr_visitors as $qr_visitor)
                                         <tr>
                                             <td class="text-center">
                                                 <p class="text-sm font-weight-bold mb-0">#</p>

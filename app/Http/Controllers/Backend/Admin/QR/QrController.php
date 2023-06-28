@@ -293,6 +293,12 @@ class QrController extends Controller
 
     public function activateSpecifiedUserQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('activate-specified-qr')) {
+            $this->throwUnauthorizedException(['activate-specified-qr']);
+        }
+        // End Gate
+
         $process = app('ActivateSpecifiedQr')->execute([
             'qr_id' => $id,
         ]);
@@ -304,6 +310,12 @@ class QrController extends Controller
 
     public function blockSpecifiedUserQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('block-specified-qr')) {
+            $this->throwUnauthorizedException(['block-specified-qr']);
+        }
+        // End Gate
+
         $process = app('BlockSpecifiedQr')->execute([
             'qr_id' => $id,
         ]);

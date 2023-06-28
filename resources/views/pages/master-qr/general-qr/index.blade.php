@@ -97,7 +97,7 @@
                                                 <span
                                                     class="badge {{ $qrcode['qrcode']['status'] == 'valid' ? 'bg-success' : 'bg-danger' }}">{{ ucfirst($qrcode['qrcode']['status']) }}</span>
                                             </td>
-                                            @can('reset-specified-general-qr', 'show-detail-general-qr')
+                                            @can('reset-specified-general-qr', 'show-detail-general-qr', 'activate-specified-qr', 'block-specified-qr')
                                             <td class="text-center">
                                                 <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>

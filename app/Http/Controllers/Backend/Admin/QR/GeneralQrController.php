@@ -123,7 +123,7 @@ class GeneralQrController extends Controller
         // End Gate
 
         $process = app('CreateQRVCard')->execute([
-            'name' => ucwords('COMPANY PHONE CONTACT QR CODE'),
+            'name' => ucwords($request->qr_name),
             'qr_contact_type_id' => $request->qr_contact_type_id,
             'office_id' => $request->office_id,
             'user_id' => null,
@@ -201,6 +201,12 @@ class GeneralQrController extends Controller
 
     public function activateSpecifiedGeneralQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('activate-specified-qr')) {
+            $this->throwUnauthorizedException(['activate-specified-qr']);
+        }
+        // End Gate
+
         $process = app('ActivateSpecifiedQr')->execute([
             'qr_id' => $id,
         ]);
@@ -212,6 +218,12 @@ class GeneralQrController extends Controller
 
     public function blockSpecifiedGeneralQr($id)
     {
+        // Gate
+        if (!$this->user()->hasPermissionTo('block-specified-qr')) {
+            $this->throwUnauthorizedException(['block-specified-qr']);
+        }
+        // End Gate
+
         $process = app('BlockSpecifiedQr')->execute([
             'qr_id' => $id,
         ]);

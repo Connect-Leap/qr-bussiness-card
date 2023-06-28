@@ -204,6 +204,8 @@ return [
         'delete-user-qr',
         'reset-specified-user-qr',
         'reset-all-user-qr',
+        'activate-specified-qr',
+        'block-specified-qr',
 
         // General QR Page Permission
         'show-general-qr',

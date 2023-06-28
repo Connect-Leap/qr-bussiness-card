@@ -60,6 +60,8 @@ class CreateUser extends BaseService implements BaseServiceInterface
                     'delete-user-qr',
                     'reset-specified-user-qr',
                     'reset-all-user-qr',
+                    'activate-specified-qr',
+                    'block-specified-qr',
                     // General QR
                     'show-general-qr',
                     'show-detail-general-qr',
