@@ -29,6 +29,12 @@ return new class extends Migration
             $table->longText('vcard_string')->nullable();
             $table->integer('usage_limit');
             $table->enum('status', ['valid', 'invalid']);
+            $table->foreignId('created_by')->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('created_by_user_office')->constrained('offices')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
