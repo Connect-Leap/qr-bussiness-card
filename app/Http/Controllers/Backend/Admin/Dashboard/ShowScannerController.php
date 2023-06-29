@@ -15,17 +15,28 @@ class ShowScannerController extends Controller
         $qr_visitors = new QR;
 
         if ($this->user()->hasRole('supervisor')) {
-            $qr_visitors = $qr_visitors->where('created_for_user_office', $this->user()->office->id)->get()
-                ->pluck('qrVisitors')->first()->filter(function ($value) use ($request) {
-                    $decode_json = json_decode($value->detail_visitor_json);
+            $collection = collect();
 
-                    return $decode_json->visitor_internet_data->device_type == Str::upper($request->device);
-                });
+            $filter_get_qrvisitor_based_on_user_office_id = $qr_visitors->where('created_for_user_office', $this->user()->office->id)->get()
+                ->filter(function ($value) {
+                    return $value->qrVisitors->count() > 0;
+                })->pluck('qrVisitors');
+
+            foreach ($filter_get_qrvisitor_based_on_user_office_id as $raw_data) {
+                foreach ($raw_data  as $data) { $collection->push($data); }
+            }
+
+            $qr_visitors = $collection->filter(function ($value) use ($request) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == Str::upper($request->device);
+            });
+
         } else { //admin
 
             $collection = collect();
 
-            $filter_get_all_qrvisitor_that_have_an_items = $qr_visitors->latest()->get()->filter(function ($value) use ($request) {
+            $filter_get_all_qrvisitor_that_have_an_items = $qr_visitors->latest()->get()->filter(function ($value) {
                 return $value->qrVisitors->count() > 0;
             })->pluck('qrVisitors');
 

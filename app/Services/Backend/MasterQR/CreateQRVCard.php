@@ -63,7 +63,7 @@ class CreateQRVCard extends BaseService implements BaseServiceInterface
                 'usage_limit' => $dto['usage_limit'],
                 'status' => $dto['status'],
                 'created_by' => $dto['created_by'],
-                'created_by_user_office' => $dto['created_by_user_office'],
+                'created_for_user_office' => $dto['created_for_user_office'],
             ]);
 
             $qr_file_storage_trait = $this->storeQrToStorageDisk(route('master-qr.qr-vcard-processing', [
