@@ -40,6 +40,8 @@ class CreateQR extends BaseService implements BaseServiceInterface
                     'redirect_link' => ($dto['qr_contact_type_id'] == LINKEDIN || $dto['qr_contact_type_id'] == OTHER) ? $dto['redirect_link'] : whatsappNumberFormatter($dto['redirect_link']),
                     'usage_limit' => $dto['usage_limit'],
                     'status' => $dto['status'],
+                    'created_by' => $dto['created_by'],
+                    'created_for_user_office' => $dto['created_for_user_office'],
                 ]);
 
                 $make_slug = "";

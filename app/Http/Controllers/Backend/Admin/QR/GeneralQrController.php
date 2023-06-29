@@ -105,6 +105,8 @@ class GeneralQrController extends Controller
             'redirect_link' => $request->redirect_link,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,
+            'created_by' => $this->user()->id,
+            'created_for_user_office' => $request->office_id,
         ]);
 
         if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();
@@ -129,6 +131,8 @@ class GeneralQrController extends Controller
             'user_id' => null,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,
+            'created_by' => $this->user()->id,
+            'created_for_user_office' => $request->office_id,
         ]);
 
         if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();

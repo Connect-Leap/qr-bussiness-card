@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\QR;
 use App\Models\QrVisitor;
 use Illuminate\Http\Request;
 
@@ -21,31 +22,79 @@ class HomeController extends Controller
     {
         $return_value = array();
 
-        $qr_visitor = QrVisitor::latest()->get();
+        $qr_visitor = new QR;
 
-        $count_mobile_device = $qr_visitor->filter(function ($value) {
-            $decode_json = json_decode($value->detail_visitor_json);
+        if ($this->user()->hasRole('supervisor')) {
+            $collection = collect();
 
-            return $decode_json->visitor_internet_data->device_type == MOBILE;
-        })->count();
+            $filter_get_qrvisitor_based_on_user_office_id = $qr_visitor->where('created_for_user_office', $this->user()->office->id)->get()
+                ->filter(function ($value) {
+                    return $value->qrVisitors->count() > 0;
+                })->pluck('qrVisitors');
 
-        $count_tablet_device = $qr_visitor->filter(function ($value) {
-            $decode_json = json_decode($value->detail_visitor_json);
+            foreach ($filter_get_qrvisitor_based_on_user_office_id as $raw_data) {
+                foreach ($raw_data  as $data) { $collection->push($data); }
+            }
 
-            return $decode_json->visitor_internet_data->device_type == TABLET;
-        })->count();
+            $count_mobile_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
 
-        $count_desktop_device = $qr_visitor->filter(function ($value) {
-            $decode_json = json_decode($value->detail_visitor_json);
+                return $decode_json->visitor_internet_data->device_type == MOBILE;
+            })->count();
 
-            return $decode_json->visitor_internet_data->device_type == DESKTOP;
-        })->count();
+            $count_tablet_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
 
-        $count_other_device = $qr_visitor->filter(function ($value) {
-            $decode_json = json_decode($value->detail_visitor_json);
+                return $decode_json->visitor_internet_data->device_type == TABLET;
+            })->count();
 
-            return $decode_json->visitor_internet_data->device_type == "OTHER";
-        })->count();
+            $count_desktop_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == DESKTOP;
+            })->count();
+
+            $count_other_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == "OTHER";
+            })->count();
+
+        } else { //admin
+            $collection = collect();
+
+            $filter_get_all_qrvisitor_that_have_an_items = $qr_visitor->latest()->get()->filter(function ($value) {
+                return $value->qrVisitors->count() > 0;
+            })->pluck('qrVisitors');
+
+            foreach ($filter_get_all_qrvisitor_that_have_an_items as $raw_data) {
+                foreach ($raw_data  as $data) { $collection->push($data); }
+            }
+
+            $count_mobile_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == MOBILE;
+            })->count();
+
+            $count_tablet_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == TABLET;
+            })->count();
+
+            $count_desktop_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == DESKTOP;
+            })->count();
+
+            $count_other_device = $collection->filter(function ($value) {
+                $decode_json = json_decode($value->detail_visitor_json);
+
+                return $decode_json->visitor_internet_data->device_type == "OTHER";
+            })->count();
+        }
 
         $return_value['mobile_total'] = $count_mobile_device;
         $return_value['tablet_total'] = $count_tablet_device;

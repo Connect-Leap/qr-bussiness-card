@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Redirect;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Resources\QrProcessingResource;
 use AshAllenDesign\ShortURL\Models\ShortURL;
+use App\Traits\GetOfficeidFromUserId;
 
 class QrController extends Controller
 {
-    use ClientIp;
+    use ClientIp, GetOfficeidFromUserId;
 
     public function index(QrCodeResource $qrCodeResource)
     {
@@ -121,6 +122,8 @@ class QrController extends Controller
             'redirect_link' => $request->redirect_link,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,
+            'created_by' => $this->user()->id,
+            'created_for_user_office' => $this->getOfficeIdFromUserId($request->user_id),
         ]);
 
         if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();
@@ -143,6 +146,8 @@ class QrController extends Controller
             'user_id' => $request->user_id,
             'usage_limit' => $request->usage_limit,
             'status' => VALID,
+            'created_by' => $this->user()->id,
+            'created_for_user_office' => $this->getOfficeIdFromUserId($request->user_id),
         ]);
 
         if (!$process['success']) return redirect()->back()->with('fail', $process['message'])->withInput();
