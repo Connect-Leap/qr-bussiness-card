@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('created_by')->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('created_by_user_office')->nullable()->constrained('offices')
+            $table->foreignId('created_for_user_office')->nullable()->constrained('offices')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->timestamps();
