@@ -22,7 +22,7 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 
 Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
-    Route::get('/show-scanner-device', [ShowScannerController::class, 'show'])->name('show-scanner-device');
+    Route::get('/show-scanner-agent', [ShowScannerController::class, 'show'])->name('show-scanner-agent');
 
     Route::group(['prefix' => 'master-office'], function () {
 

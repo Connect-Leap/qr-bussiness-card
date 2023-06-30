@@ -32,7 +32,7 @@ class QrProcessingResource
                 'device_type' => $this->getDeviceType($agent),
                 'device_name' => $agent->device(),
                 'operating_system_name' => $agent->platform(),
-                'browser_name' => $agent->browser(),
+                'browser_name' => $this->getBrowserType($agent),
                 'is_robot' => $agent->isRobot(),
                 'robot_name' => $agent->robot(),
             ],
