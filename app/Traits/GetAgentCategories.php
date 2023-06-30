@@ -20,4 +20,21 @@ trait GetAgentCategories
 
         return $value;
     }
+
+    public function getBrowserType($agent)
+    {
+        $value = "";
+
+        if ($agent->browser() == CHROME) {
+            $value = CHROME;
+        } elseif ($agent->browser() == SAFARI) {
+            $value = SAFARI;
+        } elseif ($agent->browser() == FIREFOX) {
+            $value = FIREFOX;
+        } else {
+            $value = "OTHER";
+        }
+
+        return $value;
+    }
 }

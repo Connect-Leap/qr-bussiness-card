@@ -40,7 +40,8 @@
             "app/Helpers/FormatHelper.php",
             "app/Defines/Status.php",
             "app/Defines/SocialName.php",
-            "app/Defines/DeviceType.php"
+            "app/Defines/DeviceType.php",
+            "app/Defines/BrowserType.php"
         ]
     },
     "autoload-dev": {

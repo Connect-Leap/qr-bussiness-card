@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <a
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-device').'?device=mobile' }}"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?device=mobile' }}"><i
                                             class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
@@ -204,7 +204,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <a
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-device').'?device=tablet' }}"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?device=tablet' }}"><i
                                             class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <a
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-device').'?device=desktop' }}"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?device=desktop' }}"><i
                                             class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
@@ -236,7 +236,7 @@
                                 </div>
                                 <div class="d-flex">
                                     <a
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-device').'?device=other' }}"><i
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?device=other' }}"><i
                                             class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
@@ -254,68 +254,65 @@
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                        <i class="ni ni-mobile-button text-white opacity-10"></i>
+                                        <i class="ni ni-world-2 text-white opacity-10"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-1 text-dark text-sm">Devices</h6>
-                                        <span class="text-xs">250 in stock, <span class="font-weight-bold">346+
-                                                sold</span></span>
+                                        <h6 class="mb-1 text-dark text-sm">Chrome</h6>
+                                        <span class="text-xs">Total Scan <span class="font-weight-bold">{{ $qr_visitor_browser_counter['chrome_total'] }}</span></span>
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                    <a
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?browser=Chrome' }}"><i
+                                            class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                        <i class="ni ni-tag text-white opacity-10"></i>
+                                        <i class="ni ni-world-2 text-white opacity-10"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-1 text-dark text-sm">Tickets</h6>
-                                        <span class="text-xs">123 closed, <span class="font-weight-bold">15
-                                                open</span></span>
+                                        <h6 class="mb-1 text-dark text-sm">Safari</h6>
+                                        <span class="text-xs">Total Scan <span class="font-weight-bold">{{ $qr_visitor_browser_counter['safari_total'] }}</span></span>
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                    <a
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?browser=Safari' }}"><i
+                                            class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                        <i class="ni ni-box-2 text-white opacity-10"></i>
+                                        <i class="ni ni-world-2 text-white opacity-10"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-1 text-dark text-sm">Error logs</h6>
-                                        <span class="text-xs">1 is active, <span class="font-weight-bold">40
-                                                closed</span></span>
+                                        <h6 class="mb-1 text-dark text-sm">Firefox</h6>
+                                        <span class="text-xs">Total Scan <span class="font-weight-bold">{{ $qr_visitor_browser_counter['firefox_total'] }}</span></span>
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                    <a
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?browser=Firefox' }}"><i
+                                            class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                        <i class="ni ni-satisfied text-white opacity-10"></i>
+                                        <i class="ni ni-world-2 text-white opacity-10"></i>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-1 text-dark text-sm">Happy users</h6>
-                                        <span class="text-xs font-weight-bold">+ 430</span>
+                                        <h6 class="mb-1 text-dark text-sm">Other Browser</h6>
+                                        <span class="text-xs">Total Scan <span class="font-weight-bold">{{ $qr_visitor_browser_counter['other_total'] }}</span></span>
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                    <a
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto" href="{{ route('show-scanner-agent').'?browser=Other' }}"><i
+                                            class="ni ni-bold-right" aria-hidden="true"></i></a>
                                 </div>
                             </li>
                         </ul>
