@@ -10,8 +10,8 @@
                     @can('reset-all-general-qr', 'create-general-qr', 'create-general-qr-vcard')
                     <div class="d-flex gap-2">
                         <a class="btn btn-sm btn-warning" href="{{ route('general-qr.reset-all-general-qr-code') }}">Reset All Usage Limit</a>
-                        <a href="{{ route('general-qr.create') }}" class="btn btn-info btn-sm">Create your QR</a>
-                        <a href="{{ route('general-qr.create-vcard') }}" class="btn btn-info btn-sm">Create your QR with VCard</a>
+                        <a href="{{ route('general-qr.create') }}" class="btn btn-info btn-sm">Create QR</a>
+                        <a href="{{ route('general-qr.create-vcard') }}" class="btn btn-info btn-sm">Create QR with VCard</a>
                     </div>
                     @endcan
                 </div>
@@ -24,7 +24,7 @@
                                         <th class="text-center">#</th>
                                         <th class="text-center">QR Name</th>
                                         <th class="text-center">Contact Type</th>
-                                        <th class="text-center">QR Owner (Office)</th>
+                                        <th class="text-center">Office Name</th>
                                         <th class="text-center">Show QR</th>
                                         <th class="text-center">Usage Limit Remain</th>
                                         <th class="text-center">QR Status</th>
@@ -54,7 +54,7 @@
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{$loop->index + 1}}">
-                                                    Click for Show QR Code
+                                                    Show QR Code
                                                 </button>
 
                                                 <!-- Modal -->
