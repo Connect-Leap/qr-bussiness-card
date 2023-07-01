@@ -102,7 +102,7 @@
                                                 <a class="btn btn-xs btn-info" href="{{ route('general-qr.reset-general-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('general-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
                                                 @if($qrcode['qrcode']['status'] == VALID)
-                                                <a href="{{ route('general-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Block</a>
+                                                <a href="{{ route('general-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Deactivate</a>
                                                 @else
                                                 <a href="{{ route('general-qr.activate', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-success">Activate</a>
                                                 @endif

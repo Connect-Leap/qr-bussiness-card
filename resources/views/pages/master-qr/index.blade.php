@@ -104,7 +104,7 @@
                                                 <a class="btn btn-xs btn-info" href="{{ route('master-qr.reset-user-qr-code', $qrcode['qrcode']['id']) }}">Reset</a>
                                                 <a href="{{ route('master-qr.show-detail-qr', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-secondary">Detail</a>
                                                 @if($qrcode['qrcode']['status'] == VALID)
-                                                <a href="{{ route('master-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Block</a>
+                                                <a href="{{ route('master-qr.block', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-warning">Deactivate</a>
                                                 @else
                                                 <a href="{{ route('master-qr.activate', $qrcode['qrcode']['id']) }}" class="btn btn-xs btn-success">Activate</a>
                                                 @endif
