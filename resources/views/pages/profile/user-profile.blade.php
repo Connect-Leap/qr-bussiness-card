@@ -59,8 +59,41 @@
             <div class="row gx-4">
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
-                        <img src="{{ asset('img/team-1.jpg') }}" alt="profile_image"
-                            class="w-100 border-radius-lg shadow-sm">
+                        <img src="{{ is_null($user_profile_picture) ? asset('img/avatar/profile.png') : $user_profile_picture->file_url }}" alt="profile_image"
+                            class="w-100 border-radius-lg shadow-sm" style="cursor: pointer" id="profileImage">
+                        <!-- Modal -->
+                        <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Change Profile Image</h5>
+                                    </div>
+                                    <form action="{{ route('profile.update-user-profile') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-body">
+                                            <div class="row align-items-center justify-content-center">
+                                                <div class="col-8">
+                                                    <img src="{{ is_null($user_profile_picture) ? asset('img/avatar/profile.png') : $user_profile_picture->file_url }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm" id="profileImageThumbnail" style="width: 303px; height: 303px;">
+                                                </div>
+                                            </div>
+                                            <div class="row align-items-center justify-content-center mt-4 mb-3">
+                                                <div class="col-8">
+                                                    <input type="file" class="form-control" name="profile_image_file" id="profileImageChanger" accept="image/*">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-auto my-auto">
@@ -83,14 +116,14 @@
                                     <span class="ms-2">Profile</span>
                                 </a>
                             </li>
-                            @if($user->hasRole('employee') && !is_null($user->Qr))
-                            <li class="btn-tab nav-item" id="card-simulation-tab">
-                                <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
-                                    data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
-                                    <i class="fa fa-id-card"></i>
-                                    <span class="ms-2">Card Simulation</span>
-                                </a>
-                            </li>
+                            @if ($user->hasRole('employee') && !is_null($user->Qr))
+                                <li class="btn-tab nav-item" id="card-simulation-tab">
+                                    <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                                        data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                                        <i class="fa fa-id-card"></i>
+                                        <span class="ms-2">Card Simulation</span>
+                                    </a>
+                                </li>
                             @endif
                         </ul>
                     </div>
@@ -137,15 +170,18 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="User Name"
-                                            aria-label="User Name" value="{{ old('name', $user->hasRole('admin') ? $user->admin->name : ($user->hasRole('supervisor') ? $user->supervisor->name : $user->employee->name)) }}" {{ $user->hasRole('admin') ? 'readonly' : '' }}>
+                                        <input type="text" name="name" class="form-control"
+                                            placeholder="User Name" aria-label="User Name"
+                                            value="{{ old('name', $user->hasRole('admin') ? $user->admin->name : ($user->hasRole('supervisor') ? $user->supervisor->name : $user->employee->name)) }}"
+                                            {{ $user->hasRole('admin') ? 'readonly' : '' }}>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="example-text-input" class="form-control-label">Email address</label>
-                                        <input type="email" name="email" class="form-control" placeholder="User Email"
-                                            aria-label="User Email" value="{{ old('email', $user->email) }}"
+                                        <input type="email" name="email" class="form-control"
+                                            placeholder="User Email" aria-label="User Email"
+                                            value="{{ old('email', $user->email) }}"
                                             {{ $user->hasRole('admin') ? 'readonly' : '' }}>
                                     </div>
                                 </div>
@@ -178,7 +214,8 @@
                                                 Code</label>
                                             <input type="text" name="employee_code" class="form-control"
                                                 placeholder="Employee Code" aria-label="Employee Code"
-                                                value="{{ old('employee_code', $user->employee->employee_code) }}" required>
+                                                value="{{ old('employee_code', $user->employee->employee_code) }}"
+                                                required>
                                         </div>
                                     </div>
                                 @endif
@@ -195,8 +232,12 @@
                                 @endif
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Employee Position</label>
-                                        <input type="text" name="user_position" class="form-control" placeholder="Employee Position" aria-label="Employee Position" value="{{ old('user_position', $user->position->name) }}" {{ $user->hasRole('admin') ? 'readonly' : '' }}>
+                                        <label for="example-text-input" class="form-control-label">Employee
+                                            Position</label>
+                                        <input type="text" name="user_position" class="form-control"
+                                            placeholder="Employee Position" aria-label="Employee Position"
+                                            value="{{ old('user_position', $user->position->name) }}"
+                                            {{ $user->hasRole('admin') ? 'readonly' : '' }}>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -229,7 +270,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Country Phone Code</label>
+                                        <label for="example-text-input" class="form-control-label">Country Phone
+                                            Code</label>
                                         <input type="text" name="country_phone_code" class="form-control"
                                             placeholder="Country Phone Code (+62, etc)" aria-label="Country Name"
                                             value="{{ old('country_phone_code', $user->nationality->country_phone_code) }}"
@@ -247,31 +289,32 @@
             </div>
         </div>
 
-        @if($user->hasRole('employee') && !is_null($user->Qr))
-        <div class="row" id="card-simulation-section">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header pb-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0">Card Simulation</p>
-                            <div>
-                                <a href="{{ route('profile.show-card') }}" class="btn btn-xs btn-primary" target="_blank">
-                                    <i class="fa fa-download"></i>
-                                    Download Card
-                                </a>
+        @if ($user->hasRole('employee') && !is_null($user->Qr))
+            <div class="row" id="card-simulation-section">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="mb-0">Card Simulation</p>
+                                <div>
+                                    <a href="{{ route('profile.show-card') }}" class="btn btn-xs btn-primary"
+                                        target="_blank">
+                                        <i class="fa fa-download"></i>
+                                        Download Card
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-8">
-                                <x-card-view :user="$user" :qr="$qr" />
+                        <div class="card-body">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="col-8">
+                                    <x-card-view :user="$user" :qr="$qr" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
 
 
@@ -292,6 +335,22 @@
             } else {
                 showCardSimulationSection()
             }
+        })
+
+        var myModal = new bootstrap.Modal(document.getElementById('profileModal'), {
+            keyboard: false
+        })
+
+        $('#profileImage').click(function () {
+            myModal.show()
+        })
+
+        $('#profileImageChanger').change(function(e) {
+            let reader = new FileReader()
+            reader.onload = function(e) {
+                $('#profileImageThumbnail').attr('src', e.target.result)
+            }
+            reader.readAsDataURL(e.target.files['0'])
         })
 
         function showProfileSection() {
