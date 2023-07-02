@@ -85,7 +85,7 @@ class ShowScannerController extends Controller
             $qr_visitors = $collection->filter(function ($value) use ($request) {
                 $decode_json = json_decode($value->detail_visitor_json);
 
-                return $decode_json->visitor_internet_data->browser_name == ucfirst($request->browser);
+                return $decode_json->visitor_internet_data->browser_name == (($request->get('browser') == 'Other') ? "OTHER" : ucfirst($request->browser));
             });
 
         } else { //admin
@@ -103,7 +103,7 @@ class ShowScannerController extends Controller
             $qr_visitors = $collection->filter(function ($value) use ($request) {
                 $decode_json = json_decode($value->detail_visitor_json);
 
-                return $decode_json->visitor_internet_data->browser_name == ucfirst($request->browser);
+                return $decode_json->visitor_internet_data->browser_name == (($request->get('browser') == 'Other') ? "OTHER" : ucfirst($request->browser));
             });
 
         }

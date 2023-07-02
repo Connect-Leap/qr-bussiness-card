@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(QR::class, 'user_id', 'id');
     }
+
+    public function fileStorage()
+    {
+        return $this->belongsToMany(FileStorage::class, 'user_file_storages', 'user_id', 'file_storage_id');
+    }
 }

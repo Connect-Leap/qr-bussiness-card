@@ -96,6 +96,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
         Route::get('/', [UserProfileController::class, 'show'])->name('profile.show');
         Route::put('/update', [UserProfileController::class, 'update'])->name('profile.update');
         Route::get('/show-card', [UserProfileController::class, 'showCard'])->name('profile.show-card');
+        Route::put('/update-user-profile', [UserProfileController::class, 'updateProfilePicture'])->name('profile.update-user-profile');
     });
 
     // Law Policy

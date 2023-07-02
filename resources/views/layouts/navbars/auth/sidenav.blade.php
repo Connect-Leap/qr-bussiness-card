@@ -36,7 +36,7 @@
             @if(!auth()->user()->hasRole('employee'))
             {{-- Master Office --}}
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master Office</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Office Information</h6>
             </li>
             @endif
             {{-- <li class="nav-item">
@@ -64,7 +64,7 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Detail Office</span>
+                    <span class="nav-link-text ms-1">Office Detail</span>
                 </a>
             </li>
             @endcan
@@ -72,7 +72,7 @@
             {{-- Master User --}}
             @if(!auth()->user()->hasRole('employee'))
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Master User</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">User Information</h6>
             </li>
             @endif
             @can('show-all-users')
@@ -113,7 +113,7 @@
 
             @if(!auth()->user()->hasRole('employee'))
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">QR</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">QR Information</h6>
             </li>
             @endif
 
@@ -155,7 +155,7 @@
 
             @can('show-application-setting', 'show-information-setting')
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Settings</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Setting Information</h6>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->routeIs('application-setting.*') ? 'active' : '' }}" href="{{ route('application-setting.index') }}">

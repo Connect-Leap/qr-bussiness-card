@@ -21,12 +21,15 @@ class UserProfileController extends Controller
         if ($authenticated_user->hasRole('employee') && !is_null($authenticated_user->Qr)) {
             $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
         }
+        $user_profile_picture = $this->user()->fileStorage()->first() ?? null;
+        // dd($user_profile_picture);
 
         return view('pages.profile.user-profile', [
             'total_online_hour' => $total_online_hour,
             'total_usage_hour' => $total_usage_hour,
             'user' => $authenticated_user,
             'qr' => $qr ?? [],
+            'user_profile_picture' => $user_profile_picture
         ]);
     }
 
@@ -73,5 +76,17 @@ class UserProfileController extends Controller
 
         return redirect()->back()->with($status, $process['message']);
 
+    }
+
+    public function updateProfilePicture(Request $request)
+    {
+        $process = app('UploadProfileImage')->execute([
+            'user_id' => $this->user()->id,
+            'profile_image_file' => $request->file('profile_image_file'),
+        ]);
+
+        $status = ($process['success'] == true) ? 'success' : 'fail';
+
+        return redirect()->back()->with($status, $process['message']);
     }
 }

@@ -30,7 +30,7 @@
                             <div class="my-4">
                                 <input type="text" name="application_name" class="form-control"
                                     placeholder="Application Name" aria-label="Application Name"
-                                    value="{{ old('application_name', $information_setting->application_name) }}" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>
+                                    value="{{ old('application_name', $information_setting->application_name) }}" readonly>
                             </div>
 
                             <div class="my-4">
@@ -41,12 +41,12 @@
                             </div>
 
                             <div class="my-4">
-                                <textarea name="application_description" rows="3" placeholder="Application Description" class="form-control" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>{{ old('application_description', $information_setting->application_description) }}</textarea>
+                                <textarea name="application_description" rows="3" placeholder="Application Description" class="form-control" readonly>{{ old('application_description', $information_setting->application_description) }}</textarea>
                             </div>
 
                             <div class="my-4">
-                                <input type="email" class="form-control" placeholder="Stakeholder Email"
-                                    aria-label="Stakeholder Email"
+                                <input type="email" class="form-control" placeholder="User Email"
+                                    aria-label="User Email"
                                     value="{{ old('stakeholder_email', $information_setting->stakeholder_email) }}"
                                     name="stakeholder_email" {{ auth()->user()->hasPermissionTo('update-information-setting') ? '' : 'disabled' }}>
                                 @can('update-information-setting')
