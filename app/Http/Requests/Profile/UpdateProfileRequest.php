@@ -31,9 +31,7 @@ class UpdateProfileRequest extends FormRequest
             'department_name' => ['required', 'max:255'],
             'user_position' => ['required', 'max:255'],
             'user_position_period' => ['required'],
-            'country_name' => ['required', 'max:255'],
-            'country_code' => ['required', 'min:2'],
-            'country_phone_code' => ['required', 'min:2'],
+            'country_id' => ['required'],
         ];
 
         if (auth()->user()->role == "employee") {
@@ -52,6 +50,13 @@ class UpdateProfileRequest extends FormRequest
             'email' => 'The :attribute must be a valid email address',
             'unique' => 'The :attribute has already been taken',
             'min' => 'The :attribute must be at least :min characters',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'country_id' => 'country',
         ];
     }
 }

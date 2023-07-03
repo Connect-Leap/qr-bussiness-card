@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Admin\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Http\Resources\QrCodeResource;
+use App\Models\Countries;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\QR;
@@ -22,6 +23,7 @@ class UserProfileController extends Controller
             $qr = $qrCodeResource->toArray(QR::where('user_id', $authenticated_user->id)->get())[0];
         }
         $user_profile_picture = $this->user()->fileStorage()->first() ?? null;
+        $countries = Countries::orderBy('country_name', 'asc')->get();
         // dd($user_profile_picture);
 
         return view('pages.profile.user-profile', [
@@ -29,7 +31,8 @@ class UserProfileController extends Controller
             'total_usage_hour' => $total_usage_hour,
             'user' => $authenticated_user,
             'qr' => $qr ?? [],
-            'user_profile_picture' => $user_profile_picture
+            'user_profile_picture' => $user_profile_picture,
+            'countries' => $countries,
         ]);
     }
 
@@ -59,9 +62,7 @@ class UserProfileController extends Controller
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
-            'country_phone_code' => $request->country_phone_code,
+            'country_id' => $request->country_id,
         ];
 
 
