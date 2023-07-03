@@ -22,6 +22,7 @@ class UserAdminSeeder extends Seeder
     {
 
         $created_user = User::create([
+            'country_id' => 247,
             'email' => 'user@admin.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
@@ -38,13 +39,6 @@ class UserAdminSeeder extends Seeder
             'user_id' => $created_user->id,
             'name' => 'Connect Leap Admin',
             'period' => '2023'
-        ]);
-
-        UserNationality::create([
-            'user_id' => $created_user->id,
-            'country_name' => 'Indonesia',
-            'country_code' => 'INA',
-            'country_phone_code' => '+62'
         ]);
 
         $created_user->assignRole('admin');

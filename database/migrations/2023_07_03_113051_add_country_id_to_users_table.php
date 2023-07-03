@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_nationalities', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('country_id')->after('id')->constrained('countries')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('country_name');
-            $table->string('country_code')->comment('Ex: INA, USA, JP, etc');
-            $table->string('country_phone_code')->comment('EX: +62, etc');
-            $table->timestamps();
         });
     }
 
@@ -32,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_nationalities');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

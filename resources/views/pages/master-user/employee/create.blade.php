@@ -70,16 +70,12 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="text" name="country_name" class="form-control" placeholder="Country Name"
-                                    aria-label="Country Name" value="{{ old('country_name') }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" name="country_code" class="form-control" placeholder="Country Code (JPN, INA, etc)"
-                                    aria-label="Country Code" value="{{ old('country_code') }}" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" name="country_phone_code" class="form-control" placeholder="Country Phone Code (+62, etc)"
-                                    aria-label="Country Name" value="{{ old('country_phone_code') }}" required>
+                                <select name="country_id" class="form-select" required>
+                                    <option value="" selected hidden>Select Country</option>
+                                    @foreach($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-info">Submit</button>

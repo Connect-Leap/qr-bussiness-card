@@ -34,9 +34,7 @@ class StoreEmployeeRequest extends FormRequest
             'department_name' => ['required', 'max:255'],
             'user_position' => ['required', 'max:255'],
             'user_position_period' => ['required'],
-            'country_name' => ['required', 'max:255'],
-            'country_code' => ['required', 'min:2'],
-            'country_phone_code' => ['required', 'min:2'],
+            'country_id' => ['required'],
         ];
     }
 
@@ -54,7 +52,8 @@ class StoreEmployeeRequest extends FormRequest
     public function attributes()
     {
         return [
-            'office_id' => 'office'
+            'office_id' => 'office',
+            'country_id' => 'country',
         ];
     }
 }

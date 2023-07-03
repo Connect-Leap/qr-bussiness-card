@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\Employee\StoreEmployeeRequest;
 use App\Http\Requests\Users\Employee\UpdateEmployeeRequest;
+use App\Models\Countries;
 
 class MasterEmployeeController extends Controller
 {
@@ -52,6 +53,7 @@ class MasterEmployeeController extends Controller
         // End Gate
 
         $offices = Office::latest()->get();
+        $countries = Countries::orderBy('country_name', 'asc')->get();
 
         if ($this->user()->hasRole('supervisor')) {
             $offices = $offices->filter(function ($value) {
@@ -60,7 +62,8 @@ class MasterEmployeeController extends Controller
         }
 
         return view('pages.master-user.employee.create', [
-            'offices' => $offices
+            'offices' => $offices,
+            'countries' => $countries,
         ]);
     }
 
@@ -80,6 +83,7 @@ class MasterEmployeeController extends Controller
 
         $process = app('CreateUser')->execute([
             'office_id' => $request->office_id,
+            'country_id' => $request->country_id,
             'role' => 'employee',
             'name' => $request->name,
             'employee_code' => $request->employee_code,
@@ -90,9 +94,6 @@ class MasterEmployeeController extends Controller
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
-            'country_phone_code' => $request->country_phone_code,
         ]);
 
         if (!$process['success']) return response()->json($process);
@@ -131,6 +132,7 @@ class MasterEmployeeController extends Controller
         // End Gate
 
         $user = User::where('id', $id)->first();
+        $countries = Countries::orderBy('country_name', 'asc')->get();
 
         $offices = Office::latest()->get();
         if ($this->user()->hasRole('supervisor')) {
@@ -142,6 +144,7 @@ class MasterEmployeeController extends Controller
         return view('pages.master-user.employee.edit', [
             'user' => $user,
             'offices' => $offices,
+            'countries' => $countries,
         ]);
     }
 
@@ -167,6 +170,7 @@ class MasterEmployeeController extends Controller
 
         $process = app('UpdateUser')->execute([
             'office_id' => $request->office_id,
+            'country_id' => $request->country_id,
             'user_id' => $id,
             'role' => 'employee',
             'name' => $request->name,
@@ -177,9 +181,6 @@ class MasterEmployeeController extends Controller
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
-            'country_phone_code' => $request->country_phone_code,
         ]);
 
         if (!$process['success']) return response()->json($process);

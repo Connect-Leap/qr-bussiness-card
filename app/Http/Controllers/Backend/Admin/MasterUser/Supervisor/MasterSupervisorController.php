@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\Supervisor\StoreSupervisorRequest;
 use App\Http\Requests\Users\Supervisor\UpdateSupervisorRequest;
+use App\Models\Countries;
 
 class MasterSupervisorController extends Controller
 {
@@ -46,9 +47,11 @@ class MasterSupervisorController extends Controller
         // End Gate
 
         $offices = Office::latest()->get();
+        $countries = Countries::orderBy('country_name', 'asc')->get();
 
         return view('pages.master-user.supervisor.create', [
-            'offices' => $offices
+            'offices' => $offices,
+            'countries' => $countries,
         ]);
     }
 
@@ -68,6 +71,7 @@ class MasterSupervisorController extends Controller
 
         $process = app('CreateUser')->execute([
             'office_id' => $request->office_id,
+            'country_id' => $request->country_id,
             'role' => 'supervisor',
             'name' => $request->name,
             'gender' => $request->gender,
@@ -77,9 +81,6 @@ class MasterSupervisorController extends Controller
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
-            'country_phone_code' => $request->country_phone_code,
         ]);
 
         if (!$process['success']) return response()->json($process);
@@ -114,10 +115,12 @@ class MasterSupervisorController extends Controller
 
         $user = User::where('id', $id)->first();
         $offices = Office::latest()->get();
+        $countries = Countries::orderBy('country_name', 'asc')->get();
 
         return view('pages.master-user.supervisor.edit', [
             'user' => $user,
             'offices' => $offices,
+            'countries' => $countries,
         ]);
     }
 
@@ -138,6 +141,7 @@ class MasterSupervisorController extends Controller
 
         $process = app('UpdateUser')->execute([
             'office_id' => $request->office_id,
+            'country_id' => $request->country_id,
             'user_id' => $id,
             'role' => 'supervisor',
             'name' => $request->name,
@@ -146,9 +150,6 @@ class MasterSupervisorController extends Controller
             'department_name' => $request->department_name,
             'user_position' => $request->user_position,
             'user_position_period' => $request->user_position_period,
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
-            'country_phone_code' => $request->country_phone_code,
         ]);
 
         if (!$process['success']) return response()->json($process);
