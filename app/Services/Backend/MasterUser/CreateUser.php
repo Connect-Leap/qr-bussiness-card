@@ -23,6 +23,7 @@ class CreateUser extends BaseService implements BaseServiceInterface
         try {
             $created_user = User::create([
                 'office_id' => $dto['office_id'],
+                'country_id' => $dto['country_id'],
                 'email' => $dto['email'],
                 'password' => Hash::make($dto['password']),
                 'role' => $dto['role'],
@@ -103,13 +104,6 @@ class CreateUser extends BaseService implements BaseServiceInterface
                 'user_id' => $created_user->id,
                 'name' => $dto['user_position'],
                 'period' => $dto['user_position_period']
-            ]);
-
-            UserNationality::create([
-                'user_id' => $created_user->id,
-                'country_name' => ucwords($dto['country_name']),
-                'country_code' => ucwords($dto['country_code']),
-                'country_phone_code' => $dto['country_phone_code']
             ]);
 
             DB::commit();

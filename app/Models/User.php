@@ -39,7 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['admin', 'supervisor', 'employee', 'department', 'position', 'nationality'];
+    protected $with = ['admin', 'supervisor', 'employee', 'department', 'position', 'country'];
 
     public function office()
     {
@@ -71,9 +71,9 @@ class User extends Authenticatable
         return $this->hasOne(UserPosition::class, 'user_id', 'id');
     }
 
-    public function nationality()
+    public function country()
     {
-        return $this->hasOne(UserNationality::class, 'user_id', 'id');
+        return $this->belongsTo(Countries::class, 'country_id', 'id');
     }
 
     public function Qr()

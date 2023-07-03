@@ -45,9 +45,6 @@
                                             Country Code
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Country Phone Code
-                                        </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Created at
                                         </th>
                                         @can('edit-employee', 'delete-employee')
@@ -89,13 +86,10 @@
                                             <p class="text-sm font-weight-bold mb-0">{{ $user->position->period }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_name }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->country->country_name }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_code }}</p>
-                                        </td>
-                                        <td class="text-center">
-                                            <p class="text-sm font-weight-bold mb-0">{{ $user->nationality->country_phone_code }}</p>
+                                            <p class="text-sm font-weight-bold mb-0">{{ $user->country->country_code }}</p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-sm font-weight-bold mb-0">{{ $user->created_at }}</p>

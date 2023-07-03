@@ -22,6 +22,7 @@
         "stevebauman/location": "^6.6"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
@@ -41,7 +42,8 @@
             "app/Defines/Status.php",
             "app/Defines/SocialName.php",
             "app/Defines/DeviceType.php",
-            "app/Defines/BrowserType.php"
+            "app/Defines/BrowserType.php",
+            "app/Helpers/http.php"
         ]
     },
     "autoload-dev": {
