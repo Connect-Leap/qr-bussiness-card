@@ -252,30 +252,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Country Name</label>
-                                        <input type="text" name="country_name" class="form-control"
-                                            placeholder="Country Name" aria-label="Country Name"
-                                            value="{{ old('country_name', $user->nationality->country_name) }}"
-                                            {{ $user->hasRole('admin') ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Country Code</label>
-                                        <input type="text" name="country_code" class="form-control"
-                                            placeholder="Country Code (JPN, INA, etc)" aria-label="Country Code"
-                                            value="{{ old('country_code', $user->nationality->country_code) }}"
-                                            {{ $user->hasRole('admin') ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="example-text-input" class="form-control-label">Country Phone
-                                            Code</label>
-                                        <input type="text" name="country_phone_code" class="form-control"
-                                            placeholder="Country Phone Code (+62, etc)" aria-label="Country Name"
-                                            value="{{ old('country_phone_code', $user->nationality->country_phone_code) }}"
-                                            {{ $user->hasRole('admin') ? 'readonly' : '' }}>
+                                        <label for="example-text-input" class="form-control-label">Country</label>
+                                        <select name="country_id" class="form-select" {{ $user->hasRole('admin') ? 'disabled' : '' }} required>
+                                            <option value="" selected hidden>Select Country</option>
+                                            @foreach($countries as $country)
+                                            <option value="{{ $country->id }}" @selected(old('country_id', $user->country->id) == $country->id)>{{ $country->country_name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
