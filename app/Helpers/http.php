@@ -8,5 +8,7 @@ function http_request($url){
     $output = curl_exec($ch);
     curl_close($ch);
 
+    dd($output);
+
     return $output;
 }

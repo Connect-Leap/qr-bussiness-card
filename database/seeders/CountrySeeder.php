@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Countries;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Http;
 
 class CountrySeeder extends Seeder
 {
@@ -17,8 +18,8 @@ class CountrySeeder extends Seeder
     {
         $array = [];
 
-        $countries = (array)json_decode(http_request(config('country-api.country-name')));
-        $country_phone_code = (array)json_decode(http_request(config('country-api.country-phone-code')));
+        $countries = Http::get(config('country-api.country-name'))->collect()->toArray();
+        $country_phone_code = Http::get(config('country-api.country-phone-code'))->collect()->toArray();
 
         foreach($countries as $index => $country) {
             $array["$country"] = [
